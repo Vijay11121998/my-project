@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Report Export Workflow — Wireframe Prototype</title>
+<style>
+  :root{
+    --none:#64748b; --progress:#2563eb; --ready:#16a34a; --stale:#d97706; --failed:#dc2626;
+    --ink:#0f172a; --muted:#64748b; --line:#e2e8f0; --bg:#f1f5f9; --card:#fff;
+    --brand:#4f46e5; --brand-d:#4338ca;
+    --s4:4px; --s8:8px; --s12:12px; --s16:16px; --s24:24px;
+    --radius:10px; --shadow:0 8px 30px rgba(15,23,42,.12);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+  button{font:inherit;cursor:pointer;border:none;background:none}
+  .app{max-width:1180px;margin:0 auto;padding:var(--s24)}
+
+  /* ---- Demo control bar ---- */
+  .demo-bar{position:sticky;top:0;z-index:50;background:#0f172a;color:#fff;border-radius:var(--radius);
+    padding:var(--s12) var(--s16);margin-bottom:var(--s16);display:flex;gap:var(--s12);align-items:center;flex-wrap:wrap}
+  .demo-bar b{font-size:13px;letter-spacing:.3px;text-transform:uppercase;color:#cbd5e1;margin-right:var(--s8)}
+  .demo-bar .seg{display:flex;gap:6px;flex-wrap:wrap}
+  .demo-bar .seg button{color:#cbd5e1;background:#1e293b;border:1px solid #334155;padding:6px 10px;border-radius:8px;font-size:13px}
+  .demo-bar .seg button.active{background:var(--brand);border-color:var(--brand);color:#fff}
+
+  /* ---- Window chrome ---- */
+  .window{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+  .titlebar{display:flex;gap:6px;padding:10px var(--s16);border-bottom:1px solid var(--line);background:#fafafa}
+  .dot{width:11px;height:11px;border-radius:50%}
+  .dot.r{background:#ff5f56}.dot.y{background:#ffbd2e}.dot.g{background:#27c93f}
+
+  /* ---- Report header (existing, enhanced) ---- */
+  .header{display:flex;align-items:center;gap:var(--s12);padding:var(--s12) var(--s16);border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:#dcfce7;color:#15803d;font-weight:600;padding:5px 12px;border-radius:999px;font-size:13px}
+  .meta{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:13px}
+  .spacer{flex:1}
+  .iconbtn{width:34px;height:34px;border:1px solid var(--line);border-radius:8px;display:inline-flex;align-items:center;justify-content:center;color:#475569;position:relative;background:#fff}
+  .iconbtn:hover{background:#f8fafc}
+  .iconbtn[disabled]{opacity:.4;cursor:not-allowed}
+  .vdiv{width:1px;height:26px;background:var(--line);margin:0 2px}
+  .stale-dot{position:absolute;top:-3px;right:-3px;width:10px;height:10px;border-radius:50%;background:var(--stale);border:2px solid #fff}
+  .export-btn{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#fff;font-weight:600;
+    padding:8px 14px;border-radius:8px;font-size:14px;position:relative}
+  .export-btn:hover{background:var(--brand-d)}
+  .export-btn .spin{width:14px;height:14px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spin 1s linear infinite}
+  .export-btn .amber{position:absolute;top:-4px;right:-4px;width:11px;height:11px;border-radius:50%;background:var(--stale);border:2px solid #fff}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  /* ---- Status strip ---- */
+  .strip{display:flex;align-items:center;gap:var(--s16);padding:8px var(--s16);background:#f8fafc;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted);flex-wrap:wrap}
+  .strip .k{color:var(--ink)}
+  .schip{display:inline-flex;align-items:center;gap:6px;font-weight:600}
+  .sdot{width:8px;height:8px;border-radius:50%}
+  .pulse{animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .strip .bgpill{margin-left:auto;display:none;align-items:center;gap:8px;background:#eff6ff;color:var(--progress);border:1px solid #bfdbfe;padding:4px 10px;border-radius:999px;font-weight:600;cursor:pointer}
+  .strip .manage{margin-left:auto;color:var(--brand);font-weight:600;cursor:pointer}
+
+  /* ---- Body ---- */
+  .body{padding:var(--s24) var(--s24) var(--s24);min-height:300px}
+  .banner{border-radius:var(--radius);padding:var(--s16);margin-bottom:var(--s16);border:1px solid var(--line)}
+  .banner h4{margin:0 0 4px;font-size:15px}
+  .banner p{margin:0;color:var(--muted)}
+  .banner .row{display:flex;align-items:center;gap:var(--s12)}
+  .banner .actions{margin-left:auto;display:flex;gap:8px;align-items:center}
+  .b-progress{background:#eff6ff;border-color:#bfdbfe}
+  .b-ready{background:#f0fdf4;border-color:#bbf7d0}
+  .b-stale{background:#fffbeb;border-color:#fde68a}
+  .b-error{background:#fef2f2;border-color:#fecaca}
+
+  /* stepper */
+  .stepper{display:flex;align-items:center;margin:12px 0 8px}
+  .step{display:flex;flex-direction:column;align-items:center;flex:0 0 auto;color:var(--muted);font-size:12px;min-width:78px}
+  .step .ring{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;margin-bottom:4px}
+  .step.done .ring{background:var(--progress);border-color:var(--progress);color:#fff}
+  .step.active .ring{border-color:var(--progress);color:var(--progress);box-shadow:0 0 0 4px rgba(37,99,235,.15)}
+  .connector{height:2px;flex:1;background:var(--line);margin-bottom:18px}
+  .connector.done{background:var(--progress)}
+  .pbar{height:8px;border-radius:999px;background:#dbeafe;overflow:hidden}
+  .pbar > i{display:block;height:100%;background:var(--progress);width:0;transition:width .4s}
+
+  .btn{padding:8px 14px;border-radius:8px;font-weight:600;font-size:14px;border:1px solid transparent}
+  .btn.primary{background:var(--brand);color:#fff}
+  .btn.primary:hover{background:var(--brand-d)}
+  .btn.ghost{background:#fff;border-color:var(--line);color:var(--ink)}
+  .btn.ghost:hover{background:#f8fafc}
+  .btn.link{background:none;color:var(--brand);padding:8px 4px}
+  .closex{margin-left:6px;color:var(--muted);font-size:18px;line-height:1}
+
+  /* skeleton report content */
+  .skel{height:14px;background:linear-gradient(90deg,#eef2f7,#e2e8f0,#eef2f7);background-size:200% 100%;border-radius:6px;margin:10px 0;animation:sh 1.6s infinite}
+  .skel.t{height:24px;width:45%}
+  .skel.w70{width:70%}.skel.w90{width:90%}.skel.w60{width:60%}
+  @keyframes sh{to{background-position:-200% 0}}
+
+  /* ---- Popover / panel ---- */
+  .overlay{position:fixed;inset:0;background:rgba(15,23,42,.35);display:none;align-items:flex-start;justify-content:center;z-index:60;padding-top:90px}
+  .overlay.show{display:flex}
+  .panel{background:#fff;width:440px;max-width:92vw;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  .panel header{padding:var(--s16);border-bottom:1px solid var(--line);display:flex;align-items:flex-start;justify-content:space-between}
+  .panel header h3{margin:0;font-size:16px}.panel header p{margin:4px 0 0;color:var(--muted);font-size:13px}
+  .panel .content{padding:var(--s16);max-height:60vh;overflow:auto}
+  .panel footer{padding:var(--s12) var(--s16);border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px;background:#fafafa}
+  .label{font-size:12px;font-weight:700;letter-spacing:.4px;color:var(--muted);text-transform:uppercase;margin:0 0 8px}
+  .radios{display:flex;gap:10px;margin-bottom:var(--s16)}
+  .radios label{flex:1;border:1px solid var(--line);border-radius:8px;padding:10px;display:flex;gap:8px;align-items:center;cursor:pointer}
+  .radios input:checked + span{font-weight:600}
+  .radios label:has(input:checked){border-color:var(--brand);background:#eef2ff}
+  .tlist{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .titem{padding:12px;border-bottom:1px solid var(--line);cursor:pointer;display:flex;gap:10px;align-items:flex-start}
+  .titem:last-child{border-bottom:none}
+  .titem:hover{background:#f8fafc}
+  .titem.sel{background:#eef2ff}
+  .titem .check{width:18px;color:var(--brand);font-weight:700}
+  .titem .name{font-weight:600}
+  .titem .desc{color:var(--muted);font-size:12px}
+  .titem .selbadge{margin-left:auto;font-size:11px;font-weight:700;color:var(--brand);background:#e0e7ff;padding:3px 8px;border-radius:999px}
+  .hint{display:flex;gap:8px;align-items:flex-start;background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:10px;margin-top:var(--s16);color:var(--muted);font-size:13px}
+
+  /* history drawer */
+  .drawer{position:fixed;top:0;right:0;height:100%;width:380px;max-width:92vw;background:#fff;box-shadow:var(--shadow);
+    transform:translateX(100%);transition:transform .25s;z-index:60;display:flex;flex-direction:column}
+  .drawer.show{transform:translateX(0)}
+  .drawer header{padding:var(--s16);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+  .drawer header h3{margin:0;font-size:16px}
+  .drawer .content{padding:var(--s8);overflow:auto;flex:1}
+  .vrow{padding:12px;border:1px solid var(--line);border-radius:8px;margin:8px;display:flex;gap:10px;align-items:flex-start}
+  .vrow .vdot{width:9px;height:9px;border-radius:50%;margin-top:5px}
+  .vrow .vname{font-weight:600}
+  .vrow .vmeta{color:var(--muted);font-size:12px}
+  .vrow .vact{margin-left:auto;display:flex;gap:6px}
+  .tag{font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px}
+  .tag.cur{background:#dcfce7;color:#15803d}.tag.old{background:#fef3c7;color:#b45309}
+
+  .note{font-size:12px;color:var(--muted);margin-top:var(--s12)}
+  .hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- DEMO STATE SWITCHER -->
+  <div class="demo-bar">
+    <b>State</b>
+    <div class="seg" id="seg">
+      <button data-s="none" class="active">1 · No export</button>
+      <button data-s="progress">2 · In progress</button>
+      <button data-s="ready">3 · Ready</button>
+      <button data-s="stale">4 · Stale (edited)</button>
+      <button data-s="regen">5 · Regenerating</button>
+      <button data-s="error">Error</button>
+    </div>
+  </div>
+
+  <!-- REPORT WINDOW -->
+  <div class="window">
+    <div class="titlebar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+
+    <!-- HEADER (existing + enhanced) -->
+    <div class="header">
+      <span class="badge">● Generated</span>
+      <span class="meta">📅 15/05/2026 16:54</span>
+      <span class="meta">👤 Vijay Yadav</span>
+      <span class="spacer"></span>
+      <button class="iconbtn" title="Regenerate report">↻</button>
+      <button class="iconbtn" title="Lock report">🔓</button>
+      <span class="vdiv"></span>
+      <!-- NEW primary action -->
+      <button class="export-btn" id="exportBtn" onclick="openPanel(false)">
+        <span id="exportBtnIcon">🗇</span><span id="exportBtnLabel">Export to MS Office</span><span id="exportBtnCaret">▾</span>
+      </button>
+      <!-- existing download icon (re-scoped to "download last export") -->
+      <button class="iconbtn" id="dlIcon" title="Download last export" disabled>⬇<span class="stale-dot hidden" id="dlStale"></span></button>
+      <button class="iconbtn" title="More">⋮</button>
+    </div>
+
+    <!-- STATUS STRIP -->
+    <div class="strip">
+      <span><span class="k">Template:</span> <b id="stTemplate">IC Memo v2</b></span>
+      <span>•</span>
+      <span class="schip"><span class="sdot" id="stDot"></span><span id="stStatus">No export yet</span></span>
+      <span>•</span>
+      <span><span class="k">Generated:</span> <span id="stWhen">—</span></span>
+      <span class="bgpill" id="bgPill" onclick="setState(currentState)">◴ Exporting <span id="bgPct">0%</span> · <span id="bgEta"></span></span>
+      <span class="manage" id="manageLink" onclick="openDrawer()">Manage exports</span>
+    </div>
+
+    <!-- BODY -->
+    <div class="body">
+
+      <!-- progress banner -->
+      <div class="banner b-progress hidden" id="bnProgress">
+        <div class="row">
+          <strong id="pgState">Generating Content</strong>&nbsp;·&nbsp;<span id="pgTpl" style="color:var(--muted)">IC Memo v2</span>
+          <span class="actions"><span style="color:var(--muted)" id="pgEta">~9 min remaining</span>
+            <button class="btn ghost" onclick="runInBackground()">Run in background</button></span>
+        </div>
+        <div class="stepper" id="stepper"></div>
+        <div class="row" style="gap:12px">
+          <div class="pbar" style="flex:1"><i id="pgBar"></i></div>
+          <span id="pgPct" style="font-weight:600;color:var(--progress)">40%</span>
+        </div>
+      </div>
+
+      <!-- ready banner -->
+      <div class="banner b-ready hidden" id="bnReady">
+        <div class="row">
+          <span>✅</span>
+          <div><h4>Export ready · IC Memo v2</h4><p>Generated Jun 11, 2026, 2:45 PM · PowerPoint (.pptx)</p></div>
+          <span class="actions">
+            <button class="btn primary">⬇ Download</button>
+            <button class="btn ghost" onclick="openPanel(true)">Regenerate ▾</button>
+            <button class="closex" title="Dismiss" onclick="dismiss('bnReady')">✕</button>
+          </span>
+        </div>
+      </div>
+
+      <!-- stale banner -->
+      <div class="banner b-stale hidden" id="bnStale" role="alert">
+        <div class="row">
+          <span>⚠️</span>
+          <div>
+            <h4>This export was generated from an earlier version of the report.</h4>
+            <p>The report has been updated since the last export (edited 11 min ago). Regenerate to ensure the file reflects the latest content.</p>
+          </div>
+          <span class="actions">
+            <button class="btn primary" onclick="openPanel(true)">Regenerate Export</button>
+            <button class="btn ghost">Download anyway</button>
+            <button class="closex" onclick="dismiss('bnStale')">✕</button>
+          </span>
+        </div>
+      </div>
+
+      <!-- error banner -->
+      <div class="banner b-error hidden" id="bnError">
+        <div class="row">
+          <span>⛔</span>
+          <div><h4 style="color:var(--failed)">Export failed during Formatting Document</h4>
+            <p>Something went wrong applying the template. You can retry without losing your report.</p></div>
+          <span class="actions">
+            <button class="btn primary" style="background:var(--failed)" onclick="setState('progress')">Retry</button>
+            <button class="btn ghost">View details</button>
+          </span>
+        </div>
+      </div>
+
+      <!-- report content (skeleton) -->
+      <div class="skel t"></div>
+      <div class="skel w90"></div><div class="skel"></div><div class="skel w70"></div>
+      <div class="skel w60" style="margin-top:24px"></div>
+      <div class="skel w90"></div><div class="skel"></div><div class="skel w70"></div>
+      <p class="note">↑ Report content (placeholder). The export workflow lives in the header, status strip, and top banners — the user can keep reading/editing here while an export runs.</p>
+    </div>
+  </div>
+
+  <p class="note">Desktop-first wireframe. Use the dark switcher above to walk every state. See <code>docs/export-workflow-design.md</code> for the full spec & component hierarchy.</p>
+</div>
+
+<!-- EXPORT PANEL -->
+<div class="overlay" id="overlay" onclick="if(event.target===this)closePanel()">
+  <div class="panel">
+    <header>
+      <div><h3 id="panelTitle">Export to MS Office</h3><p id="panelSub">Choose a format and template, then generate.</p></div>
+      <button class="closex" onclick="closePanel()">✕</button>
+    </header>
+    <div class="content">
+      <p class="label">Format</p>
+      <div class="radios">
+        <label><input type="radio" name="fmt" value="pptx" checked><span>PowerPoint (.pptx)</span></label>
+        <label><input type="radio" name="fmt" value="docx"><span>Word (.docx)</span></label>
+      </div>
+      <p class="label">Template</p>
+      <div class="tlist" id="tlist"></div>
+      <div class="hint">ⓘ&nbsp;<span id="panelHint">Generation typically takes 10–15 minutes. You can keep working while it runs.</span></div>
+    </div>
+    <footer>
+      <button class="btn ghost" onclick="closePanel()">Cancel</button>
+      <button class="btn primary" id="genBtn" onclick="startGeneration()">Generate</button>
+    </footer>
+  </div>
+</div>
+
+<!-- HISTORY DRAWER -->
+<div class="drawer" id="drawer">
+  <header><h3>Export history</h3><button class="closex" onclick="closeDrawer()">✕</button></header>
+  <div class="content">
+    <div class="vrow"><span class="vdot" style="background:var(--ready)"></span>
+      <div><div class="vname">IC Memo v2 · PPTX</div><div class="vmeta">Generated Jun 11, 2026 2:45 PM</div></div>
+      <span class="vact"><span class="tag cur">current</span><button class="iconbtn">⬇</button><button class="iconbtn">⋮</button></span></div>
+    <div class="vrow"><span class="vdot" style="background:var(--stale)"></span>
+      <div><div class="vname">Market Assessment · DOCX</div><div class="vmeta">Generated Jun 10, 2026 9:12 AM</div></div>
+      <span class="vact"><span class="tag old">outdated</span><button class="iconbtn">⬇</button><button class="iconbtn">⋮</button></span></div>
+    <div class="vrow"><span class="vdot" style="background:var(--none)"></span>
+      <div><div class="vname">Investment Memo · DOCX</div><div class="vmeta">Generated Jun 8, 2026 4:30 PM</div></div>
+      <span class="vact"><button class="iconbtn">⬇</button><button class="iconbtn">⋮</button></span></div>
+    <button class="btn ghost" style="margin:8px;width:calc(100% - 16px)" onclick="closeDrawer();openPanel(true)">+ New export</button>
+  </div>
+</div>
+
+<script>
+const TEMPLATES = [
+  {id:'ic',   name:'IC Memo v2', desc:'Investment Committee memo, 12 sections'},
+  {id:'mkt',  name:'Market Assessment Template', desc:'Sector + competitive landscape'},
+  {id:'inv',  name:'Investment Memo (Standard)', desc:'Standard deal memo'},
+  {id:'ppt',  name:'PowerPoint Pitch Deck', desc:'12-slide deck layout'},
+];
+const STEPS = ['Preparing','Generating','Formatting','Finalizing','Ready'];
+const STEP_LABEL = {Preparing:'Preparing Export',Generating:'Generating Content',Formatting:'Formatting Document',Finalizing:'Finalizing Export',Ready:'Ready for Download'};
+const STEP_PCT = {Preparing:10,Generating:40,Formatting:65,Finalizing:90,Ready:100};
+
+let currentState='none';
+let selectedTemplate='ic';
+let progressTimer=null;
+
+/* ---------- Export panel ---------- */
+function renderTemplates(){
+  const list=document.getElementById('tlist'); list.innerHTML='';
+  // pin selected to top
+  const ordered=[...TEMPLATES].sort((a,b)=> (a.id===selectedTemplate?-1:b.id===selectedTemplate?1:0));
+  ordered.forEach(t=>{
+    const sel=t.id===selectedTemplate;
+    const div=document.createElement('div');
+    div.className='titem'+(sel?' sel':'');
+    div.onclick=()=>{selectedTemplate=t.id;renderTemplates();};
+    div.innerHTML=`<span class="check">${sel?'✓':''}</span>
+      <div><div class="name">${t.name}</div><div class="desc">${t.desc}</div></div>
+      ${sel?'<span class="selbadge">● Selected</span>':''}`;
+    list.appendChild(div);
+  });
+}
+function openPanel(regen){
+  document.getElementById('panelTitle').textContent = regen?'Regenerate Export':'Export to MS Office';
+  document.getElementById('panelSub').textContent = regen
+    ? 'Pick any template — your current file is kept in export history.'
+    : 'Choose a format and template, then generate.';
+  document.getElementById('genBtn').textContent = regen?'Regenerate':'Generate';
+  document.getElementById('panelHint').textContent = regen
+    ? 'Generate a new export version (IC Memo v2, Jun 11 is kept). Takes 10–15 minutes.'
+    : 'Generation typically takes 10–15 minutes. You can keep working while it runs.';
+  renderTemplates();
+  document.getElementById('overlay').classList.add('show');
+}
+function closePanel(){document.getElementById('overlay').classList.remove('show');}
+function startGeneration(){closePanel();setState('progress');}
+
+/* ---------- History drawer ---------- */
+function openDrawer(){document.getElementById('drawer').classList.add('show');}
+function closeDrawer(){document.getElementById('drawer').classList.remove('show');}
+
+/* ---------- Banner helpers ---------- */
+function dismiss(id){document.getElementById(id).classList.add('hidden');}
+function hideAllBanners(){['bnProgress','bnReady','bnStale','bnError'].forEach(i=>document.getElementById(i).classList.add('hidden'));}
+
+/* ---------- Stepper render ---------- */
+function renderStepper(activeStep){
+  const wrap=document.getElementById('stepper'); wrap.innerHTML='';
+  const ai=STEPS.indexOf(activeStep);
+  STEPS.forEach((s,i)=>{
+    if(i>0){const c=document.createElement('div');c.className='connector'+(i<=ai?' done':'');wrap.appendChild(c);}
+    const cls=i<ai?'done':i===ai?'active':'';
+    const node=document.createElement('div');node.className='step '+cls;
+    node.innerHTML=`<div class="ring">${i<ai?'✓':i+1}</div>${s}`;
+    wrap.appendChild(node);
+  });
+}
+
+/* ---------- Simulated progress ---------- */
+function runProgress(){
+  clearInterval(progressTimer);
+  let i=0; // step index
+  const advance=()=>{
+    const step=STEPS[i];
+    renderStepper(step);
+    const pct=STEP_PCT[step];
+    document.getElementById('pgState').textContent=STEP_LABEL[step];
+    document.getElementById('pgBar').style.width=pct+'%';
+    document.getElementById('pgPct').textContent=pct+'%';
+    const eta=Math.max(0,Math.round((100-pct)/100*14));
+    document.getElementById('pgEta').textContent= pct>=100?'Done':`~${eta} min remaining`;
+    // strip
+    setStripStatus(currentState==='regen'?'Generating… (new version)':STEP_LABEL[step], 'progress');
+    document.getElementById('bgPct').textContent=pct+'%';
+    document.getElementById('bgEta').textContent=`~${eta} min`;
+    i++;
+    if(i>=STEPS.length){clearInterval(progressTimer); setTimeout(()=>setState('ready'),900);}
+  };
+  advance();
+  progressTimer=setInterval(advance,1600);
+}
+function runInBackground(){
+  document.getElementById('bnProgress').classList.add('hidden');
+  document.getElementById('bgPill').style.display='inline-flex';
+  document.getElementById('manageLink').style.display='none';
+}
+
+/* ---------- Status strip ---------- */
+const DOT={none:'var(--none)',progress:'var(--progress)',ready:'var(--ready)',stale:'var(--stale)',failed:'var(--failed)'};
+function setStripStatus(text,key){
+  document.getElementById('stStatus').textContent=text;
+  const d=document.getElementById('stDot');
+  d.style.background=DOT[key];
+  d.classList.toggle('pulse',key==='progress');
+}
+
+/* ---------- Master state machine ---------- */
+function setState(s){
+  currentState=s;
+  hideAllBanners();
+  clearInterval(progressTimer);
+  // reset shared chrome
+  document.getElementById('bgPill').style.display='none';
+  document.getElementById('manageLink').style.display='';
+  const btn=document.getElementById('exportBtn');
+  const icon=document.getElementById('exportBtnIcon');
+  const label=document.getElementById('exportBtnLabel');
+  const caret=document.getElementById('exportBtnCaret');
+  const dl=document.getElementById('dlIcon');
+  const dlStale=document.getElementById('dlStale');
+  // default button
+  icon.textContent='🗇'; icon.className=''; caret.classList.remove('hidden');
+  label.textContent='Export to MS Office';
+  let amber=btn.querySelector('.amber'); if(amber) amber.remove();
+  dl.disabled=true; dlStale.classList.add('hidden');
+
+  if(s==='none'){
+    setStripStatus('No export yet','none');
+    document.getElementById('stWhen').textContent='—';
+  }
+  else if(s==='progress' || s==='regen'){
+    document.getElementById('bnProgress').classList.remove('hidden');
+    label.textContent='Exporting…'; caret.classList.add('hidden');
+    icon.className='spin'; icon.textContent='';
+    if(s==='regen'){ dl.disabled=false; document.getElementById('stWhen').textContent='Jun 11, 2026, 2:45 PM'; }
+    runProgress();
+  }
+  else if(s==='ready'){
+    document.getElementById('bnReady').classList.remove('hidden');
+    setStripStatus('Ready','ready');
+    document.getElementById('stWhen').textContent='Jun 11, 2026, 2:45 PM';
+    dl.disabled=false;
+  }
+  else if(s==='stale'){
+    document.getElementById('bnStale').classList.remove('hidden');
+    setStripStatus('Outdated','stale');
+    document.getElementById('stWhen').textContent='Jun 11, 2026, 2:45 PM';
+    dl.disabled=false; dlStale.classList.remove('hidden');
+    const a=document.createElement('span'); a.className='amber'; btn.appendChild(a);
+  }
+  else if(s==='error'){
+    document.getElementById('bnError').classList.remove('hidden');
+    setStripStatus('Failed','failed');
+  }
+  // switcher active state
+  document.querySelectorAll('#seg button').forEach(b=>b.classList.toggle('active',b.dataset.s===s));
+}
+
+document.getElementById('seg').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(b) setState(b.dataset.s);
+});
+
+setState('none');
+</script>
+</body>
+</html>
