@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { TASK_TYPES, isTask } from '../data/taskTypes'
 import Icon from './Icon'
 import OutputView from './OutputView'
@@ -55,7 +56,11 @@ export default function RightPanel({ node, mode, upstream, onChange, onRun, onDe
           </label>
 
           {node.data.kind === 'inputFile' ? (
-            <FilePicker fileName={node.data.fileName} onPick={(fileName) => set({ fileName })} />
+            <FilePicker
+              fileName={node.data.fileName}
+              fileSize={node.data.fileSize}
+              onPick={(patch) => set(patch)}
+            />
           ) : (
             <label className="field">
               <span className="field__label">Instruction</span>
@@ -99,22 +104,42 @@ export default function RightPanel({ node, mode, upstream, onChange, onRun, onDe
   )
 }
 
-function FilePicker({ fileName, onPick }) {
-  // Mock upload — no real file handling, just a sample name.
-  const samples = ['ev-market-2024.pdf', 'financials-q3.xlsx', 'transcript.docx', 'dataset.csv']
+function FilePicker({ fileName, fileSize, onPick }) {
+  // Opens the OS file manager via a hidden native file input. No upload
+  // happens (no backend) — we just capture the chosen file's name + size.
+  const inputRef = useRef(null)
+
+  const handleFiles = (e) => {
+    const file = e.target.files?.[0]
+    if (file) onPick({ fileName: file.name, fileSize: file.size })
+    e.target.value = '' // allow re-selecting the same file
+  }
+
   return (
     <div className="field">
       <span className="field__label">File</span>
-      <div className={`filepick ${fileName ? 'filepick--set' : ''}`}>
-        <Icon name="file" size={16} />
-        <span className="filepick__name">{fileName || 'No file selected'}</span>
-      </div>
-      <button
-        className="btn btn--ghost btn--block"
-        onClick={() => onPick(samples[Math.floor(Math.random() * samples.length)])}
+      <div
+        className={`filepick filepick--clickable ${fileName ? 'filepick--set' : ''}`}
+        onClick={() => inputRef.current?.click()}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && inputRef.current?.click()}
       >
-        <Icon name="plus" size={14} /> {fileName ? 'Replace file (mock)' : 'Upload file (mock)'}
+        <Icon name="file" size={16} />
+        <span className="filepick__name">{fileName || 'Click to choose a file…'}</span>
+        {fileSize != null && <span className="filepick__size">{formatBytes(fileSize)}</span>}
+      </div>
+      <input ref={inputRef} type="file" hidden onChange={handleFiles} />
+      <button className="btn btn--ghost btn--block" onClick={() => inputRef.current?.click()}>
+        <Icon name="plus" size={14} /> {fileName ? 'Replace file' : 'Choose file'}
       </button>
     </div>
   )
+}
+
+function formatBytes(bytes) {
+  if (!bytes) return '0 B'
+  const units = ['B', 'KB', 'MB', 'GB']
+  const i = Math.floor(Math.log(bytes) / Math.log(1024))
+  return `${(bytes / Math.pow(1024, i)).toFixed(i ? 1 : 0)} ${units[i]}`
 }

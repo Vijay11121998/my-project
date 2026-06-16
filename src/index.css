@@ -627,8 +627,37 @@ button {
   border-style: solid;
   color: var(--text);
 }
+.filepick--clickable {
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+}
+.filepick--clickable:hover {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+}
 .filepick__name {
   font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.filepick__size {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 10.5px;
+  color: var(--text-3);
+}
+
+.output__actions {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.output__actions .btn--block {
+  margin-top: 8px;
+}
+.output__actions .btn--block:first-child {
+  margin-top: 0;
 }
 
 /* ---------------- Output renderers ---------------- */

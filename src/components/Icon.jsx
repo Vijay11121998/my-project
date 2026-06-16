@@ -64,6 +64,13 @@ const paths = {
   ),
   spinner: <path d="M12 3a9 9 0 1 0 9 9" />,
   arrowRight: <path d="M5 12h14M13 6l6 6-6 6" />,
+  download: (
+    <>
+      <path d="M12 3v12" />
+      <path d="M7 10l5 5 5-5" />
+      <path d="M5 21h14" />
+    </>
+  ),
 }
 
 export default function Icon({ name, size = 18, className = '', fill = false }) {

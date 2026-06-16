@@ -1,4 +1,5 @@
 import Icon from './Icon'
+import { buildDownload, downloadOutput } from '../lib/downloadOutput'
 
 // Renders the mock output for a node, or a run prompt / spinner if it hasn't
 // been generated yet. One renderer per task kind.
@@ -25,6 +26,8 @@ export default function OutputView({ node, status, onRun }) {
     )
   }
 
+  const downloadable = buildDownload(output)
+
   return (
     <div className="output">
       {output.type === 'report' && <ReportOut o={output} />}
@@ -33,9 +36,20 @@ export default function OutputView({ node, status, onRun }) {
       {output.type === 'chat' && <ChatOut o={output} />}
       {output.type === 'instruction' && <InstructionOut o={output} />}
       {output.type === 'inputFile' && <FileOut o={output} />}
-      <button className="btn btn--ghost btn--block" onClick={onRun}>
-        <Icon name="reset" size={13} /> Re-run
-      </button>
+      <div className="output__actions">
+        {downloadable && (
+          <button
+            className="btn btn--primary btn--block"
+            onClick={() => downloadOutput(output)}
+            title={`Download ${downloadable.filename}`}
+          >
+            <Icon name="download" size={14} /> Download {downloadable.filename.split('.').pop().toUpperCase()}
+          </button>
+        )}
+        <button className="btn btn--ghost btn--block" onClick={onRun}>
+          <Icon name="reset" size={13} /> Re-run
+        </button>
+      </div>
     </div>
   )
 }
