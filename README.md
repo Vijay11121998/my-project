@@ -71,17 +71,23 @@ generated output on the other.
 
 ## Sample workflow
 
-The canvas preloads a 6-node *Market Research → Deck* template:
+The canvas preloads a 7-node *Sell-Side Advisory* template. Two primary inputs
+(a Fireflies transcript / client file, and an Instructions node) feed three
+parallel analyses, which in turn feed two final deliverables:
 
 ```
-Research brief ┐
-               ├─► Market report ┬─► Player scorecard ┐
-Source data ───┘                 └─► Investor deck ───┴─► Follow-up Q&A
+[Source files] ─┐
+                ├─► Industry White Paper   (Report) ─┐
+[Instructions] ─┤                                     ├─► Client Email (Chat)
+                ├─► Comparable Transactions (Grid)  ──┤
+                └─► Strategic Acquirers     (Grid)  ──┴─► CIM / SIM    (Artifact)
 ```
 
 Hit **Run workflow** to watch nodes execute in topological order (inputs before
 dependents), edges animate as data flows, and each node fill in its mock output.
-You can also run a single node from its Inspector.
+You can also run a single node from its Inspector. The two Grids render distinct
+scored tables (comparable deals vs. fit-ranked acquirers) with colour-coded
+scores.
 
 ## Project structure
 

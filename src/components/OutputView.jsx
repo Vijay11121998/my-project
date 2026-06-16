@@ -94,7 +94,17 @@ function ArtifactOut({ o }) {
   )
 }
 
+// Colour-code a numeric score: high (green) / medium (amber) / low (red).
+function scoreClass(value) {
+  const n = parseFloat(value)
+  if (Number.isNaN(n)) return ''
+  if (n >= 8) return 'score score--high'
+  if (n >= 6.5) return 'score score--mid'
+  return 'score score--low'
+}
+
 function GridOut({ o }) {
+  const lastCol = o.columns.length - 1
   return (
     <div className="grid-out">
       <table>
@@ -109,8 +119,8 @@ function GridOut({ o }) {
           {o.rows.map((r, i) => (
             <tr key={i}>
               {r.map((cell, j) => (
-                <td key={j} className={j === o.columns.length - 1 ? 'grid-out__score' : ''}>
-                  {cell}
+                <td key={j} className={j === lastCol ? 'grid-out__score' : ''}>
+                  {j === lastCol ? <span className={scoreClass(cell)}>{cell}</span> : cell}
                 </td>
               ))}
             </tr>

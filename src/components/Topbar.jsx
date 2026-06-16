@@ -11,7 +11,7 @@ export default function Topbar({ mode, onModeChange, onRunAll, onReset, running,
 
       <div className="topbar__center">
         <span className="topbar__template-label">Template</span>
-        <span className="topbar__template">Market Research → Deck</span>
+        <span className="topbar__template">Sell-Side Advisory</span>
       </div>
 
       <div className="topbar__actions">

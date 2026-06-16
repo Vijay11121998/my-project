@@ -13,64 +13,81 @@ export function generateOutput(node, upstreamSummaries) {
     case 'report':
       return {
         type: 'report',
-        title: title || 'Report',
+        title: title || 'Industry White Paper',
         sections: [
           {
-            heading: 'Executive summary',
-            body: `${instruction || 'A written analysis'} — synthesised from ${context.length} upstream input(s). The market shows strong momentum with several structural tailwinds reinforcing demand.`,
+            heading: 'Industry overview',
+            body: `${instruction || 'An industry overview'} — synthesised from ${context.length} upstream input(s). The sector is mid-consolidation, with strategic and financial buyers actively pursuing scale and regional density.`,
           },
           {
-            heading: 'Key findings',
-            body: 'Demand is accelerating across all three measured segments. Incumbents retain distribution advantages, while challengers compete on unit economics and software.',
+            heading: 'Market dynamics',
+            body: 'Fragmentation among regional operators is driving roll-up activity. Buyers prize recurring revenue, sticky customer relationships, and defensible logistics or technology assets.',
           },
           {
-            heading: 'Outlook',
-            body: 'Base case projects steady double-digit growth through the forecast window, with regulatory support de-risking the downside.',
+            heading: 'Why now',
+            body: 'Valuations remain elevated versus the five-year average and well-capitalised acquirers are deploying capital. For an owner, current conditions support exploring a sale from a position of strength.',
           },
         ],
-        wordCount: 1240,
+        wordCount: 1180,
       }
 
     case 'artifact':
       return {
         type: 'artifact',
-        title: title || 'Artifact',
-        fileName: `${(title || 'artifact').toLowerCase().replace(/\s+/g, '-')}.pptx`,
-        format: 'PowerPoint',
+        title: title || 'CIM / SIM',
+        fileName: `${(title || 'cim').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}.pdf`,
+        format: 'PDF document',
         slides: [
-          'Title & thesis',
-          'Market size & growth',
-          'Competitive landscape',
-          'Player scorecard',
-          'Risks & mitigants',
-          'Recommendation',
+          'Executive summary',
+          'Investment highlights',
+          'Company overview',
+          'Products & services',
+          'Market opportunity',
+          'Financial summary',
+          'Comparable transactions',
+          'Potential acquirers',
+          'Growth strategy',
+          'Appendix',
         ],
-        sizeKb: 842,
+        sizeKb: 2480,
       }
 
     case 'grid':
-      return {
-        type: 'grid',
-        title: title || 'Grid',
-        columns: ['Company', 'Market share', 'Growth', 'Moat', 'Score'],
-        rows: [
-          ['Voltgrid', '24%', '+31%', '8.4', '8.7'],
-          ['Ampere Co', '19%', '+22%', '7.1', '7.6'],
-          ['ChargeNet', '14%', '+44%', '6.2', '7.9'],
-          ['Ionflux', '9%', '+58%', '5.5', '7.2'],
-          ['Gridworks', '7%', '+12%', '6.8', '5.9'],
-        ],
-      }
+      return node.data.preset === 'acquirers'
+        ? {
+            type: 'grid',
+            title: title || 'Strategic Acquirer List',
+            columns: ['Acquirer', 'Type', 'Rationale', 'Fit'],
+            rows: [
+              ['Maersk', 'Strategic', 'Cold-chain expansion', '9.3'],
+              ['Lineage Logistics', 'Strategic', 'Regional capacity', '8.6'],
+              ['Bregal Partners', 'Financial', 'Platform build-out', '7.4'],
+              ['DSV', 'Strategic', 'Network density', '6.8'],
+              ['Sysco', 'Strategic', 'Vertical integration', '5.7'],
+            ],
+          }
+        : {
+            type: 'grid',
+            title: title || 'Comparable Transactions',
+            columns: ['Target', 'Acquirer', 'Date', 'EV / EBITDA', 'Similarity'],
+            rows: [
+              ['Northstar Logistics', 'Maersk', 'Q1 2024', '11.2x', '9.1'],
+              ['Cold Chain Co', 'Lineage', 'Q4 2023', '13.5x', '8.4'],
+              ['FreightLink', 'DSV', 'Q3 2023', '9.8x', '7.7'],
+              ['Apex Distribution', 'XPO', 'Q2 2023', '10.4x', '7.0'],
+              ['Cargo Partners', 'Kuehne+Nagel', 'Q1 2023', '12.1x', '6.4'],
+            ],
+          }
 
     case 'chat':
       return {
         type: 'chat',
-        title: title || 'Chat',
+        title: title || 'Client Email',
         messages: [
-          { role: 'user', text: 'Which player has the strongest growth outlook?' },
+          { role: 'user', text: 'Draft an intro email to the owner summarising the opportunity.' },
           {
             role: 'assistant',
-            text: 'Based on the scorecard, Ionflux leads on growth (+58%) though from a smaller base. Voltgrid offers the best risk-adjusted profile given its share and moat.',
+            text: 'Subject: Your strategic options — an initial read\n\nDear [Owner], based on our industry white paper, recent comparable transactions, and a shortlist of fit-ranked acquirers, we see a compelling near-term window. Comparable deals are clearing at 10–13x EV/EBITDA, and we have already identified Maersk and Lineage as high-fit strategic buyers. Happy to walk you through the detail.',
           },
         ],
         contextSources: context.map((c) => titleCase(c)),

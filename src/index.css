@@ -853,8 +853,26 @@ button {
   color: var(--text-2);
 }
 .grid-out__score {
+  text-align: right;
+}
+.score {
+  display: inline-block;
   font-weight: 700;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 12px;
+}
+.score--high {
+  background: #e7f7ef;
   color: #0a9d6e;
+}
+.score--mid {
+  background: #fef3e2;
+  color: #c2770a;
+}
+.score--low {
+  background: #fdecec;
+  color: #d4493f;
 }
 
 .chat-out__context {
@@ -873,6 +891,7 @@ button {
   font-size: 12px;
   line-height: 1.5;
   margin-bottom: 8px;
+  white-space: pre-wrap;
 }
 .bubble--user {
   background: var(--primary);

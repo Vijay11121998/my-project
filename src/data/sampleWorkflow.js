@@ -1,81 +1,111 @@
-// Preloaded template so the canvas is alive on first load.
+// Preloaded template: a Sell-Side Advisory workflow.
 //
-// Flow: a market research brief + a source PDF feed a Report, the Report
-// feeds a Grid (scoring) and an Artifact (slide deck), and a Chat node sits
-// at the end with context from the whole workflow.
+// Two primary inputs (a Fireflies transcript / client file, and an
+// Instructions node) feed three parallel analyses — an industry White Paper
+// (Report), Comparable Transactions (Grid) and a Strategic Acquirer List
+// (Grid). All three then feed two final deliverables: a Client Email (Chat)
+// and a CIM / SIM (Artifact).
+//
+//   [Transcript] ─┐
+//                 ├─► [White Paper] (Report) ─┐
+//   [Instructions]┤                            ├─► [Client Email] (Chat)
+//                 ├─► [Comparable Txns] (Grid)─┤
+//                 └─► [Strategic Acquirers](Grid)─► [CIM / SIM] (Artifact)
 
 export const initialNodes = [
   {
-    id: 'instruction-1',
+    id: 'source-1',
     type: 'taskNode',
-    position: { x: 0, y: 40 },
-    data: {
-      kind: 'instruction',
-      title: 'Research brief',
-      instruction:
-        'Analyse the European EV charging market. Focus on growth drivers, key players, and regulatory tailwinds for 2024–2027.',
-    },
-  },
-  {
-    id: 'file-1',
-    type: 'taskNode',
-    position: { x: 0, y: 260 },
+    position: { x: 0, y: 150 },
     data: {
       kind: 'inputFile',
-      title: 'Source data',
+      title: 'Source files',
       files: [
-        { name: 'ev-market-2024.pdf', size: 1_842_000 },
-        { name: 'charging-stats.csv', size: 96_400 },
+        { name: 'fireflies-call-transcript.txt', size: 184_300 },
+        { name: 'client-financials.xlsx', size: 512_000 },
       ],
     },
   },
   {
-    id: 'report-1',
+    id: 'instructions-1',
     type: 'taskNode',
-    position: { x: 360, y: 130 },
+    position: { x: 0, y: 380 },
+    data: {
+      kind: 'instruction',
+      title: 'Instructions',
+      instruction:
+        'Govern each task: write for a business owner, benchmark against recent M&A in the sector, and rank potential buyers by acquisition fit.',
+    },
+  },
+  {
+    id: 'whitepaper-1',
+    type: 'taskNode',
+    position: { x: 380, y: 0 },
     data: {
       kind: 'report',
-      title: 'Market report',
-      instruction: 'Write a structured market analysis with an executive summary.',
+      title: 'Industry White Paper',
+      instruction: 'Concise industry overview structured for a business owner considering a sale.',
     },
   },
   {
-    id: 'grid-1',
+    id: 'comps-1',
     type: 'taskNode',
-    position: { x: 720, y: 0 },
+    position: { x: 380, y: 230 },
     data: {
       kind: 'grid',
-      title: 'Player scorecard',
-      instruction: 'Score the top players on market share, growth, and moat (0–10).',
+      preset: 'comps',
+      title: 'Comparable Transactions',
+      instruction: 'Score recent M&A deals in the sector, sorted by similarity to the client.',
     },
   },
   {
-    id: 'artifact-1',
+    id: 'acquirers-1',
     type: 'taskNode',
-    position: { x: 720, y: 230 },
+    position: { x: 380, y: 470 },
     data: {
-      kind: 'artifact',
-      title: 'Investor deck',
-      instruction: 'Turn the report into a 10-slide investor presentation.',
+      kind: 'grid',
+      preset: 'acquirers',
+      title: 'Strategic Acquirer List',
+      instruction: 'Score and colour-code potential buyers ranked by acquisition fit.',
     },
   },
   {
-    id: 'chat-1',
+    id: 'email-1',
     type: 'taskNode',
-    position: { x: 1080, y: 130 },
+    position: { x: 780, y: 110 },
     data: {
       kind: 'chat',
-      title: 'Follow-up Q&A',
-      instruction: 'Answer questions using the report and scorecard as context.',
+      title: 'Client Email',
+      instruction: 'Draft an email to the prospect demonstrating immediate value from all three analyses.',
+    },
+  },
+  {
+    id: 'cim-1',
+    type: 'taskNode',
+    position: { x: 780, y: 360 },
+    data: {
+      kind: 'artifact',
+      title: 'CIM / SIM',
+      instruction: 'Build the information memorandum from all three outputs plus client financials and transcripts.',
     },
   },
 ]
 
-export const initialEdges = [
-  { id: 'e-instruction-report', source: 'instruction-1', target: 'report-1' },
-  { id: 'e-file-report', source: 'file-1', target: 'report-1' },
-  { id: 'e-report-grid', source: 'report-1', target: 'grid-1' },
-  { id: 'e-report-artifact', source: 'report-1', target: 'artifact-1' },
-  { id: 'e-grid-chat', source: 'grid-1', target: 'chat-1' },
-  { id: 'e-artifact-chat', source: 'artifact-1', target: 'chat-1' },
-].map((e) => ({ ...e, type: 'smoothstep', animated: false }))
+const taskEdges = [
+  // Inputs → three parallel analyses
+  { id: 'e-source-wp', source: 'source-1', target: 'whitepaper-1' },
+  { id: 'e-source-comps', source: 'source-1', target: 'comps-1' },
+  { id: 'e-source-acq', source: 'source-1', target: 'acquirers-1' },
+  { id: 'e-instr-wp', source: 'instructions-1', target: 'whitepaper-1' },
+  { id: 'e-instr-comps', source: 'instructions-1', target: 'comps-1' },
+  { id: 'e-instr-acq', source: 'instructions-1', target: 'acquirers-1' },
+  // Three analyses → two deliverables
+  { id: 'e-wp-email', source: 'whitepaper-1', target: 'email-1' },
+  { id: 'e-comps-email', source: 'comps-1', target: 'email-1' },
+  { id: 'e-acq-email', source: 'acquirers-1', target: 'email-1' },
+  { id: 'e-wp-cim', source: 'whitepaper-1', target: 'cim-1' },
+  { id: 'e-comps-cim', source: 'comps-1', target: 'cim-1' },
+  { id: 'e-acq-cim', source: 'acquirers-1', target: 'cim-1' },
+]
+
+export const initialEdges = taskEdges.map((e) => ({ ...e, type: 'smoothstep', animated: false }))
