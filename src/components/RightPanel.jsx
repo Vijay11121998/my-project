@@ -56,11 +56,7 @@ export default function RightPanel({ node, mode, upstream, onChange, onRun, onDe
           </label>
 
           {node.data.kind === 'inputFile' ? (
-            <FilePicker
-              fileName={node.data.fileName}
-              fileSize={node.data.fileSize}
-              onPick={(patch) => set(patch)}
-            />
+            <FilePicker files={node.data.files} onPick={(patch) => set(patch)} />
           ) : (
             <label className="field">
               <span className="field__label">Instruction</span>
@@ -104,34 +100,60 @@ export default function RightPanel({ node, mode, upstream, onChange, onRun, onDe
   )
 }
 
-function FilePicker({ fileName, fileSize, onPick }) {
-  // Opens the OS file manager via a hidden native file input. No upload
-  // happens (no backend) — we just capture the chosen file's name + size.
+function FilePicker({ files = [], onPick }) {
+  // Opens the OS file manager via a hidden native file input with `multiple`.
+  // No upload happens (no backend) — we just capture each chosen file's
+  // name + size.
   const inputRef = useRef(null)
 
   const handleFiles = (e) => {
-    const file = e.target.files?.[0]
-    if (file) onPick({ fileName: file.name, fileSize: file.size })
-    e.target.value = '' // allow re-selecting the same file
+    const picked = Array.from(e.target.files || []).map((f) => ({ name: f.name, size: f.size }))
+    if (picked.length) {
+      // Append, de-duping by name so re-selecting doesn't add copies.
+      const merged = [...files]
+      picked.forEach((p) => {
+        if (!merged.some((m) => m.name === p.name)) merged.push(p)
+      })
+      onPick({ files: merged })
+    }
+    e.target.value = '' // allow re-selecting the same file(s)
   }
 
   return (
     <div className="field">
-      <span className="field__label">File</span>
-      <div
-        className={`filepick filepick--clickable ${fileName ? 'filepick--set' : ''}`}
-        onClick={() => inputRef.current?.click()}
-        role="button"
-        tabIndex={0}
-        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && inputRef.current?.click()}
-      >
-        <Icon name="file" size={16} />
-        <span className="filepick__name">{fileName || 'Click to choose a file…'}</span>
-        {fileSize != null && <span className="filepick__size">{formatBytes(fileSize)}</span>}
-      </div>
-      <input ref={inputRef} type="file" hidden onChange={handleFiles} />
+      <span className="field__label">Files</span>
+      {files.length > 0 ? (
+        <ul className="filelist">
+          {files.map((f, i) => (
+            <li key={i} className="filelist__item">
+              <Icon name="file" size={14} />
+              <span className="filelist__name">{f.name}</span>
+              {f.size != null && <span className="filelist__size">{formatBytes(f.size)}</span>}
+              <button
+                className="filelist__remove"
+                title="Remove file"
+                onClick={() => onPick({ files: files.filter((_, j) => j !== i) })}
+              >
+                <Icon name="close" size={13} />
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div
+          className="filepick filepick--clickable"
+          onClick={() => inputRef.current?.click()}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && inputRef.current?.click()}
+        >
+          <Icon name="file" size={16} />
+          <span className="filepick__name">Click to select files…</span>
+        </div>
+      )}
+      <input ref={inputRef} type="file" multiple hidden onChange={handleFiles} />
       <button className="btn btn--ghost btn--block" onClick={() => inputRef.current?.click()}>
-        <Icon name="plus" size={14} /> {fileName ? 'Replace file' : 'Choose file'}
+        <Icon name="plus" size={14} /> {files.length ? 'Select more files' : 'Select files'}
       </button>
     </div>
   )

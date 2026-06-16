@@ -23,7 +23,10 @@ export const initialNodes = [
     data: {
       kind: 'inputFile',
       title: 'Source data',
-      fileName: 'ev-market-2024.pdf',
+      files: [
+        { name: 'ev-market-2024.pdf', size: 1_842_000 },
+        { name: 'charging-stats.csv', size: 96_400 },
+      ],
     },
   },
   {

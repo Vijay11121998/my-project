@@ -85,7 +85,7 @@ export function generateOutput(node, upstreamSummaries) {
     case 'inputFile':
       return {
         type: 'inputFile',
-        fileName: node.data.fileName || '(no file uploaded)',
+        files: node.data.files?.length ? node.data.files : [],
       }
 
     default:

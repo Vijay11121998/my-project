@@ -149,10 +149,22 @@ function InstructionOut({ o }) {
 }
 
 function FileOut({ o }) {
+  if (!o.files?.length) {
+    return (
+      <div className="file-out file-out--empty">
+        <Icon name="file" size={18} />
+        <span>No files selected</span>
+      </div>
+    )
+  }
   return (
-    <div className="file-out">
-      <Icon name="file" size={18} />
-      <span>{o.fileName}</span>
+    <div className="file-out-list">
+      {o.files.map((f, i) => (
+        <div key={i} className="file-out">
+          <Icon name="file" size={16} />
+          <span>{f.name}</span>
+        </div>
+      ))}
     </div>
   )
 }

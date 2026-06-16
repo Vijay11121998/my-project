@@ -71,6 +71,7 @@ const paths = {
       <path d="M5 21h14" />
     </>
   ),
+  close: <path d="M18 6L6 18M6 6l12 12" />,
 }
 
 export default function Icon({ name, size = 18, className = '', fill = false }) {

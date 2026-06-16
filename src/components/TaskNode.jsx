@@ -31,10 +31,7 @@ export default function TaskNode({ id, data, selected }) {
 
       <div className="node__body">
         {data.kind === 'inputFile' ? (
-          <span className={`node__chip ${data.fileName ? '' : 'node__chip--empty'}`}>
-            <Icon name="file" size={12} />
-            {data.fileName || 'No file'}
-          </span>
+          <FileChips files={data.files} />
         ) : (
           <p className="node__instruction">
             {data.instruction ? data.instruction : <span className="node__muted">No instruction yet</span>}
@@ -56,4 +53,23 @@ function StatusDot({ status }) {
   if (status === 'running') return <span className="node__status node__status--running" />
   if (status === 'done') return <span className="node__status node__status--done" />
   return <span className="node__status node__status--idle" />
+}
+
+// Compact file summary for the Input file node body: first file + a "+N" pill.
+function FileChips({ files = [] }) {
+  if (!files.length) {
+    return (
+      <span className="node__chip node__chip--empty">
+        <Icon name="file" size={12} />
+        No files
+      </span>
+    )
+  }
+  return (
+    <span className="node__chip">
+      <Icon name="file" size={12} />
+      {files[0].name}
+      {files.length > 1 && <span className="node__chip-more">+{files.length - 1}</span>}
+    </span>
+  )
 }
