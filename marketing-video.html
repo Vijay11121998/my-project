@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AGENTIC PM — Brand Film</title>
+<style>
+/* ============================================================
+   AGENTIC PM — LinkedIn brand film (1:1, ~41s, auto-loop)
+   Self-contained. Screen-record the stage for export.
+   ============================================================ */
+:root{
+  --navy:#0A1633; --navy2:#0F1E45;
+  --blue:#1D4ED8; --blue-bright:#3B82F6; --blue-soft:#EFF4FF;
+  --paper:#F6F8FC; --card:#FFFFFF; --line:#E4E9F2;
+  --ink:#0F1B33; --muted:#5B6B85; --green:#16A34A;
+  --sans:"Helvetica Neue",Arial,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#05070f;font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{display:grid;place-items:center;overflow:hidden}
+
+/* ---- Fit the fixed 1080 stage to the viewport ---- */
+#fit{position:relative}
+#stage{
+  position:relative;width:1080px;height:1080px;overflow:hidden;
+  background:var(--paper);border-radius:2px;transform-origin:top left;
+}
+
+/* ---- Scene layering ---- */
+.scene{position:absolute;inset:0;opacity:0;visibility:hidden;
+  display:flex;flex-direction:column;padding:88px 84px}
+.scene.on{opacity:1;visibility:visible}
+.scene.dark{background:radial-gradient(120% 120% at 20% 0%,#12224e 0%,var(--navy) 46%,#060d20 100%);color:#fff}
+
+/* generic reveal helpers driven by .on + delay vars */
+.r{opacity:0;transform:translateY(26px);will-change:transform,opacity}
+.scene.on .r{animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+.scene.leaving .r{animation:none;opacity:0;transform:translateY(-14px);transition:all .45s ease}
+@keyframes rise{to{opacity:1;transform:none}}
+.fadein{opacity:0}
+.scene.on .fadein{animation:fade .8s ease forwards;animation-delay:var(--d,0s)}
+@keyframes fade{to{opacity:1}}
+
+/* ---- Eyebrow / labels ---- */
+.eyebrow{display:inline-block;font-size:15px;font-weight:800;letter-spacing:.22em;
+  text-transform:uppercase;padding:9px 16px;border-radius:6px;background:var(--blue);color:#fff}
+.eyebrow.ghost{background:rgba(255,255,255,.1);color:#cdd8f5}
+
+/* ---- Logo ---- */
+.logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:26px;letter-spacing:-.01em}
+.logo .mark{width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));
+  display:grid;place-items:center;box-shadow:0 8px 24px rgba(29,78,216,.35)}
+.logo .mark svg{width:26px;height:26px}
+.logo .pm{color:var(--blue-bright)}
+.logo.on-light .pm{color:var(--blue)}
+.logo.big{font-size:64px;gap:22px}
+.logo.big .mark{width:96px;height:96px;border-radius:22px}
+.logo.big .mark svg{width:54px;height:54px}
+
+/* ================= SCENE 0 — HOOK ================= */
+#s0{justify-content:center;align-items:flex-start;gap:44px}
+#s0 .kicker{font-size:15px;letter-spacing:.24em;font-weight:800;color:var(--blue-bright);text-transform:uppercase}
+#s0 h1{font-size:80px;line-height:1.02;font-weight:800;letter-spacing:-.025em;max-width:900px;text-wrap:balance}
+#s0 h1 .hl{color:var(--blue-bright)}
+#s0 .sub{font-size:24px;color:#b9c6ec;max-width:760px;line-height:1.4}
+
+/* ================= SHARED STORY HEADER ================= */
+.head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:30px}
+.head .logo{font-size:22px}
+h2.title{font-size:56px;font-weight:800;letter-spacing:-.02em;line-height:1.04;color:var(--ink);margin-top:18px}
+h2.title .accent{color:var(--blue)}
+.lede{font-size:21px;color:var(--muted);line-height:1.5;max-width:900px;margin-top:16px}
+
+.stage-body{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:34px;min-height:0}
+
+/* ---- Claude Enterprise panel (left of scenes 1 & 2) ---- */
+.enterprise{background:#141a2e;border-radius:18px;padding:22px;color:#fff;
+  display:flex;flex-direction:column;gap:14px;box-shadow:0 24px 60px rgba(11,18,40,.16)}
+.enterprise .pill{align-self:flex-start;display:flex;align-items:center;gap:10px;background:#0c1122;
+  border:1px solid #2a3352;border-radius:999px;padding:9px 16px;font-weight:700;font-size:16px}
+.enterprise .pill .spark{width:16px;height:16px;border-radius:50%;
+  background:conic-gradient(from 0deg,#ff8a3d,#ffd23d,#ff8a3d)}
+.conn{display:flex;align-items:center;gap:13px;padding:11px 12px;border-radius:11px;
+  background:#1b2238;font-size:16px}
+.conn .ico{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+  font-weight:800;font-size:13px;color:#fff;flex:none}
+.conn .nm{font-weight:600}
+.conn .tag{margin-left:auto;font-size:13px;color:#8792b3}
+
+/* ---- Right column: secret sources ---- */
+.rightcol{display:flex;flex-direction:column}
+.rightcol .cap{font-size:19px;font-weight:800;color:#fff;background:var(--blue);
+  border-radius:12px;padding:14px 18px;text-align:center;line-height:1.3}
+.sources{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.src{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:15px;
+  box-shadow:0 6px 18px rgba(15,27,51,.05)}
+.src .st{font-weight:800;font-size:16.5px;color:var(--ink)}
+.src .sd{font-size:13.5px;color:var(--muted);margin-top:5px;line-height:1.35}
+
+/* ---- Pillars (scene 2/3) ---- */
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pillar{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--blue);
+  border-radius:14px;padding:18px;box-shadow:0 10px 26px rgba(15,27,51,.06)}
+.pillar h3{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.01em}
+.pillar .role{font-size:13px;color:var(--muted);margin:4px 0 12px}
+.pillar li{list-style:none;font-size:14.5px;color:var(--ink);display:flex;gap:8px;
+  align-items:center;padding:5px 0}
+.pillar li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue);flex:none}
+
+/* ---- Scene 3 payoff bar ---- */
+#s3{justify-content:center}
+.answer{margin-top:30px;background:linear-gradient(135deg,var(--blue),#1633a8);
+  border-radius:20px;padding:34px 38px;color:#fff;box-shadow:0 30px 70px rgba(29,78,216,.35)}
+.answer .row{display:flex;align-items:center;gap:16px}
+.answer .check{width:56px;height:56px;border-radius:50%;background:#fff;display:grid;place-items:center;flex:none}
+.answer .check svg{width:34px;height:34px}
+.answer h3{font-size:40px;font-weight:800;letter-spacing:-.02em}
+.answer .tags{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.answer .tags span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
+  border-radius:999px;padding:9px 18px;font-size:17px;font-weight:700}
+.proof{margin-top:22px;display:flex;align-items:center;gap:18px;background:var(--card);
+  border:1.5px dashed var(--blue);border-radius:16px;padding:20px 24px}
+.proof .big{font-size:40px;font-weight:800;color:var(--blue);letter-spacing:-.02em;white-space:nowrap}
+.proof .lab{font-size:15px;font-weight:800;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.proof .note{font-size:15px;color:var(--muted);line-height:1.4}
+
+/* ---- Scene 4 partnership ---- */
+.cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:36px;flex:1}
+.col{border-radius:16px;padding:26px 24px;display:flex;flex-direction:column}
+.col.a{background:var(--card);border:1px solid var(--line)}
+.col.b{background:var(--blue-soft);border:1px solid #d5e2ff}
+.col.c{background:linear-gradient(160deg,var(--blue),#12276f);color:#fff}
+.col .kl{font-size:14px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.col.b .kl{color:var(--blue)} .col.c .kl{color:#bcd0ff}
+.col .ch{font-size:26px;font-weight:800;margin:6px 0 18px;letter-spacing:-.01em;color:var(--ink)}
+.col.c .ch{color:#fff}
+.col ul{list-style:none;display:flex;flex-direction:column;gap:13px}
+.col li{font-size:16.5px;display:flex;gap:11px;align-items:center;line-height:1.3}
+.col.a li::before{content:"✓";color:var(--blue);font-weight:800}
+.col.c li::before{content:"✦";color:#9dc0ff}
+.steps{counter-reset:st}
+.steps li{align-items:flex-start}
+.steps li::before{counter-increment:st;content:counter(st);background:var(--blue);color:#fff;
+  width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:800;flex:none}
+.steps li b{color:var(--ink)} .steps li span{color:var(--muted);font-size:15px}
+.closer{margin-top:26px;font-size:26px;font-weight:800;letter-spacing:-.01em;color:var(--ink);text-wrap:balance}
+.closer .accent{color:var(--blue)}
+
+/* ================= SCENE 5 — CTA ================= */
+#s5{justify-content:center;align-items:center;text-align:center;gap:40px}
+#s5 h2{font-size:66px;font-weight:800;letter-spacing:-.025em;line-height:1.05;text-wrap:balance;max-width:840px}
+#s5 h2 .hl{color:var(--blue-bright)}
+#s5 .demo{display:inline-flex;align-items:center;gap:14px;background:var(--blue);color:#fff;
+  font-size:26px;font-weight:800;padding:20px 40px;border-radius:14px;
+  box-shadow:0 20px 50px rgba(29,78,216,.5);animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+#s5 .contact{font-size:22px;color:#aebbe4;letter-spacing:.02em}
+#s5 .contact b{color:#fff}
+
+/* ---- progress bar ---- */
+#bar{position:absolute;left:0;bottom:0;height:5px;width:0;background:var(--blue-bright);z-index:5;transition:width .12s linear}
+.scene.dark ~ #bar{}
+
+/* ================= CONTROLS (hidden during record) ================= */
+#ui{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:50;
+  display:flex;gap:10px;align-items:center;background:rgba(10,22,51,.82);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 10px;
+  font-family:var(--sans);transition:opacity .3s}
+#ui.hidden{opacity:0;pointer-events:none}
+#ui button{background:#fff;color:var(--navy);border:0;border-radius:999px;
+  padding:9px 16px;font-weight:800;font-size:14px;cursor:pointer}
+#ui button.sec{background:transparent;color:#cdd8f5;border:1px solid rgba(255,255,255,.25)}
+#ui .hint{color:#9fb0dc;font-size:12.5px;padding:0 6px}
+
+@media (prefers-reduced-motion:reduce){
+  .scene.on .r,.scene.on .fadein{animation-duration:.01s}
+  #s5 .demo{animation:none}
+}
+</style>
+</head>
+<body>
+<div id="fit">
+  <div id="stage">
+
+    <!-- ============ SCENE 0 · HOOK ============ -->
+    <section class="scene dark" id="s0">
+      <div class="kicker r" style="--d:.1s">For Private Equity</div>
+      <h1 class="r" style="--d:.35s">A generic model can reason.<br><span class="hl">It can't reason like you.</span></h1>
+      <p class="sub r" style="--d:1.1s">Your firm's sharpest, hardest-won knowledge lives outside the model — in people's heads, old memos, and partner judgement.</p>
+      <div class="logo r" style="--d:1.9s">
+        <span class="mark">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 8c4-4 12 4 16 0M4 16c4-4 12 4 16 0" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </span>
+        <span>AGENTIC <span class="pm">PM</span></span>
+      </div>
+    </section>
+
+    <!-- ============ SCENE 1 · PROBLEM ============ -->
+    <section class="scene" id="s1">
+      <div class="head">
+        <div>
+          <span class="eyebrow r" style="--d:0s">The Problem</span>
+          <h2 class="title r" style="--d:.15s">PE Decision Intelligence <span class="accent">— On Claude</span></h2>
+        </div>
+        <div class="logo on-light r" style="--d:.15s">
+          <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8c4-4 12 4 16 0M4 16c4-4 12 4 16 0" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+          <span>AGENTIC <span class="pm">PM</span></span>
+        </div>
+      </div>
+      <div class="stage-body">
+        <div class="enterprise r" style="--d:.35s">
+          <div class="pill"><span class="spark"></span> Claude Enterprise</div>
+          <div class="conn r" style="--d:.6s"><span class="ico" style="background:#e11d48">FS</span><span class="nm">FactSet</span><span class="tag">Research</span></div>
+          <div class="conn r" style="--d:.72s"><span class="ico" style="background:#0ea5e9">DL</span><span class="nm">Data lake</span><span class="tag">—</span></div>
+          <div class="conn r" style="--d:.84s"><span class="ico" style="background:#7c3aed">PB</span><span class="nm">PitchBook</span><span class="tag">Research</span></div>
+          <div class="conn r" style="--d:.96s"><span class="ico" style="background:#dc2626">SP</span><span class="nm">S&amp;P Capital IQ</span><span class="tag">—</span></div>
+          <div class="conn r" style="--d:1.08s"><span class="ico" style="background:#059669">PQ</span><span class="nm">Preqin</span><span class="tag">Research</span></div>
+          <div class="conn r" style="--d:1.2s"><span class="ico" style="background:#ea4335">GM</span><span class="nm">Gmail</span><span class="tag">Comms</span></div>
+        </div>
+        <div class="rightcol">
+          <div class="cap r" style="--d:1.4s">However your secret source is still not integrated</div>
+          <div class="sources">
+            <div class="src r" style="--d:1.6s"><div class="st">Expert interviews</div><div class="sd">Primary calls &amp; expert-network insight, never captured</div></div>
+            <div class="src r" style="--d:1.72s"><div class="st">Sector playbooks</div><div class="sd">How the firm wins in each vertical</div></div>
+            <div class="src r" style="--d:1.84s"><div class="st">Investment thesis</div><div class="sd">The lens that decides what's a good deal</div></div>
+            <div class="src r" style="--d:1.96s"><div class="st">Past deal knowledge</div><div class="sd">Prior IC memos, post-mortems</div></div>
+            <div class="src r" style="--d:2.08s"><div class="st">Diligence frameworks</div><div class="sd">Red-flag patterns &amp; DD checklists</div></div>
+            <div class="src r" style="--d:2.2s"><div class="st">Partner judgement</div><div class="sd">The instinct that overrides the obvious answer</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCENE 2 · THE MORPH / SOLUTION ============ -->
+    <section class="scene" id="s2">
+      <div class="head">
+        <div>
+          <span class="eyebrow r" style="--d:0s">The Decision Layer</span>
+          <h2 class="title r" style="--d:.15s">Build the layer that <span class="accent">reasons like your firm</span></h2>
+          <p class="lede r" style="--d:.3s">Every PE builds out its decision layer through custom plugins — turning secret knowledge into working capability.</p>
+        </div>
+      </div>
+      <div class="pillars" style="margin-top:20px">
+        <div class="pillar r" style="--d:.5s">
+          <h3>Skills</h3><div class="role">How the work gets done</div>
+          <ul><li>Repeatable PE workflows</li><li>Firm-tuned outputs</li><li>One-click deliverables</li></ul>
+        </div>
+        <div class="pillar r" style="--d:.65s">
+          <h3>Agents</h3><div class="role">Experts that run work end-to-end</div>
+          <ul><li>Autonomous multi-step</li><li>Role-specialized</li><li>Human-in-the-loop</li></ul>
+        </div>
+        <div class="pillar r" style="--d:.8s">
+          <h3>MCPs</h3><div class="role">Live connections to deal data</div>
+          <ul><li>Real-time retrieval</li><li>Permissioned access</li><li>Cited sources</li></ul>
+        </div>
+        <div class="pillar r" style="--d:.95s">
+          <h3>Knowledgebots</h3><div class="role">Your proprietary knowledge</div>
+          <ul><li>Memos &amp; playbooks</li><li>Sector expertise</li><li>Past-deal recall</li></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCENE 3 · PAYOFF ============ -->
+    <section class="scene" id="s3">
+      <span class="eyebrow r" style="--d:0s">The Payoff</span>
+      <h2 class="title r" style="--d:.15s;margin-top:14px">Every query gets a superpower</h2>
+      <div class="answer r" style="--d:.5s">
+        <div class="row">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#16A34A" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <h3>Supercharged answer</h3>
+        </div>
+        <div class="tags">
+          <span class="fadein" style="--d:1s">thesis-aware</span>
+          <span class="fadein" style="--d:1.2s">sourced</span>
+          <span class="fadein" style="--d:1.4s">firm-grade</span>
+          <span class="fadein" style="--d:1.6s">IC-ready</span>
+        </div>
+      </div>
+      <div class="proof r" style="--d:1.9s">
+        <div><div class="lab">Proof point</div><div class="big">[ your metric ]</div></div>
+        <div class="note">Placeholder — swap in a real number or before/after<br>(e.g. “diligence in days&nbsp;→&nbsp;hours”, or a client result).</div>
+      </div>
+    </section>
+
+    <!-- ============ SCENE 4 · PARTNERSHIP ============ -->
+    <section class="scene" id="s4">
+      <div class="head"><div>
+        <span class="eyebrow r" style="--d:0s">The Partnership</span>
+        <h2 class="title r" style="--d:.15s">A decision engine <span class="accent">only your firm has</span></h2>
+      </div></div>
+      <div class="cols">
+        <div class="col a r" style="--d:.4s">
+          <div class="kl">You bring</div><div class="ch">Your secret sauce</div>
+          <ul>
+            <li>Investment thesis</li><li>Past deal knowledge</li><li>Diligence frameworks</li>
+            <li>Expert interviews</li><li>Partner judgement</li>
+          </ul>
+        </div>
+        <div class="col b r" style="--d:.58s">
+          <div class="kl">We build with you</div><div class="ch">The partnership</div>
+          <ul class="steps">
+            <li><b>Codify</b>&nbsp;<span>— capture what's in heads &amp; memos</span></li>
+            <li><b>Build</b>&nbsp;<span>— skills, agents, MCPs, knowledgebots</span></li>
+            <li><b>Deploy</b>&nbsp;<span>— as plugins in Claude Enterprise</span></li>
+            <li><b>Evolve</b>&nbsp;<span>— tuned with every deal you run</span></li>
+          </ul>
+        </div>
+        <div class="col c r" style="--d:.76s">
+          <div class="kl">You get</div><div class="ch">Your own engine</div>
+          <ul>
+            <li>Stays in your walls — data never leaves</li>
+            <li>Compounds with every deal</li>
+            <li>Runs on Claude Enterprise</li>
+          </ul>
+        </div>
+      </div>
+      <div class="closer r" style="--d:1s">You bring the judgement. <span class="accent">We build the engine that reasons like you.</span></div>
+    </section>
+
+    <!-- ============ SCENE 5 · CTA ============ -->
+    <section class="scene dark" id="s5">
+      <div class="logo big on-light r" style="--d:.1s">
+        <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8c4-4 12 4 16 0M4 16c4-4 12 4 16 0" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+        <span>AGENTIC <span class="pm" style="color:var(--blue-bright)">PM</span></span>
+      </div>
+      <h2 class="r" style="--d:.5s">Build the engine that <span class="hl">reasons like your firm.</span></h2>
+      <div class="demo r" style="--d:.9s">Reach out to book a demo →</div>
+      <div class="contact r" style="--d:1.2s"><b>[ your link / email here ]</b></div>
+    </section>
+
+    <div id="bar"></div>
+  </div>
+</div>
+
+<div id="ui">
+  <button id="play">▶ Play</button>
+  <button id="replay" class="sec">↻ Replay</button>
+  <button id="hideui" class="sec">Hide UI (H)</button>
+  <span class="hint">Screen-record the square · press H for clean capture</span>
+</div>
+
+<script>
+/* ---------- fit stage to viewport ---------- */
+function fit(){
+  const s=1080, pad=40;
+  const k=Math.min((innerWidth-pad)/s,(innerHeight-pad)/s);
+  const st=document.getElementById('stage');
+  st.style.transform='scale('+k+')';
+  document.getElementById('fit').style.width=(s*k)+'px';
+  document.getElementById('fit').style.height=(s*k)+'px';
+}
+addEventListener('resize',fit);fit();
+
+/* ---------- timeline ---------- */
+const SCENES=[
+  {id:'s0',dur:4800},
+  {id:'s1',dur:8600},
+  {id:'s2',dur:7600},
+  {id:'s3',dur:7400},
+  {id:'s4',dur:8200},
+  {id:'s5',dur:5400},
+];
+const TOTAL=SCENES.reduce((a,s)=>a+s.dur,0);
+let timers=[], playing=false, t0=0, raf=0;
+
+function clearTimers(){timers.forEach(clearTimeout);timers=[];cancelAnimationFrame(raf);}
+function resetAll(){
+  document.querySelectorAll('.scene').forEach(el=>el.classList.remove('on','leaving'));
+  document.getElementById('bar').style.width='0';
+}
+function showScene(i){
+  const cur=document.getElementById(SCENES[i].id);
+  // reflow to restart CSS animations
+  cur.classList.remove('leaving');
+  void cur.offsetWidth;
+  cur.classList.add('on');
+}
+function leaveScene(i){
+  const cur=document.getElementById(SCENES[i].id);
+  cur.classList.add('leaving');
+  setTimeout(()=>cur.classList.remove('on','leaving'),480);
+}
+function play(){
+  clearTimers();resetAll();playing=true;
+  document.getElementById('play').textContent='⏸ Playing';
+  let acc=0;
+  SCENES.forEach((sc,i)=>{
+    timers.push(setTimeout(()=>showScene(i),acc));
+    if(i<SCENES.length-1) timers.push(setTimeout(()=>leaveScene(i),acc+sc.dur-480));
+    acc+=sc.dur;
+  });
+  // loop
+  timers.push(setTimeout(()=>play(),TOTAL+300));
+  // progress bar
+  t0=performance.now();
+  const bar=document.getElementById('bar');
+  (function tick(now){
+    const p=Math.min(1,(now-t0)/(TOTAL));
+    bar.style.width=(p*100)+'%';
+    if(playing) raf=requestAnimationFrame(tick);
+  })(t0);
+}
+document.getElementById('play').onclick=()=>{ if(playing){clearTimers();playing=false;document.getElementById('play').textContent='▶ Play';} else play(); };
+document.getElementById('replay').onclick=play;
+const ui=document.getElementById('ui');
+document.getElementById('hideui').onclick=()=>ui.classList.add('hidden');
+addEventListener('keydown',e=>{
+  if(e.key.toLowerCase()==='h') ui.classList.toggle('hidden');
+  if(e.key===' '){e.preventDefault();document.getElementById('play').click();}
+});
+/* autoplay on load */
+play();
+</script>
+</body>
+</html>
