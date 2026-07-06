@@ -119,11 +119,13 @@ h2.title .accent{color:var(--blue)}
 .answer .tags{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
 .answer .tags span{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);
   border-radius:999px;padding:9px 18px;font-size:17px;font-weight:700}
-.proof{margin-top:22px;display:flex;align-items:center;gap:18px;background:var(--card);
-  border:1.5px dashed var(--blue);border-radius:16px;padding:20px 24px}
-.proof .big{font-size:40px;font-weight:800;color:var(--blue);letter-spacing:-.02em;white-space:nowrap}
-.proof .lab{font-size:15px;font-weight:800;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
-.proof .note{font-size:15px;color:var(--muted);line-height:1.4}
+.proof{margin-top:22px;display:flex;align-items:center;gap:26px;background:var(--card);
+  border:1px solid var(--line);border-left:5px solid var(--blue);border-radius:16px;padding:22px 28px;
+  box-shadow:0 10px 26px rgba(15,27,51,.06)}
+.proof .big{font-size:46px;font-weight:800;color:var(--blue);letter-spacing:-.02em;white-space:nowrap}
+.proof .big .arrow{color:var(--ink);margin:0 8px;font-weight:400}
+.proof .pf-note{font-size:16px;color:var(--muted);line-height:1.45}
+.proof .pf-note b{color:var(--ink);font-size:17.5px;font-weight:800}
 
 /* ---- Scene 4 partnership ---- */
 .cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-top:36px;flex:1}
@@ -278,8 +280,8 @@ h2.title .accent{color:var(--blue)}
         </div>
       </div>
       <div class="proof r" style="--d:1.9s">
-        <div><div class="lab">Proof point</div><div class="big">[ your metric ]</div></div>
-        <div class="note">Placeholder — swap in a real number or before/after<br>(e.g. “diligence in days&nbsp;→&nbsp;hours”, or a client result).</div>
+        <div class="big">Days <span class="arrow">→</span> Minutes</div>
+        <div class="pf-note"><b>Time to an IC-ready answer</b><br>on questions that used to mean digging through memos, calls &amp; decks.</div>
       </div>
     </section>
 
@@ -326,7 +328,6 @@ h2.title .accent{color:var(--blue)}
       </div>
       <h2 class="r" style="--d:.5s">Build the engine that <span class="hl">reasons like your firm.</span></h2>
       <div class="demo r" style="--d:.9s">Reach out to book a demo →</div>
-      <div class="contact r" style="--d:1.2s"><b>[ your link / email here ]</b></div>
     </section>
 
     <div id="bar"></div>
