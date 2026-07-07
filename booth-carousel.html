@@ -97,19 +97,21 @@ h1.title .accent{color:var(--blue)}
 .lane li span{font-size:13px;color:var(--muted);line-height:1.3}
 
 /* ============ SLIDE 2 · CONNECTORS ============ */
-.conns{flex:1;display:flex;flex-direction:column;gap:11px;margin-top:26px}
-.crow{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--line);
-  border-radius:14px;padding:15px 22px;box-shadow:0 5px 16px rgba(15,27,51,.04)}
-.crow .cico{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;font-weight:800;
-  font-size:15px;color:#fff;flex:none;letter-spacing:.02em}
-.crow .cmain{min-width:280px}
-.crow .cmain b{font-size:20px;font-weight:800;color:var(--ink)}
-.crow .cmain div{font-size:14.5px;color:var(--muted);margin-top:2px}
-.crow .feeds{margin-left:auto;display:flex;align-items:center;gap:10px}
-.crow .feeds .fl{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
-.crow .feeds .tags{display:flex;gap:8px;flex-wrap:wrap}
-.crow .feeds .tag{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-line);
-  border-radius:999px;padding:6px 13px;font-size:14px;font-weight:700}
+.cgroups{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:22px;min-height:0}
+.cgroup{display:flex;flex-direction:column;min-height:0}
+.cghead{display:flex;align-items:baseline;gap:11px;margin-bottom:13px}
+.cghead .badge{font-size:15px;font-weight:800;color:#fff;padding:8px 15px;border-radius:9px;white-space:nowrap}
+.cghead .badge.apm{background:var(--blue)}
+.cghead .badge.data{background:var(--ink)}
+.cghead .sub{font-size:13.5px;color:var(--muted)}
+.clist{display:flex;flex-direction:column;gap:9px}
+.citem{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 16px;box-shadow:0 4px 12px rgba(15,27,51,.04)}
+.citem.apm{border-left:4px solid var(--blue)}
+.citem .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.citem .cn{font-size:16.5px;font-weight:800;color:var(--ink)}
+.citem .cfeeds{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.citem .ft{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-line);border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;white-space:nowrap}
+.citem .cdesc{font-size:13px;color:var(--muted);margin-top:3px;line-height:1.3}
 
 /* ============ SLIDE 3 · KNOWLEDGE ============ */
 .kquery{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);
@@ -283,15 +285,30 @@ h1.title .accent{color:var(--blue)}
   <section class="slide" id="s2">
     <div class="eyebrow r" style="--d:.05s"><span class="num">02</span> Connectors</div>
     <h1 class="title r" style="--d:.12s">Live data into the <span class="accent">deal engine</span></h1>
-    <p class="job r" style="--d:.2s">The paid data and systems your firm already trusts — each feeding specific skills, so the work runs on real, current data.</p>
-    <div class="conns">
-      <div class="crow r" style="--d:.32s"><span class="cico" style="background:#7c3aed">PB</span><div class="cmain"><b>PitchBook</b><div>private company financials, deal comps &amp; fund data</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Market Map</span><span class="tag">Comps</span><span class="tag">Screener</span></div></div></div>
-      <div class="crow r" style="--d:.40s"><span class="cico" style="background:#0ea5e9">ZI</span><div class="cmain"><b>ZoomInfo</b><div>firmographics, org charts &amp; contacts</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Sourcing</span><span class="tag">Warm-Path</span></div></div></div>
-      <div class="crow r" style="--d:.48s"><span class="cico" style="background:#f97316">AP</span><div class="cmain"><b>Apollo.io</b><div>company &amp; contact intelligence</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Prospecting</span><span class="tag">Outreach</span></div></div></div>
-      <div class="crow r" style="--d:.56s"><span class="cico" style="background:#0f766e">LS</span><div class="cmain"><b>LSEG</b><div>public comps, market &amp; credit data</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Comps</span><span class="tag">Valuation</span></div></div></div>
-      <div class="crow r" style="--d:.64s"><span class="cico" style="background:#4f46e5">DH</span><div class="cmain"><b>DataHub</b><div>the firm's data catalog</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Portfolio KPIs</span><span class="tag">Data-Room Structure</span></div></div></div>
-      <div class="crow r" style="--d:.72s"><span class="cico" style="background:#ea580c">HS</span><div class="cmain"><b>HubSpot</b><div>deal pipeline &amp; relationship history</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Pipeline</span><span class="tag">CRM Skills</span></div></div></div>
-      <div class="crow r" style="--d:.80s"><span class="cico" style="background:#2563eb">M365</span><div class="cmain"><b>Microsoft 365 / Google Drive</b><div>data rooms, memos &amp; models</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Summarizer</span><span class="tag">Every drafting skill</span></div></div></div>
+    <p class="job r" style="--d:.2s">Two sources feed every skill — AgenticPM's own PE-built research engines, and the paid systems your firm already trusts.</p>
+    <div class="cgroups">
+      <div class="cgroup r" style="--d:.32s">
+        <div class="cghead"><span class="badge apm">AgenticPM's own tools</span><span class="sub">proprietary, built for PE</span></div>
+        <div class="clist">
+          <div class="citem apm"><div class="top"><span class="cn">Company Discovery</span><span class="cfeeds"><span class="ft">Market Map</span><span class="ft">Screener</span></span></div><div class="cdesc">surface private companies by thesis, sector, or website</div></div>
+          <div class="citem apm"><div class="top"><span class="cn">Target List Builder</span><span class="cfeeds"><span class="ft">Market Map</span><span class="ft">Bolt-On Finder</span></span></div><div class="cdesc">a ranked target universe from a plain-language brief</div></div>
+          <div class="citem apm"><div class="top"><span class="cn">Company Intelligence</span><span class="cfeeds"><span class="ft">Screener</span><span class="ft">One-Pager</span></span></div><div class="cdesc">structured financial &amp; firmographic profile for any company</div></div>
+          <div class="citem apm"><div class="top"><span class="cn">M&amp;A / Deal Search</span><span class="cfeeds"><span class="ft">Comps &amp; Precedents</span></span></div><div class="cdesc">precedent transactions, acquirers &amp; active investors</div></div>
+          <div class="citem apm"><div class="top"><span class="cn">People &amp; Leadership Finder</span><span class="cfeeds"><span class="ft">Warm-Path</span><span class="ft">Call Prep</span></span></div><div class="cdesc">decision-makers, CEOs &amp; verified contacts</div></div>
+          <div class="citem apm"><div class="top"><span class="cn">News &amp; Signal Search</span><span class="cfeeds"><span class="ft">Red-Flag Scan</span><span class="ft">KPI Monitoring</span></span></div><div class="cdesc">vetted news &amp; market signals on a target</div></div>
+        </div>
+      </div>
+      <div class="cgroup r" style="--d:.5s">
+        <div class="cghead"><span class="badge data">Your connected data</span><span class="sub">systems you already trust</span></div>
+        <div class="clist">
+          <div class="citem"><div class="top"><span class="cn">PitchBook</span><span class="cfeeds"><span class="ft">Market Map</span><span class="ft">Comps</span></span></div><div class="cdesc">private company financials, deal comps &amp; fund data</div></div>
+          <div class="citem"><div class="top"><span class="cn">ZoomInfo</span><span class="cfeeds"><span class="ft">Sourcing</span><span class="ft">Warm-Path</span></span></div><div class="cdesc">firmographics, org charts &amp; contacts</div></div>
+          <div class="citem"><div class="top"><span class="cn">Apollo.io</span><span class="cfeeds"><span class="ft">Prospecting</span><span class="ft">Outreach</span></span></div><div class="cdesc">company &amp; contact intelligence</div></div>
+          <div class="citem"><div class="top"><span class="cn">LSEG</span><span class="cfeeds"><span class="ft">Comps</span><span class="ft">Valuation</span></span></div><div class="cdesc">public comps, market &amp; credit data</div></div>
+          <div class="citem"><div class="top"><span class="cn">Salesforce / HubSpot</span><span class="cfeeds"><span class="ft">Pipeline</span><span class="ft">CRM sync</span></span></div><div class="cdesc">accounts, pipeline &amp; relationship history</div></div>
+          <div class="citem"><div class="top"><span class="cn">Microsoft 365 / Google Drive</span><span class="cfeeds"><span class="ft">Summarizer</span><span class="ft">Drafting</span></span></div><div class="cdesc">data rooms, memos &amp; models</div></div>
+        </div>
+      </div>
     </div>
   </section>
 
