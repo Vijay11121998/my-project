@@ -112,11 +112,24 @@ h1.title .accent{color:var(--blue)}
   border-radius:999px;padding:6px 13px;font-size:14px;font-weight:700}
 
 /* ============ SLIDE 3 · KNOWLEDGE ============ */
-.kb{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;grid-auto-rows:1fr;gap:16px;margin-top:28px}
-.kcard{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:14px;
-  padding:20px;box-shadow:0 8px 20px rgba(15,27,51,.05);display:flex;flex-direction:column;gap:8px}
-.kcard .kt{font-size:18.5px;font-weight:800;color:var(--ink);line-height:1.2}
-.kcard .kd{font-size:14.5px;color:var(--muted);line-height:1.4}
+.kquery{display:flex;align-items:center;gap:16px;background:#fff;border:1px solid var(--line);
+  border-radius:14px;padding:15px 22px;margin-top:22px;box-shadow:0 8px 20px rgba(15,27,51,.05)}
+.kquery .qi{width:24px;height:24px;color:var(--blue);flex:none}
+.kquery .qt{font-size:19px;color:var(--ink);font-weight:600;font-style:italic}
+.kquery .qask{margin-left:auto;background:var(--blue);color:#fff;font-weight:800;font-size:15px;
+  padding:11px 22px;border-radius:10px;white-space:nowrap}
+.kb{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;grid-auto-rows:1fr;gap:16px;margin-top:16px}
+.kcard{background:var(--card);border:1px solid var(--line);border-radius:14px;position:relative;overflow:hidden;
+  padding:20px;box-shadow:0 8px 20px rgba(15,27,51,.05);display:flex;flex-direction:column;gap:9px}
+.kcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--blue)}
+.kcard .kh{display:flex;align-items:center;gap:12px}
+.kcard .kico{width:42px;height:42px;border-radius:11px;background:var(--blue-soft);display:grid;place-items:center;flex:none}
+.kcard .kico svg{width:23px;height:23px}
+.kcard .kt{font-size:17.5px;font-weight:800;color:var(--ink);line-height:1.15}
+.kcard .kd{font-size:14px;color:var(--muted);line-height:1.4}
+.kcard .ktags{display:flex;flex-wrap:wrap;gap:7px;margin-top:auto;padding-top:14px;border-top:1px solid #f0f3f9}
+.kcard .ktag{font-size:12.5px;font-weight:700;color:var(--blue);background:var(--blue-soft);
+  border:1px solid var(--blue-line);border-radius:7px;padding:5px 10px}
 
 /* ============ SLIDE 4 · COMPONENTS ============ */
 .comp{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:18px;margin-top:24px}
@@ -287,15 +300,52 @@ h1.title .accent{color:var(--blue)}
     <div class="eyebrow r" style="--d:.05s"><span class="num">03</span> Knowledge bases</div>
     <h1 class="title r" style="--d:.12s">Your firm's judgement, <span class="accent">made queryable</span></h1>
     <p class="job r" style="--d:.2s">The proprietary knowledge that makes the engine reason like your firm — not a generic model. Built from what's already in heads and files.</p>
+    <div class="kquery r" style="--d:.28s">
+      <svg class="qi" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="qt">"Which fintech deals did we pass on last cycle — and why?"</span>
+      <span class="qask">Ask the engine →</span>
+    </div>
     <div class="kb">
-      <div class="kcard r" style="--d:.3s"><div class="kt">Investment thesis library</div><div class="kd">by sector and strategy</div></div>
-      <div class="kcard r" style="--d:.37s"><div class="kt">Diligence playbooks</div><div class="kd">your red-flag patterns &amp; DD checklists</div></div>
-      <div class="kcard r" style="--d:.44s"><div class="kt">Past IC memos &amp; post-mortems</div><div class="kd">what you approved, passed on, and why</div></div>
-      <div class="kcard r" style="--d:.51s"><div class="kt">Sector playbooks</div><div class="kd">how the firm wins in each vertical</div></div>
-      <div class="kcard r" style="--d:.58s"><div class="kt">Valuation benchmarks</div><div class="kd">your comps logic &amp; pricing discipline</div></div>
-      <div class="kcard r" style="--d:.65s"><div class="kt">Value-creation playbooks</div><div class="kd">the operating moves that actually worked</div></div>
-      <div class="kcard r" style="--d:.72s"><div class="kt">Expert &amp; reference-call notes</div><div class="kd">primary insight, never lost</div></div>
-      <div class="kcard r" style="--d:.79s"><div class="kt">Deal precedents database</div><div class="kd">terms &amp; structures from prior transactions</div></div>
+      <div class="kcard r" style="--d:.42s">
+        <div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H10v15H5.5c-.8 0-1.5.4-1.5 1V5.5Z" stroke="#1D4ED8" stroke-width="1.7"/><path d="M20 5.5C20 4.7 19.3 4 18.5 4H14v15h4.5c.8 0 1.5.4 1.5 1V5.5Z" stroke="#1D4ED8" stroke-width="1.7"/></svg></span><div class="kt">Investment thesis library</div></div>
+        <div class="kd">by sector and strategy</div>
+        <div class="ktags"><span class="ktag">SaaS rule-of-40</span><span class="ktag">Healthcare roll-ups</span><span class="ktag">Buy-and-build</span></div>
+      </div>
+      <div class="kcard r" style="--d:.49s">
+        <div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="#1D4ED8" stroke-width="1.7"/><path d="M8.5 8.5l1.5 1.5 2.5-2.5M8.5 14l1.5 1.5 2.5-2.5" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="kt">Diligence playbooks</div></div>
+        <div class="kd">your red-flag patterns &amp; DD checklists</div>
+        <div class="ktags"><span class="ktag">Customer concentration</span><span class="ktag">Churn</span><span class="ktag">Working capital</span></div>
+      </div>
+      <div class="kcard r" style="--d:.56s">
+        <div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="#1D4ED8" stroke-width="1.7"/><path d="M9 11h6M9 15h4" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/></svg></span><div class="kt">Past IC memos &amp; post-mortems</div></div>
+        <div class="kd">what you approved, passed on, and why</div>
+        <div class="ktags"><span class="ktag">Won deals</span><span class="ktag">Passed deals</span><span class="ktag">Lessons</span></div>
+      </div>
+      <div class="kcard r" style="--d:.63s">
+        <div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7l6-3 4 3 6-3v13l-6 3-4-3-6 3V7Z" stroke="#1D4ED8" stroke-width="1.7" stroke-linejoin="round"/><path d="M10 4v13M14 7v13" stroke="#1D4ED8" stroke-width="1.7"/></svg></span><div class="kt">Sector playbooks</div></div>
+        <div class="kd">how the firm wins in each vertical</div>
+        <div class="ktags"><span class="ktag">Industrials</span><span class="ktag">Software</span><span class="ktag">Consumer</span></div>
+      </div>
+      <div class="kcard r" style="--d:.70s">
+        <div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/></svg></span><div class="kt">Valuation benchmarks</div></div>
+        <div class="kd">your comps logic &amp; pricing discipline</div>
+        <div class="ktags"><span class="ktag">EV/EBITDA</span><span class="ktag">Entry multiples</span><span class="ktag">Sector medians</span></div>
+      </div>
+      <div class="kcard r" style="--d:.77s">
+        <div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><path d="M3 17l5-5 4 4 8-8" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 8h5v5" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="kt">Value-creation playbooks</div></div>
+        <div class="kd">the operating moves that actually worked</div>
+        <div class="ktags"><span class="ktag">Pricing</span><span class="ktag">GTM</span><span class="ktag">Bolt-ons</span></div>
+      </div>
+      <div class="kcard r" style="--d:.84s">
+        <div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="#1D4ED8" stroke-width="1.7"/><path d="M6 11a6 6 0 0 0 12 0M12 17v3" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/></svg></span><div class="kt">Expert &amp; reference-call notes</div></div>
+        <div class="kd">primary insight, never lost</div>
+        <div class="ktags"><span class="ktag">Expert calls</span><span class="ktag">Customer refs</span><span class="ktag">Channel checks</span></div>
+      </div>
+      <div class="kcard r" style="--d:.91s">
+        <div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="6" rx="7" ry="3" stroke="#1D4ED8" stroke-width="1.7"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3" stroke="#1D4ED8" stroke-width="1.7"/></svg></span><div class="kt">Deal precedents database</div></div>
+        <div class="kd">terms &amp; structures from prior transactions</div>
+        <div class="ktags"><span class="ktag">Earnouts</span><span class="ktag">Rollover equity</span><span class="ktag">Deal terms</span></div>
+      </div>
     </div>
   </section>
 
