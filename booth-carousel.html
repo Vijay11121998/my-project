@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AGENTIC PRIVATE MARKETS — The Deal Engine</title>
+<style>
+/* ============================================================
+   AGENTIC PRIVATE MARKETS — Booth deep-dive carousel
+   16:9 · 6 slides · arrow keys / click / tap · auto-advance
+   ============================================================ */
+:root{
+  --navy:#0A1633; --navy2:#0F1E45;
+  --blue:#1D4ED8; --blue-bright:#3B82F6; --blue-soft:#EFF4FF; --blue-line:#D5E2FF;
+  --paper:#F6F8FC; --card:#FFFFFF; --line:#E4E9F2;
+  --ink:#0F1B33; --muted:#5B6B85; --faint:#8A97B4;
+  --green:#16A34A; --amber:#F59E0B; --red:#DC2626;
+  --ppt:#D24726; --word:#2B579A; --excel:#217346;
+  --sans:"Helvetica Neue",Arial,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#05070f;font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{display:grid;place-items:center;overflow:hidden}
+#fit{position:relative}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--paper);
+  transform-origin:top left;color:var(--ink)}
+
+/* ---------- chrome ---------- */
+.topbar{position:absolute;top:0;left:0;right:0;height:104px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 64px;z-index:20;border-bottom:1px solid var(--line);background:#fff}
+.logo{display:flex;align-items:center;gap:14px;font-weight:800;font-size:25px;letter-spacing:-.01em;color:var(--ink)}
+.logo .mark{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));
+  display:grid;place-items:center;box-shadow:0 6px 18px rgba(29,78,216,.3)}
+.logo .mark svg{width:28px;height:28px}
+.logo .b{color:var(--blue)}
+.stepper{display:flex;align-items:center;gap:8px}
+.step{display:flex;align-items:center;gap:8px;padding:9px 15px;border-radius:999px;font-size:15px;
+  font-weight:700;color:var(--faint);background:transparent;border:1px solid transparent;cursor:pointer;
+  transition:all .25s;white-space:nowrap}
+.step .n{width:22px;height:22px;border-radius:50%;background:#e6ebf5;color:var(--muted);
+  display:grid;place-items:center;font-size:12.5px;font-weight:800}
+.step:hover{color:var(--muted)}
+.step.active{background:var(--blue);color:#fff}
+.step.active .n{background:rgba(255,255,255,.28);color:#fff}
+.step.home{font-weight:800}
+
+/* ---------- slides ---------- */
+.slide{position:absolute;top:104px;left:0;right:0;bottom:82px;padding:44px 64px;
+  opacity:0;visibility:hidden;display:flex;flex-direction:column}
+.slide.on{opacity:1;visibility:visible}
+.r{opacity:0;transform:translateY(22px)}
+.slide.on .r{animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+@keyframes rise{to{opacity:1;transform:none}}
+
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:800;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--blue)}
+.eyebrow .num{background:var(--blue);color:#fff;padding:3px 10px;border-radius:6px;letter-spacing:.1em}
+h1.title{font-size:52px;font-weight:800;letter-spacing:-.02em;line-height:1.03;margin-top:14px;color:var(--ink)}
+h1.title .accent{color:var(--blue)}
+.job{font-size:23px;color:var(--muted);line-height:1.4;margin-top:12px;max-width:1300px}
+
+/* ============ SLIDE 0 · OVERVIEW ============ */
+#s0{align-items:center;text-align:center}
+#s0 .kick{font-size:15px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--blue);margin-top:8px}
+#s0 h1{font-size:60px;font-weight:800;letter-spacing:-.025em;line-height:1.04;margin-top:16px;text-wrap:balance;max-width:1400px}
+#s0 h1 .accent{color:var(--blue)}
+#s0 .sub{font-size:21px;color:var(--muted);margin-top:16px;max-width:1150px;line-height:1.5}
+.pipe{display:flex;align-items:stretch;gap:0;margin-top:44px;width:100%;justify-content:center}
+.pgroup{display:flex;flex-direction:column;align-items:center;gap:12px}
+.pgroup .glabel{font-size:13px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.pgroup .tiles{display:flex;gap:14px}
+.ptile{width:214px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 18px;
+  box-shadow:0 12px 30px rgba(15,27,51,.06);display:flex;flex-direction:column;align-items:center;gap:10px}
+.ptile.engine{background:linear-gradient(160deg,var(--blue),#12276f);border:0;color:#fff;transform:scale(1.06);
+  box-shadow:0 20px 44px rgba(29,78,216,.34)}
+.ptile .ico{width:48px;height:48px;border-radius:12px;background:var(--blue-soft);display:grid;place-items:center}
+.ptile.engine .ico{background:rgba(255,255,255,.16)}
+.ptile .ico svg{width:26px;height:26px}
+.ptile .nm{font-size:20px;font-weight:800;letter-spacing:-.01em}
+.ptile .ds{font-size:14px;color:var(--muted);line-height:1.35}
+.ptile.engine .ds{color:#cdd8f5}
+.parrow{display:flex;align-items:center;padding:0 14px;color:var(--blue);font-size:30px;align-self:center;margin-top:22px}
+.pfoot{display:flex;gap:0;margin-top:22px;width:100%;justify-content:center;font-size:14px;color:var(--faint);font-weight:700}
+.pfoot span{text-align:center}
+
+/* ============ SLIDE 1 · SKILLS ============ */
+.life{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:28px;min-height:0}
+.lane{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;
+  box-shadow:0 8px 22px rgba(15,27,51,.05)}
+.lane .lh{display:flex;align-items:baseline;gap:10px;border-bottom:2px solid var(--blue-soft);padding-bottom:14px;margin-bottom:8px}
+.lane .lh b{font-size:22px;font-weight:800;color:var(--blue)}
+.lane .lh span{font-size:14px;color:var(--muted)}
+.lane ul{list-style:none;display:flex;flex-direction:column}
+.lane li{padding:9px 0;border-bottom:1px solid #f0f3f9;display:flex;flex-direction:column;gap:2px}
+.lane li:last-child{border-bottom:0}
+.lane li b{font-size:16.5px;font-weight:700;color:var(--ink)}
+.lane li span{font-size:13px;color:var(--muted);line-height:1.3}
+
+/* ============ SLIDE 2 · CONNECTORS ============ */
+.conns{flex:1;display:flex;flex-direction:column;gap:11px;margin-top:26px}
+.crow{display:flex;align-items:center;gap:20px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:15px 22px;box-shadow:0 5px 16px rgba(15,27,51,.04)}
+.crow .cico{width:52px;height:52px;border-radius:12px;display:grid;place-items:center;font-weight:800;
+  font-size:15px;color:#fff;flex:none;letter-spacing:.02em}
+.crow .cmain{min-width:280px}
+.crow .cmain b{font-size:20px;font-weight:800;color:var(--ink)}
+.crow .cmain div{font-size:14.5px;color:var(--muted);margin-top:2px}
+.crow .feeds{margin-left:auto;display:flex;align-items:center;gap:10px}
+.crow .feeds .fl{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.crow .feeds .tags{display:flex;gap:8px;flex-wrap:wrap}
+.crow .feeds .tag{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-line);
+  border-radius:999px;padding:6px 13px;font-size:14px;font-weight:700}
+
+/* ============ SLIDE 3 · KNOWLEDGE ============ */
+.kb{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;grid-auto-rows:1fr;gap:16px;margin-top:28px}
+.kcard{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:14px;
+  padding:20px;box-shadow:0 8px 20px rgba(15,27,51,.05);display:flex;flex-direction:column;gap:8px}
+.kcard .kt{font-size:18.5px;font-weight:800;color:var(--ink);line-height:1.2}
+.kcard .kd{font-size:14.5px;color:var(--muted);line-height:1.4}
+
+/* ============ SLIDE 4 · COMPONENTS ============ */
+.comp{flex:1;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:18px;margin-top:24px}
+.ccard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;
+  box-shadow:0 8px 22px rgba(15,27,51,.06);display:flex;flex-direction:column;gap:10px}
+.ccard .cviz{flex:1;background:#fbfcfe;border:1px solid #eef1f7;border-radius:11px;padding:12px;display:grid;place-items:center;min-height:0}
+.ccard .cviz svg{width:100%;height:100%;max-height:150px}
+.ccard .cn{font-size:19px;font-weight:800;color:var(--ink)}
+.ccard .cd{font-size:14px;color:var(--muted);line-height:1.35}
+
+/* ============ SLIDE 5 · TEMPLATES ============ */
+.tpl{flex:1;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:12px 22px;margin-top:26px}
+.trow{display:flex;align-items:center;gap:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:13px;padding:14px 20px;box-shadow:0 5px 14px rgba(15,27,51,.04)}
+.trow .tdoc{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;color:#fff;
+  font-weight:800;font-size:13px;flex:none}
+.trow .tn{font-size:18px;font-weight:700;color:var(--ink);flex:1}
+.trow .tf{display:flex;gap:6px}
+.trow .chip{font-size:12px;font-weight:800;padding:4px 10px;border-radius:6px;color:#fff}
+.chip.ppt{background:var(--ppt)} .chip.word{background:var(--word)} .chip.excel{background:var(--excel)}
+
+/* ---------- bottom nav ---------- */
+.nav{position:absolute;bottom:0;left:0;right:0;height:82px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 64px;z-index:20;border-top:1px solid var(--line);background:#fff}
+.nav .navbtn{display:flex;align-items:center;gap:9px;background:var(--ink);color:#fff;border:0;border-radius:11px;
+  padding:13px 22px;font-size:16px;font-weight:800;cursor:pointer;font-family:var(--sans)}
+.nav .navbtn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.nav .navbtn:disabled{opacity:.3;cursor:default}
+.dots{display:flex;gap:10px;align-items:center}
+.dot{width:11px;height:11px;border-radius:50%;background:#cfd8e8;cursor:pointer;transition:all .25s}
+.dot.active{background:var(--blue);width:30px;border-radius:6px}
+.autobox{display:flex;align-items:center;gap:12px}
+.auto{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--muted);cursor:pointer;user-select:none}
+.auto .sw{width:40px;height:22px;border-radius:999px;background:#cfd8e8;position:relative;transition:all .25s}
+.auto .sw::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:all .25s}
+.auto.on .sw{background:var(--blue)} .auto.on .sw::after{left:20px}
+.pageno{font-size:14px;font-weight:800;color:var(--faint);font-variant-numeric:tabular-nums;min-width:52px;text-align:right}
+#prog{position:absolute;left:0;top:0;height:3px;width:0;background:var(--blue-bright);z-index:30}
+
+@media (prefers-reduced-motion:reduce){.slide.on .r{animation-duration:.01s}}
+</style>
+</head>
+<body>
+<div id="fit"><div id="stage">
+
+  <!-- ===== TOP BAR ===== -->
+  <div class="topbar">
+    <div class="logo">
+      <span class="mark"><svg viewBox="0 0 24 24" fill="none"><path d="M4 8c4-4 12 4 16 0M4 16c4-4 12 4 16 0" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+      <span>AGENTIC <span class="b">PRIVATE MARKETS</span></span>
+    </div>
+    <div class="stepper" id="stepper">
+      <button class="step home" data-i="0">Overview</button>
+      <button class="step" data-i="1"><span class="n">1</span>Skills</button>
+      <button class="step" data-i="2"><span class="n">2</span>Connectors</button>
+      <button class="step" data-i="3"><span class="n">3</span>Knowledge</button>
+      <button class="step" data-i="4"><span class="n">4</span>Components</button>
+      <button class="step" data-i="5"><span class="n">5</span>Templates</button>
+    </div>
+  </div>
+
+  <!-- ===== SLIDE 0 · OVERVIEW ===== -->
+  <section class="slide" id="s0">
+    <div class="kick r" style="--d:.05s">The Decision Engine</div>
+    <h1 class="r" style="--d:.15s">One Claude plug-in, packaged for <span class="accent">your firm's deal engine</span></h1>
+    <p class="sub r" style="--d:.28s">Five pieces that fit together — turning a question into an IC-ready deliverable that reasons like your firm.</p>
+    <div class="pipe">
+      <div class="pgroup r" style="--d:.45s">
+        <div class="glabel">Inputs — make it yours</div>
+        <div class="tiles">
+          <div class="ptile">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7c0-1.7 3.6-3 8-3s8 1.3 8 3-3.6 3-8 3-8-1.3-8-3Z" stroke="#1D4ED8" stroke-width="1.8"/><path d="M4 7v10c0 1.7 3.6 3 8 3s8-1.3 8-3V7" stroke="#1D4ED8" stroke-width="1.8"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3" stroke="#1D4ED8" stroke-width="1.8"/></svg></div>
+            <div class="nm">Connectors</div><div class="ds">feed live data</div>
+          </div>
+          <div class="ptile">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h11l3 3v13H5z" stroke="#1D4ED8" stroke-width="1.8"/><path d="M8 9h8M8 13h8M8 17h5" stroke="#1D4ED8" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+            <div class="nm">Knowledge</div><div class="ds">thinks like your firm</div>
+          </div>
+        </div>
+      </div>
+      <div class="parrow r" style="--d:.7s">→</div>
+      <div class="pgroup r" style="--d:.8s">
+        <div class="glabel" style="color:var(--blue)">The engine</div>
+        <div class="tiles">
+          <div class="ptile engine">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.8"/></svg></div>
+            <div class="nm">Skills</div><div class="ds">do the work</div>
+          </div>
+        </div>
+      </div>
+      <div class="parrow r" style="--d:1.0s">→</div>
+      <div class="pgroup r" style="--d:1.1s">
+        <div class="glabel">Delivery — make it usable</div>
+        <div class="tiles">
+          <div class="ptile">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="#1D4ED8" stroke-width="1.8"/><path d="M7 14l3-4 2 2 3-4 2 3" stroke="#1D4ED8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="nm">Components</div><div class="ds">render the answer</div>
+          </div>
+          <div class="ptile">
+            <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="#1D4ED8" stroke-width="1.8"/><path d="M9 13l2 2 4-4" stroke="#1D4ED8" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="nm">Templates</div><div class="ds">ship the deliverable</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 1 · SKILLS ===== -->
+  <section class="slide" id="s1">
+    <div class="eyebrow r" style="--d:.05s"><span class="num">01</span> Skills</div>
+    <h1 class="title r" style="--d:.12s">One task, one skill, <span class="accent">one deliverable</span></h1>
+    <p class="job r" style="--d:.2s">Repeatable, firm-tuned workflows grouped by where they sit in the deal lifecycle.</p>
+    <div class="life">
+      <div class="lane r" style="--d:.35s">
+        <div class="lh"><b>Sourcing</b><span>find &amp; qualify the deals worth pursuing</span></div>
+        <ul>
+          <li><b>Market Map Builder</b><span>build a target universe for a sector or thesis</span></li>
+          <li><b>Target Screener</b><span>score companies against your investment criteria</span></li>
+          <li><b>Company One-Pager</b><span>turn raw data into a teaser-ready profile</span></li>
+          <li><b>Warm-Path Finder</b><span>map relationship routes into a target</span></li>
+          <li><b>Pipeline Updater</b><span>refresh CRM stages, flag stalled deals</span></li>
+        </ul>
+      </div>
+      <div class="lane r" style="--d:.48s">
+        <div class="lh"><b>Diligence</b><span>pressure-test the thesis to an IC decision</span></div>
+        <ul>
+          <li><b>Thesis Drafter</b><span>structure the investment thesis from initial data</span></li>
+          <li><b>CIM &amp; Data-Room Summarizer</b><span>digest a deck or data room into key findings</span></li>
+          <li><b>Comps &amp; Precedents Builder</b><span>pull comparable companies and prior deals</span></li>
+          <li><b>QoE First Pass</b><span>flag quality-of-earnings issues early</span></li>
+          <li><b>Red-Flag Scan</b><span>run the target against your risk checklist</span></li>
+          <li><b>Management Call Prep</b><span>generate the question list and briefing pack</span></li>
+          <li><b>IC Memo Drafter</b><span>assemble the investment committee memo</span></li>
+        </ul>
+      </div>
+      <div class="lane r" style="--d:.61s">
+        <div class="lh"><b>Portfolio</b><span>drive value from close to exit</span></div>
+        <ul>
+          <li><b>100-Day Plan Builder</b><span>structure the value-creation plan post-close</span></li>
+          <li><b>KPI Monitoring Pack</b><span>actuals vs. plan across the portfolio</span></li>
+          <li><b>Bolt-On Finder</b><span>source add-on targets for a portco</span></li>
+          <li><b>Board Deck Generator</b><span>assemble the quarterly board pack</span></li>
+          <li><b>Portfolio Benchmarking</b><span>compare portcos against each other &amp; peers</span></li>
+          <li><b>Exit Readiness Assessment</b><span>score a portco's readiness to sell</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 2 · CONNECTORS ===== -->
+  <section class="slide" id="s2">
+    <div class="eyebrow r" style="--d:.05s"><span class="num">02</span> Connectors</div>
+    <h1 class="title r" style="--d:.12s">Live data into the <span class="accent">deal engine</span></h1>
+    <p class="job r" style="--d:.2s">The paid data and systems your firm already trusts — each feeding specific skills, so the work runs on real, current data.</p>
+    <div class="conns">
+      <div class="crow r" style="--d:.32s"><span class="cico" style="background:#7c3aed">PB</span><div class="cmain"><b>PitchBook</b><div>private company financials, deal comps &amp; fund data</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Market Map</span><span class="tag">Comps</span><span class="tag">Screener</span></div></div></div>
+      <div class="crow r" style="--d:.40s"><span class="cico" style="background:#0ea5e9">ZI</span><div class="cmain"><b>ZoomInfo</b><div>firmographics, org charts &amp; contacts</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Sourcing</span><span class="tag">Warm-Path</span></div></div></div>
+      <div class="crow r" style="--d:.48s"><span class="cico" style="background:#f97316">AP</span><div class="cmain"><b>Apollo.io</b><div>company &amp; contact intelligence</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Prospecting</span><span class="tag">Outreach</span></div></div></div>
+      <div class="crow r" style="--d:.56s"><span class="cico" style="background:#0f766e">LS</span><div class="cmain"><b>LSEG</b><div>public comps, market &amp; credit data</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Comps</span><span class="tag">Valuation</span></div></div></div>
+      <div class="crow r" style="--d:.64s"><span class="cico" style="background:#4f46e5">DH</span><div class="cmain"><b>DataHub</b><div>the firm's data catalog</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Portfolio KPIs</span><span class="tag">Data-Room Structure</span></div></div></div>
+      <div class="crow r" style="--d:.72s"><span class="cico" style="background:#ea580c">HS</span><div class="cmain"><b>HubSpot</b><div>deal pipeline &amp; relationship history</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Pipeline</span><span class="tag">CRM Skills</span></div></div></div>
+      <div class="crow r" style="--d:.80s"><span class="cico" style="background:#2563eb">M365</span><div class="cmain"><b>Microsoft 365 / Google Drive</b><div>data rooms, memos &amp; models</div></div><div class="feeds"><span class="fl">Feeds</span><div class="tags"><span class="tag">Summarizer</span><span class="tag">Every drafting skill</span></div></div></div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 3 · KNOWLEDGE ===== -->
+  <section class="slide" id="s3">
+    <div class="eyebrow r" style="--d:.05s"><span class="num">03</span> Knowledge bases</div>
+    <h1 class="title r" style="--d:.12s">Your firm's judgement, <span class="accent">made queryable</span></h1>
+    <p class="job r" style="--d:.2s">The proprietary knowledge that makes the engine reason like your firm — not a generic model. Built from what's already in heads and files.</p>
+    <div class="kb">
+      <div class="kcard r" style="--d:.3s"><div class="kt">Investment thesis library</div><div class="kd">by sector and strategy</div></div>
+      <div class="kcard r" style="--d:.37s"><div class="kt">Diligence playbooks</div><div class="kd">your red-flag patterns &amp; DD checklists</div></div>
+      <div class="kcard r" style="--d:.44s"><div class="kt">Past IC memos &amp; post-mortems</div><div class="kd">what you approved, passed on, and why</div></div>
+      <div class="kcard r" style="--d:.51s"><div class="kt">Sector playbooks</div><div class="kd">how the firm wins in each vertical</div></div>
+      <div class="kcard r" style="--d:.58s"><div class="kt">Valuation benchmarks</div><div class="kd">your comps logic &amp; pricing discipline</div></div>
+      <div class="kcard r" style="--d:.65s"><div class="kt">Value-creation playbooks</div><div class="kd">the operating moves that actually worked</div></div>
+      <div class="kcard r" style="--d:.72s"><div class="kt">Expert &amp; reference-call notes</div><div class="kd">primary insight, never lost</div></div>
+      <div class="kcard r" style="--d:.79s"><div class="kt">Deal precedents database</div><div class="kd">terms &amp; structures from prior transactions</div></div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 4 · COMPONENTS ===== -->
+  <section class="slide" id="s4">
+    <div class="eyebrow r" style="--d:.05s"><span class="num">04</span> Components</div>
+    <h1 class="title r" style="--d:.12s">How every answer <span class="accent">renders — decision-ready</span></h1>
+    <p class="job r" style="--d:.2s">The visual building blocks skills use to present an answer, so output is decision-ready — not a wall of text.</p>
+    <div class="comp">
+      <div class="ccard r" style="--d:.3s">
+        <div class="cviz"><svg viewBox="0 0 200 120">
+          <rect x="14" y="70" width="26" height="40" fill="#1D4ED8"/>
+          <rect x="58" y="52" width="26" height="18" fill="#3B82F6"/><rect x="58" y="52" width="26" height="18" fill="#3B82F6" opacity=".55"/>
+          <rect x="102" y="38" width="26" height="14" fill="#3B82F6" opacity=".7"/>
+          <rect x="146" y="22" width="26" height="88" fill="#16A34A"/>
+          <line x1="40" y1="70" x2="58" y2="70" stroke="#8A97B4" stroke-dasharray="3 3"/>
+          <line x1="84" y1="52" x2="102" y2="52" stroke="#8A97B4" stroke-dasharray="3 3"/>
+          <line x1="128" y1="38" x2="146" y2="38" stroke="#8A97B4" stroke-dasharray="3 3"/>
+        </svg></div>
+        <div class="cn">Value Bridge</div><div class="cd">what drives the move from entry to exit equity value</div>
+      </div>
+      <div class="ccard r" style="--d:.38s">
+        <div class="cviz"><svg viewBox="0 0 200 120">
+          <rect x="18" y="20" width="34" height="20" rx="3" fill="#16A34A"/><rect x="56" y="20" width="34" height="20" rx="3" fill="#16A34A"/><rect x="94" y="20" width="34" height="20" rx="3" fill="#F59E0B"/><rect x="132" y="20" width="34" height="20" rx="3" fill="#16A34A"/>
+          <rect x="18" y="44" width="34" height="20" rx="3" fill="#F59E0B"/><rect x="56" y="44" width="34" height="20" rx="3" fill="#DC2626"/><rect x="94" y="44" width="34" height="20" rx="3" fill="#16A34A"/><rect x="132" y="44" width="34" height="20" rx="3" fill="#F59E0B"/>
+          <rect x="18" y="68" width="34" height="20" rx="3" fill="#16A34A"/><rect x="56" y="68" width="34" height="20" rx="3" fill="#F59E0B"/><rect x="94" y="68" width="34" height="20" rx="3" fill="#DC2626"/><rect x="132" y="68" width="34" height="20" rx="3" fill="#16A34A"/>
+        </svg></div>
+        <div class="cn">Risk Heatmap</div><div class="cd">diligence red-flags across categories, color-coded</div>
+      </div>
+      <div class="ccard r" style="--d:.46s">
+        <div class="cviz"><svg viewBox="0 0 200 120">
+          <rect x="14" y="16" width="172" height="20" fill="#1D4ED8"/>
+          <rect x="14" y="38" width="172" height="18" fill="#EFF4FF"/>
+          <rect x="14" y="58" width="172" height="18" fill="#fff" stroke="#E4E9F2"/>
+          <rect x="14" y="78" width="172" height="18" fill="#EFF4FF"/>
+          <line x1="70" y1="16" x2="70" y2="96" stroke="#fff" stroke-width="2"/><line x1="120" y1="16" x2="120" y2="96" stroke="#fff" stroke-width="2"/><line x1="160" y1="16" x2="160" y2="96" stroke="#fff" stroke-width="2"/>
+          <rect x="14" y="58" width="172" height="18" fill="none" stroke="#1D4ED8" stroke-width="2"/>
+        </svg></div>
+        <div class="cn">Peer Benchmarking Table</div><div class="cd">rank a target or portco against comparables</div>
+      </div>
+      <div class="ccard r" style="--d:.54s">
+        <div class="cviz"><svg viewBox="0 0 200 120">
+          <line x1="24" y1="12" x2="24" y2="104" stroke="#cfd8e8" stroke-width="1.5"/><line x1="24" y1="104" x2="188" y2="104" stroke="#cfd8e8" stroke-width="1.5"/>
+          <circle cx="60" cy="80" r="6" fill="#8A97B4"/><circle cx="90" cy="60" r="6" fill="#8A97B4"/><circle cx="72" cy="46" r="6" fill="#8A97B4"/><circle cx="120" cy="70" r="6" fill="#8A97B4"/><circle cx="150" cy="34" r="9" fill="#1D4ED8"/><circle cx="110" cy="40" r="6" fill="#8A97B4"/><circle cx="140" cy="82" r="6" fill="#8A97B4"/>
+        </svg></div>
+        <div class="cn">Positioning Scatter</div><div class="cd">plot a market on two axes to spot the standouts</div>
+      </div>
+      <div class="ccard r" style="--d:.62s">
+        <div class="cviz"><svg viewBox="0 0 200 120">
+          <rect x="20" y="20" width="90" height="16" rx="4" fill="#1D4ED8"/>
+          <rect x="55" y="42" width="95" height="16" rx="4" fill="#3B82F6"/>
+          <rect x="90" y="64" width="80" height="16" rx="4" fill="#3B82F6" opacity=".7"/>
+          <rect x="40" y="86" width="70" height="16" rx="4" fill="#16A34A"/>
+        </svg></div>
+        <div class="cn">Deal Timeline (Gantt)</div><div class="cd">a process or 100-day plan, phased with owners</div>
+      </div>
+      <div class="ccard r" style="--d:.70s">
+        <div class="cviz" style="background:linear-gradient(160deg,var(--blue),#12276f);border:0">
+          <div style="color:#fff;text-align:center;padding:10px">
+            <div style="font-size:15px;font-weight:800;line-height:1.3">Components render on&nbsp;screen.</div>
+            <div style="font-size:13.5px;color:#cdd8f5;margin-top:6px;line-height:1.35">Templates (next) ship the same answer as a finished file.</div>
+          </div>
+        </div>
+        <div class="cn" style="color:var(--blue)">Screen → File</div><div class="cd">the same answer, ready to hand to the IC</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 5 · TEMPLATES ===== -->
+  <section class="slide" id="s5">
+    <div class="eyebrow r" style="--d:.05s"><span class="num">05</span> Office templates</div>
+    <h1 class="title r" style="--d:.12s">Branded, <span class="accent">IC-ready deliverables</span> — in one click</h1>
+    <p class="job r" style="--d:.2s">Your house-style Word, Excel &amp; PowerPoint documents. Components render the answer on screen; templates ship it as a finished file.</p>
+    <div class="tpl">
+      <div class="trow r" style="--d:.3s"><span class="tdoc" style="background:var(--ppt)">P</span><span class="tn">Investment teaser / one-pager</span><span class="tf"><span class="chip ppt">PPT</span><span class="chip word">Word</span></span></div>
+      <div class="trow r" style="--d:.36s"><span class="tdoc" style="background:var(--word)">W</span><span class="tn">IC memo</span><span class="tf"><span class="chip word">Word</span></span></div>
+      <div class="trow r" style="--d:.42s"><span class="tdoc" style="background:var(--ppt)">P</span><span class="tn">IC / deal deck</span><span class="tf"><span class="chip ppt">PPT</span></span></div>
+      <div class="trow r" style="--d:.48s"><span class="tdoc" style="background:var(--excel)">X</span><span class="tn">LBO &amp; returns model</span><span class="tf"><span class="chip excel">Excel</span></span></div>
+      <div class="trow r" style="--d:.54s"><span class="tdoc" style="background:var(--excel)">X</span><span class="tn">Comps output</span><span class="tf"><span class="chip excel">Excel</span></span></div>
+      <div class="trow r" style="--d:.60s"><span class="tdoc" style="background:var(--excel)">X</span><span class="tn">QoE summary</span><span class="tf"><span class="chip excel">Excel</span><span class="chip word">Word</span></span></div>
+      <div class="trow r" style="--d:.66s"><span class="tdoc" style="background:var(--ppt)">P</span><span class="tn">100-day value-creation plan</span><span class="tf"><span class="chip ppt">PPT</span></span></div>
+      <div class="trow r" style="--d:.72s"><span class="tdoc" style="background:var(--ppt)">P</span><span class="tn">Quarterly board deck</span><span class="tf"><span class="chip ppt">PPT</span></span></div>
+      <div class="trow r" style="--d:.78s"><span class="tdoc" style="background:var(--excel)">X</span><span class="tn">Portfolio monitoring pack</span><span class="tf"><span class="chip excel">Excel</span><span class="chip ppt">PPT</span></span></div>
+      <div class="trow r" style="--d:.84s"><span class="tdoc" style="background:var(--excel)">X</span><span class="tn">Market map</span><span class="tf"><span class="chip excel">Excel</span><span class="chip ppt">PPT</span></span></div>
+    </div>
+  </section>
+
+  <!-- ===== BOTTOM NAV ===== -->
+  <div class="nav">
+    <button class="navbtn ghost" id="prev">← Prev</button>
+    <div class="dots" id="dots"></div>
+    <div class="autobox">
+      <div class="auto" id="auto"><span class="sw"></span> Auto-play</div>
+      <span class="pageno" id="pageno">1 / 6</span>
+      <button class="navbtn" id="next">Next →</button>
+    </div>
+  </div>
+  <div id="prog"></div>
+
+</div></div>
+
+<script>
+/* fit */
+function fit(){
+  const k=Math.min(innerWidth/1920,innerHeight/1080);
+  const st=document.getElementById('stage');
+  st.style.transform='scale('+k+')';
+  document.getElementById('fit').style.width=(1920*k)+'px';
+  document.getElementById('fit').style.height=(1080*k)+'px';
+}
+addEventListener('resize',fit);fit();
+
+const N=6, slides=[...document.querySelectorAll('.slide')], steps=[...document.querySelectorAll('.step')];
+let cur=-1, autoOn=false, autoTimer=null, progRAF=0, AUTO_MS=10000;
+
+/* dots */
+const dotsEl=document.getElementById('dots');
+for(let i=0;i<N;i++){const d=document.createElement('div');d.className='dot';d.dataset.i=i;dotsEl.appendChild(d);}
+const dots=[...document.querySelectorAll('.dot')];
+
+function go(i){
+  i=(i+N)%N;
+  if(i===cur)return;
+  slides.forEach((s,x)=>{s.classList.remove('on');});
+  const s=slides[i];void s.offsetWidth;s.classList.add('on');
+  steps.forEach((st,x)=>st.classList.toggle('active',x===i));
+  dots.forEach((d,x)=>d.classList.toggle('active',x===i));
+  document.getElementById('pageno').textContent=(i+1)+' / '+N;
+  document.getElementById('prev').disabled=false;
+  document.getElementById('next').disabled=false;
+  cur=i;
+  if(autoOn)armAuto();
+}
+document.getElementById('prev').onclick=()=>{stopAutoOnce();go(cur-1);};
+document.getElementById('next').onclick=()=>{stopAutoOnce();go(cur+1);};
+steps.forEach(st=>st.onclick=()=>{stopAutoOnce();go(+st.dataset.i);});
+dots.forEach(d=>d.onclick=()=>{stopAutoOnce();go(+d.dataset.i);});
+addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown'){stopAutoOnce();go(cur+1);}
+  if(e.key==='ArrowLeft'||e.key==='PageUp'){stopAutoOnce();go(cur-1);}
+  if(/^[1-6]$/.test(e.key)){stopAutoOnce();go(+e.key-1);}
+});
+
+/* auto-play */
+const autoBtn=document.getElementById('auto'), prog=document.getElementById('prog');
+function armAuto(){
+  clearTimeout(autoTimer);cancelAnimationFrame(progRAF);
+  const t0=performance.now();
+  (function tick(now){
+    const p=Math.min(1,(now-t0)/AUTO_MS);
+    prog.style.width=(p*100)+'%';
+    if(autoOn&&p<1)progRAF=requestAnimationFrame(tick);
+  })(t0);
+  autoTimer=setTimeout(()=>{if(autoOn)go(cur+1);},AUTO_MS);
+}
+function stopAutoOnce(){/* manual nav keeps auto state but resets timer via go() */}
+autoBtn.onclick=()=>{
+  autoOn=!autoOn;autoBtn.classList.toggle('on',autoOn);
+  if(autoOn){armAuto();}else{clearTimeout(autoTimer);cancelAnimationFrame(progRAF);prog.style.width='0';}
+};
+
+go(0);
+</script>
+</body>
+</html>
