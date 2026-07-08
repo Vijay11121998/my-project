@@ -198,6 +198,85 @@ h2.sh .accent{color:var(--blue)}
 .foot .fine .b{color:var(--blue-bright)}
 
 @media(prefers-reduced-motion:reduce){.reveal{transition:none;opacity:1;transform:none}}
+
+/* ===== interactive demo sections ===== */
+.demo-cols{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.demo-left{min-width:0}
+.demo-right{position:sticky;top:92px}
+@media(max-width:980px){.demo-cols{grid-template-columns:1fr;gap:28px}.demo-right{position:static}}
+.dgroup{margin-top:18px}
+.dgh{font-size:13px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.dgh.ink{color:var(--ink)}
+.ditem{position:relative;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 15px;margin-bottom:9px;box-shadow:0 3px 10px rgba(15,27,51,.04);transition:.25s}
+.ditem .dname{font-size:15.5px;font-weight:800;color:var(--ink);display:flex;align-items:center;flex-wrap:wrap}
+.ditem .ddesc{font-size:12.5px;color:var(--muted);margin-top:2px;line-height:1.3}
+.ditem.demo-hl{border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,78,216,.14),0 12px 26px rgba(29,78,216,.15)}
+.hlpill{display:inline-flex;align-items:center;gap:6px;margin-top:9px;font-size:10.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#fff;background:var(--blue);padding:4px 10px;border-radius:999px}
+.hlpill::before{content:"";width:6px;height:6px;border-radius:50%;background:#fff;animation:blink 1.4s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.dtwo{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dgrid .ditem{margin-bottom:0}
+.fmt{font-size:10.5px;font-weight:800;border-radius:5px;padding:1px 6px;margin-left:6px;color:#fff}
+.fmt.ppt{background:var(--ppt)}.fmt.excel{background:var(--excel)}.fmt.word{background:var(--word)}
+.demo-left .comp{grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+.ccard.demo-hl{border-color:var(--blue);box-shadow:0 0 0 3px rgba(29,78,216,.14),0 12px 26px rgba(29,78,216,.15)}
+
+/* Claude panel */
+.cpanel{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 60px rgba(11,18,40,.14);overflow:hidden;display:flex;flex-direction:column;height:560px}
+.cbar{display:flex;align-items:center;gap:9px;padding:13px 18px;border-bottom:1px solid var(--line);background:#fbfcfe}
+.cbar .spark{width:20px;height:20px}
+.cbar .cname{font-weight:800;font-size:14px;color:var(--ink)}
+.cbar .ctask{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--blue);background:var(--blue-soft);border:1px solid var(--blue-line);border-radius:999px;padding:5px 12px}
+.cbody{flex:1;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:14px}
+.umsg{align-self:flex-end;max-width:88%;background:var(--blue-soft);border:1px solid var(--blue-line);border-radius:14px 14px 4px 14px;padding:11px 15px;font-size:14px;color:var(--ink);line-height:1.4}
+.umsg .car{display:inline-block;width:2px;height:1em;background:var(--blue);vertical-align:-2px;animation:blink .9s step-end infinite}
+.amsg{display:flex;gap:11px;align-items:flex-start}
+.amsg .av{width:28px;height:28px;flex:none;border-radius:8px;background:#fdf0eb;display:grid;place-items:center}
+.amsg .av svg{width:17px;height:17px}
+.amsg .txt{font-size:14px;color:var(--ink);line-height:1.5;min-width:0;flex:1}
+.amsg .txt p{margin-bottom:8px}
+.think{display:inline-flex;gap:4px;padding:5px 0}
+.think i{width:7px;height:7px;border-radius:50%;background:#c3ccdd;animation:bounce 1.2s infinite}
+.think i:nth-child(2){animation-delay:.15s}.think i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.5}40%{transform:translateY(-5px);opacity:1}}
+.cinput{border-top:1px solid var(--line);padding:11px 14px;display:flex;align-items:center;gap:10px;background:#fbfcfe}
+.cinput .box{flex:1;color:var(--faint);font-size:13px;border:1px solid var(--line);border-radius:10px;padding:9px 13px;background:#fff}
+.cinput .send{width:33px;height:33px;border-radius:9px;background:var(--blue);display:grid;place-items:center;flex:none}
+.cinput .send svg{width:16px;height:16px}
+.art-wrap{opacity:0;transform:translateY(12px);transition:.5s;margin-top:8px}
+.art-wrap.in{opacity:1;transform:none}
+.art{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.art-head{display:flex;align-items:center;gap:8px;padding:10px 13px;background:#f4f7fc;border-bottom:1px solid var(--line);font-size:12.5px;font-weight:800;color:var(--ink)}
+.art-head .di{width:15px;height:15px;color:var(--blue);flex:none}
+.art-b{padding:14px}
+.art-foot{padding:9px 13px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);background:#fbfcfe}
+.op-top{display:flex;align-items:center;gap:11px}
+.op-logo{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));color:#fff;font-weight:800;display:grid;place-items:center;font-size:17px;flex:none}
+.op-name{font-weight:800;font-size:15px;color:var(--ink)}
+.op-sub{font-size:11.5px;color:var(--muted)}
+.op-fit{margin-left:auto;font-size:10.5px;font-weight:800;color:var(--green);background:#e8f6ee;border:1px solid #bfe6cd;border-radius:999px;padding:5px 10px;white-space:nowrap}
+.op-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:12px}
+.op-kpis div{background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:7px 4px;text-align:center}
+.op-kpis b{display:block;font-size:14px;color:var(--blue)}.op-kpis span{font-size:9.5px;color:var(--muted)}
+.op-desc{font-size:12px;color:var(--muted);line-height:1.45;margin-top:11px}
+.dtbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.dtbl td{padding:7px 4px;border-bottom:1px solid #f0f3f9}
+.dtbl tr:last-child td{border-bottom:0}
+.dtbl td:first-child{font-weight:700;color:var(--ink)}
+.dtbl td:last-child{text-align:right;color:var(--muted)}
+.sc-row{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #f0f3f9;font-size:12.5px}
+.sc-row .ck{width:19px;height:19px;border-radius:50%;display:grid;place-items:center;flex:none;font-size:11px;font-weight:800;color:#fff}
+.sc-row .ck.ok{background:var(--green)}.sc-row .ck.warn{background:var(--amber)}
+.sc-row .l{color:var(--ink);font-weight:600}.sc-row .v{margin-left:auto;color:var(--muted);white-space:nowrap}
+.sc-verdict{margin-top:11px;font-size:12.5px;font-weight:800;color:var(--ink);background:var(--blue-soft);border:1px solid var(--blue-line);border-radius:9px;padding:10px 12px;line-height:1.4}
+.scat{width:100%;height:auto}
+.scat-sum{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.45}.scat-sum b{color:var(--ink)}
+.doc{background:#fff;border:1px solid var(--line);border-radius:8px;padding:15px 17px;box-shadow:0 6px 16px rgba(15,27,51,.06)}
+.doc-t{font-size:14px;font-weight:800;color:var(--ink)}
+.doc-m{font-size:10.5px;color:var(--muted);margin-bottom:9px}
+.doc ol{margin:0 0 10px 16px;font-size:11.5px;color:var(--ink);line-height:1.75}
+.doc-rec{font-size:11.5px;color:var(--ink);background:var(--paper);border-left:3px solid var(--blue);padding:8px 10px;border-radius:0 8px 8px 0;line-height:1.4}
 </style>
 </head>
 <body>
@@ -276,134 +355,104 @@ h2.sh .accent{color:var(--blue)}
 </div></section>
 
 <!-- ===== SKILLS ===== -->
-<section class="piece" id="skills"><div class="wrap">
-  <span class="eyebrow reveal"><span class="num">01</span> Skills</span>
-  <h2 class="sh reveal">One task, one skill, <span class="accent">one deliverable</span></h2>
-  <p class="lede reveal">Repeatable, firm-tuned workflows grouped by where they sit in the deal lifecycle.</p>
-  <div class="lanes">
-    <div class="lane reveal">
-      <div class="lh"><b>Sourcing</b><span>find &amp; qualify deals</span></div>
-      <ul>
-        <li><b>Market Map Builder</b><span>build a target universe for a sector or thesis</span></li>
-        <li><b>Target Screener</b><span>score companies against your criteria</span></li>
-        <li><b>Company One-Pager</b><span>turn raw data into a teaser-ready profile</span></li>
-        <li><b>Warm-Path Finder</b><span>map relationship routes into a target</span></li>
-        <li><b>Pipeline Updater</b><span>refresh CRM stages, flag stalled deals</span></li>
-      </ul>
+<section class="piece demo-sec" id="skills" data-demo="skills"><div class="wrap demo-cols">
+  <div class="demo-left">
+    <span class="eyebrow reveal"><span class="num">01</span> Skills</span>
+    <h2 class="sh reveal">One task, one skill, <span class="accent">one deliverable</span></h2>
+    <p class="lede reveal">Repeatable, firm-tuned workflows grouped by where they sit in the deal lifecycle.</p>
+    <div class="dgroup reveal"><div class="dgh">Sourcing</div>
+      <div class="ditem"><div class="dname">Market Map Builder</div><div class="ddesc">build a target universe for a sector or thesis</div></div>
+      <div class="ditem"><div class="dname">Target Screener</div><div class="ddesc">score companies against your investment criteria</div></div>
+      <div class="ditem demo-hl"><div class="dname">Company One-Pager</div><div class="ddesc">turn raw data into a teaser-ready profile</div><span class="hlpill">Live demo</span></div>
     </div>
-    <div class="lane reveal">
-      <div class="lh"><b>Diligence</b><span>pressure-test to an IC decision</span></div>
-      <ul>
-        <li><b>Thesis Drafter</b><span>structure the investment thesis from initial data</span></li>
-        <li><b>CIM &amp; Data-Room Summarizer</b><span>digest a deck or data room into findings</span></li>
-        <li><b>Comps &amp; Precedents Builder</b><span>pull comparable companies &amp; prior deals</span></li>
-        <li><b>QoE First Pass</b><span>flag quality-of-earnings issues early</span></li>
-        <li><b>Red-Flag Scan</b><span>run the target against your risk checklist</span></li>
-        <li><b>Management Call Prep</b><span>generate the question list &amp; briefing pack</span></li>
-        <li><b>IC Memo Drafter</b><span>assemble the investment committee memo</span></li>
-      </ul>
+    <div class="dgroup reveal"><div class="dgh">Diligence</div>
+      <div class="ditem"><div class="dname">Thesis Drafter</div><div class="ddesc">structure the investment thesis from initial data</div></div>
+      <div class="ditem"><div class="dname">Comps &amp; Precedents Builder</div><div class="ddesc">pull comparable companies &amp; prior deals</div></div>
+      <div class="ditem"><div class="dname">IC Memo Drafter</div><div class="ddesc">assemble the investment committee memo</div></div>
     </div>
-    <div class="lane reveal">
-      <div class="lh"><b>Portfolio</b><span>close to exit</span></div>
-      <ul>
-        <li><b>100-Day Plan Builder</b><span>structure the value-creation plan post-close</span></li>
-        <li><b>KPI Monitoring Pack</b><span>actuals vs. plan across the portfolio</span></li>
-        <li><b>Bolt-On Finder</b><span>source add-on targets for a portco</span></li>
-        <li><b>Board Deck Generator</b><span>assemble the quarterly board pack</span></li>
-        <li><b>Portfolio Benchmarking</b><span>compare portcos vs. each other &amp; peers</span></li>
-        <li><b>Exit Readiness Assessment</b><span>score a portco's readiness to sell</span></li>
-      </ul>
+    <div class="dgroup reveal"><div class="dgh">Portfolio</div>
+      <div class="ditem"><div class="dname">100-Day Plan Builder</div><div class="ddesc">structure the value-creation plan post-close</div></div>
+      <div class="ditem"><div class="dname">KPI Monitoring Pack</div><div class="ddesc">actuals vs. plan across the portfolio</div></div>
+      <div class="ditem"><div class="dname">Exit Readiness Assessment</div><div class="ddesc">score a portco's readiness to sell</div></div>
     </div>
   </div>
+  <aside class="demo-right reveal"><div class="cpanel" id="panel-skills"></div></aside>
 </div></section>
 
 <!-- ===== CONNECTORS ===== -->
-<section class="piece" id="connectors"><div class="wrap">
-  <span class="eyebrow reveal"><span class="num">02</span> Connectors</span>
-  <h2 class="sh reveal">Live data into the <span class="accent">deal engine</span></h2>
-  <p class="lede reveal">Two sources feed every skill — AgenticPM's own PE-built research engines, and the paid systems your firm already trusts — so the work runs on real, current data.</p>
-
-  <div class="reveal" style="margin-top:36px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
-    <span style="background:var(--blue);color:#fff;font-weight:800;font-size:15px;padding:8px 15px;border-radius:9px">AgenticPM's own tools</span>
-    <span style="color:var(--muted);font-size:16px">proprietary sourcing &amp; research engines, built for PE</span>
+<section class="piece demo-sec" id="connectors" data-demo="connectors"><div class="wrap demo-cols">
+  <div class="demo-left">
+    <span class="eyebrow reveal"><span class="num">02</span> Connectors</span>
+    <h2 class="sh reveal">Live data into the <span class="accent">deal engine</span></h2>
+    <p class="lede reveal">Two sources feed every skill — AgenticPM's own PE-built research engines, and the paid systems your firm already trusts.</p>
+    <div class="dtwo" style="margin-top:18px">
+      <div class="reveal">
+        <div class="dgh">AgenticPM's own tools</div>
+        <div class="ditem demo-hl"><div class="dname">Company Discovery</div><div class="ddesc">surface private companies</div><span class="hlpill">Live demo</span></div>
+        <div class="ditem"><div class="dname">Target List Builder</div><div class="ddesc">ranked target universe</div></div>
+        <div class="ditem"><div class="dname">Company Intelligence</div><div class="ddesc">financial &amp; firmographic profile</div></div>
+        <div class="ditem"><div class="dname">M&amp;A / Deal Search</div><div class="ddesc">precedents, acquirers &amp; investors</div></div>
+      </div>
+      <div class="reveal">
+        <div class="dgh ink">Your connected data</div>
+        <div class="ditem"><div class="dname">PitchBook</div><div class="ddesc">financials, comps &amp; funds</div></div>
+        <div class="ditem"><div class="dname">ZoomInfo</div><div class="ddesc">firmographics &amp; contacts</div></div>
+        <div class="ditem"><div class="dname">LSEG</div><div class="ddesc">public comps &amp; credit</div></div>
+        <div class="ditem"><div class="dname">Microsoft 365 / Google Drive</div><div class="ddesc">data rooms, memos &amp; models</div></div>
+      </div>
+    </div>
   </div>
-  <div class="conns" style="margin-top:16px">
-    <div class="crow reveal"><span class="cico" style="background:var(--blue)">CD</span><div class="cmain"><b>Company Discovery</b><div>surface private companies by thesis, sector, or website</div></div><div class="feeds"><span class="fl">Feeds</span><span class="tag">Market Map</span><span class="tag">Screener</span></div></div>
-    <div class="crow reveal"><span class="cico" style="background:var(--blue)">TL</span><div class="cmain"><b>Target List Builder</b><div>generate a ranked target universe from a plain-language brief</div></div><div class="feeds"><span class="fl">Feeds</span><span class="tag">Market Map</span><span class="tag">Bolt-On Finder</span></div></div>
-    <div class="crow reveal"><span class="cico" style="background:var(--blue)">CI</span><div class="cmain"><b>Company Intelligence</b><div>structured financial &amp; firmographic profile for any company</div></div><div class="feeds"><span class="fl">Feeds</span><span class="tag">Screener</span><span class="tag">One-Pager</span></div></div>
-    <div class="crow reveal"><span class="cico" style="background:var(--blue)">MA</span><div class="cmain"><b>M&amp;A / Deal Search</b><div>precedent transactions, acquirers &amp; active investors</div></div><div class="feeds"><span class="fl">Feeds</span><span class="tag">Comps &amp; Precedents</span></div></div>
-    <div class="crow reveal"><span class="cico" style="background:var(--blue)">PL</span><div class="cmain"><b>People &amp; Leadership Finder</b><div>decision-makers, CEOs &amp; verified contacts</div></div><div class="feeds"><span class="fl">Feeds</span><span class="tag">Warm-Path</span><span class="tag">Management Call Prep</span></div></div>
-    <div class="crow reveal"><span class="cico" style="background:var(--blue)">NS</span><div class="cmain"><b>News &amp; Signal Search</b><div>vetted news &amp; market signals on a target</div></div><div class="feeds"><span class="fl">Feeds</span><span class="tag">Red-Flag Scan</span><span class="tag">KPI Monitoring</span></div></div>
-  </div>
-
-  <div class="reveal" style="margin-top:36px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap">
-    <span style="background:var(--ink);color:#fff;font-weight:800;font-size:15px;padding:8px 15px;border-radius:9px">Your firm's connected data</span>
-    <span style="color:var(--muted);font-size:16px">the paid systems you already trust</span>
-  </div>
-  <div class="conns" style="margin-top:16px">
-    <div class="crow reveal"><span class="cico" style="background:#7c3aed">PB</span><div class="cmain"><b>PitchBook</b><div>private company financials, deal comps &amp; fund data</div></div><div class="feeds"><span class="fl">Feeds</span><span class="tag">Market Map</span><span class="tag">Comps</span><span class="tag">Screener</span></div></div>
-    <div class="crow reveal"><span class="cico" style="background:#0ea5e9">ZI</span><div class="cmain"><b>ZoomInfo</b><div>firmographics, org charts &amp; contacts</div></div><div class="feeds"><span class="fl">Feeds</span><span class="tag">Sourcing</span><span class="tag">Warm-Path</span></div></div>
-    <div class="crow reveal"><span class="cico" style="background:#f97316">AP</span><div class="cmain"><b>Apollo.io</b><div>company &amp; contact intelligence</div></div><div class="feeds"><span class="fl">Feeds</span><span class="tag">Prospecting</span><span class="tag">Outreach</span></div></div>
-    <div class="crow reveal"><span class="cico" style="background:#0f766e">LS</span><div class="cmain"><b>LSEG</b><div>public comps, market &amp; credit data</div></div><div class="feeds"><span class="fl">Feeds</span><span class="tag">Comps</span><span class="tag">Valuation</span></div></div>
-    <div class="crow reveal"><span class="cico" style="background:#00A1E0">SF</span><div class="cmain"><b>Salesforce / HubSpot</b><div>accounts, pipeline &amp; relationship history</div></div><div class="feeds"><span class="fl">Feeds</span><span class="tag">Pipeline</span><span class="tag">Warm-Path</span><span class="tag">CRM sync</span></div></div>
-    <div class="crow reveal"><span class="cico" style="background:#2563eb">M365</span><div class="cmain"><b>Microsoft 365 / Google Drive</b><div>data rooms, memos &amp; models</div></div><div class="feeds"><span class="fl">Feeds</span><span class="tag">Summarizer</span><span class="tag">Every drafting skill</span></div></div>
-  </div>
+  <aside class="demo-right reveal"><div class="cpanel" id="panel-connectors"></div></aside>
 </div></section>
 
 <!-- ===== KNOWLEDGE ===== -->
-<section class="piece" id="knowledge"><div class="wrap">
-  <span class="eyebrow reveal"><span class="num">03</span> Knowledge bases</span>
-  <h2 class="sh reveal">Your firm's judgement, <span class="accent">made queryable</span></h2>
-  <p class="lede reveal">The proprietary knowledge that makes the engine reason like your firm — not a generic model. Built from what's already in heads and files.</p>
-  <div class="kquery reveal">
-    <svg class="qi" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    <span class="qt">"Which fintech deals did we pass on last cycle — and why?"</span>
-    <span class="qask">Ask the engine →</span>
+<section class="piece demo-sec" id="knowledge" data-demo="knowledge"><div class="wrap demo-cols">
+  <div class="demo-left">
+    <span class="eyebrow reveal"><span class="num">03</span> Knowledge bases</span>
+    <h2 class="sh reveal">Your firm's judgement, <span class="accent">made queryable</span></h2>
+    <p class="lede reveal">The proprietary knowledge that makes the engine reason like your firm — not a generic model. Built from what's already in heads and files.</p>
+    <div class="dgrid" style="margin-top:18px">
+      <div class="ditem demo-hl reveal"><div class="dname">Investment thesis library</div><div class="ddesc">by sector &amp; strategy</div><span class="hlpill">Live demo</span></div>
+      <div class="ditem reveal"><div class="dname">Diligence playbooks</div><div class="ddesc">red-flag patterns &amp; DD checklists</div></div>
+      <div class="ditem reveal"><div class="dname">Past IC memos &amp; post-mortems</div><div class="ddesc">what you approved, passed on &amp; why</div></div>
+      <div class="ditem reveal"><div class="dname">Valuation benchmarks</div><div class="ddesc">comps logic &amp; pricing discipline</div></div>
+    </div>
   </div>
-  <div class="kb">
-    <div class="kcard reveal"><div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H10v15H5.5c-.8 0-1.5.4-1.5 1V5.5Z" stroke="#1D4ED8" stroke-width="1.7"/><path d="M20 5.5C20 4.7 19.3 4 18.5 4H14v15h4.5c.8 0 1.5.4 1.5 1V5.5Z" stroke="#1D4ED8" stroke-width="1.7"/></svg></span><div class="kt">Investment thesis library</div></div><div class="kd">by sector and strategy</div><div class="ktags"><span class="ktag">SaaS rule-of-40</span><span class="ktag">Healthcare roll-ups</span><span class="ktag">Buy-and-build</span></div></div>
-    <div class="kcard reveal"><div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="#1D4ED8" stroke-width="1.7"/><path d="M8.5 8.5l1.5 1.5 2.5-2.5M8.5 14l1.5 1.5 2.5-2.5" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="kt">Diligence playbooks</div></div><div class="kd">your red-flag patterns &amp; DD checklists</div><div class="ktags"><span class="ktag">Customer concentration</span><span class="ktag">Churn</span><span class="ktag">Working capital</span></div></div>
-    <div class="kcard reveal"><div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="#1D4ED8" stroke-width="1.7"/><path d="M9 11h6M9 15h4" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/></svg></span><div class="kt">Past IC memos &amp; post-mortems</div></div><div class="kd">what you approved, passed on, and why</div><div class="ktags"><span class="ktag">Won deals</span><span class="ktag">Passed deals</span><span class="ktag">Lessons</span></div></div>
-    <div class="kcard reveal"><div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7l6-3 4 3 6-3v13l-6 3-4-3-6 3V7Z" stroke="#1D4ED8" stroke-width="1.7" stroke-linejoin="round"/><path d="M10 4v13M14 7v13" stroke="#1D4ED8" stroke-width="1.7"/></svg></span><div class="kt">Sector playbooks</div></div><div class="kd">how the firm wins in each vertical</div><div class="ktags"><span class="ktag">Industrials</span><span class="ktag">Software</span><span class="ktag">Consumer</span></div></div>
-    <div class="kcard reveal"><div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/></svg></span><div class="kt">Valuation benchmarks</div></div><div class="kd">your comps logic &amp; pricing discipline</div><div class="ktags"><span class="ktag">EV/EBITDA</span><span class="ktag">Entry multiples</span><span class="ktag">Sector medians</span></div></div>
-    <div class="kcard reveal"><div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><path d="M3 17l5-5 4 4 8-8" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 8h5v5" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div class="kt">Value-creation playbooks</div></div><div class="kd">the operating moves that actually worked</div><div class="ktags"><span class="ktag">Pricing</span><span class="ktag">GTM</span><span class="ktag">Bolt-ons</span></div></div>
-    <div class="kcard reveal"><div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="#1D4ED8" stroke-width="1.7"/><path d="M6 11a6 6 0 0 0 12 0M12 17v3" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/></svg></span><div class="kt">Expert &amp; reference-call notes</div></div><div class="kd">primary insight, never lost</div><div class="ktags"><span class="ktag">Expert calls</span><span class="ktag">Customer refs</span><span class="ktag">Channel checks</span></div></div>
-    <div class="kcard reveal"><div class="kh"><span class="kico"><svg viewBox="0 0 24 24" fill="none"><ellipse cx="12" cy="6" rx="7" ry="3" stroke="#1D4ED8" stroke-width="1.7"/><path d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3" stroke="#1D4ED8" stroke-width="1.7"/></svg></span><div class="kt">Deal precedents database</div></div><div class="kd">terms &amp; structures from prior transactions</div><div class="ktags"><span class="ktag">Earnouts</span><span class="ktag">Rollover equity</span><span class="ktag">Deal terms</span></div></div>
-  </div>
+  <aside class="demo-right reveal"><div class="cpanel" id="panel-knowledge"></div></aside>
 </div></section>
 
 <!-- ===== COMPONENTS ===== -->
-<section class="piece" id="components"><div class="wrap">
+<section class="piece demo-sec" id="components" data-demo="components"><div class="wrap demo-cols">
+  <div class="demo-left">
   <span class="eyebrow reveal"><span class="num">04</span> Components</span>
   <h2 class="sh reveal">How every answer <span class="accent">renders — decision-ready</span></h2>
-  <p class="lede reveal">The visual building blocks skills use to present an answer, so output is decision-ready — not a wall of text.</p>
+  <p class="lede reveal">The visual building blocks skills use to present an answer — decision-ready, not a wall of text.</p>
   <div class="comp">
     <div class="ccard reveal"><div class="cviz"><svg viewBox="0 0 200 100"><rect x="14" y="58" width="26" height="34" fill="#1D4ED8"/><rect x="58" y="44" width="26" height="15" fill="#3B82F6" opacity=".6"/><rect x="102" y="32" width="26" height="12" fill="#3B82F6" opacity=".75"/><rect x="146" y="18" width="26" height="74" fill="#16A34A"/><line x1="40" y1="58" x2="58" y2="58" stroke="#8A97B4" stroke-dasharray="3 3"/><line x1="84" y1="44" x2="102" y2="44" stroke="#8A97B4" stroke-dasharray="3 3"/><line x1="128" y1="32" x2="146" y2="32" stroke="#8A97B4" stroke-dasharray="3 3"/></svg></div><div class="cn">Value Bridge</div><div class="cd">what drives the move from entry to exit equity value</div></div>
     <div class="ccard reveal"><div class="cviz"><svg viewBox="0 0 200 100"><rect x="20" y="14" width="34" height="20" rx="3" fill="#16A34A"/><rect x="58" y="14" width="34" height="20" rx="3" fill="#16A34A"/><rect x="96" y="14" width="34" height="20" rx="3" fill="#F59E0B"/><rect x="134" y="14" width="34" height="20" rx="3" fill="#16A34A"/><rect x="20" y="38" width="34" height="20" rx="3" fill="#F59E0B"/><rect x="58" y="38" width="34" height="20" rx="3" fill="#DC2626"/><rect x="96" y="38" width="34" height="20" rx="3" fill="#16A34A"/><rect x="134" y="38" width="34" height="20" rx="3" fill="#F59E0B"/><rect x="20" y="62" width="34" height="20" rx="3" fill="#16A34A"/><rect x="58" y="62" width="34" height="20" rx="3" fill="#F59E0B"/><rect x="96" y="62" width="34" height="20" rx="3" fill="#DC2626"/><rect x="134" y="62" width="34" height="20" rx="3" fill="#16A34A"/></svg></div><div class="cn">Risk Heatmap</div><div class="cd">diligence red-flags across categories, color-coded</div></div>
     <div class="ccard reveal"><div class="cviz"><svg viewBox="0 0 200 100"><rect x="14" y="12" width="172" height="18" fill="#1D4ED8"/><rect x="14" y="32" width="172" height="16" fill="#EFF4FF"/><rect x="14" y="50" width="172" height="16" fill="#fff" stroke="#E4E9F2"/><rect x="14" y="68" width="172" height="16" fill="#EFF4FF"/><line x1="70" y1="12" x2="70" y2="84" stroke="#fff" stroke-width="2"/><line x1="120" y1="12" x2="120" y2="84" stroke="#fff" stroke-width="2"/><line x1="160" y1="12" x2="160" y2="84" stroke="#fff" stroke-width="2"/><rect x="14" y="50" width="172" height="16" fill="none" stroke="#1D4ED8" stroke-width="2"/></svg></div><div class="cn">Peer Benchmarking Table</div><div class="cd">rank a target or portco against comparables</div></div>
-    <div class="ccard reveal"><div class="cviz"><svg viewBox="0 0 200 100"><line x1="24" y1="10" x2="24" y2="86" stroke="#cfd8e8" stroke-width="1.5"/><line x1="24" y1="86" x2="188" y2="86" stroke="#cfd8e8" stroke-width="1.5"/><circle cx="60" cy="66" r="6" fill="#8A97B4"/><circle cx="90" cy="48" r="6" fill="#8A97B4"/><circle cx="72" cy="36" r="6" fill="#8A97B4"/><circle cx="120" cy="58" r="6" fill="#8A97B4"/><circle cx="150" cy="26" r="9" fill="#1D4ED8"/><circle cx="110" cy="32" r="6" fill="#8A97B4"/><circle cx="140" cy="70" r="6" fill="#8A97B4"/></svg></div><div class="cn">Positioning Scatter</div><div class="cd">plot a market on two axes to spot the standouts</div></div>
+    <div class="ccard demo-hl reveal"><div class="cviz"><svg viewBox="0 0 200 100"><line x1="24" y1="10" x2="24" y2="86" stroke="#cfd8e8" stroke-width="1.5"/><line x1="24" y1="86" x2="188" y2="86" stroke="#cfd8e8" stroke-width="1.5"/><circle cx="60" cy="66" r="6" fill="#8A97B4"/><circle cx="90" cy="48" r="6" fill="#8A97B4"/><circle cx="72" cy="36" r="6" fill="#8A97B4"/><circle cx="120" cy="58" r="6" fill="#8A97B4"/><circle cx="150" cy="26" r="9" fill="#1D4ED8"/><circle cx="110" cy="32" r="6" fill="#8A97B4"/><circle cx="140" cy="70" r="6" fill="#8A97B4"/></svg></div><div class="cn">Positioning Scatter</div><div class="cd">plot a market on two axes to spot the standouts</div><span class="hlpill">Live demo</span></div>
     <div class="ccard reveal"><div class="cviz"><svg viewBox="0 0 200 100"><rect x="20" y="16" width="90" height="14" rx="4" fill="#1D4ED8"/><rect x="55" y="36" width="95" height="14" rx="4" fill="#3B82F6"/><rect x="90" y="56" width="80" height="14" rx="4" fill="#3B82F6" opacity=".7"/><rect x="40" y="76" width="70" height="14" rx="4" fill="#16A34A"/></svg></div><div class="cn">Deal Timeline (Gantt)</div><div class="cd">a process or 100-day plan, phased with owners</div></div>
-    <div class="ccard reveal"><div class="cviz" style="background:linear-gradient(160deg,var(--blue),#12276f);border:0"><div style="color:#fff;text-align:center;padding:8px"><div style="font-size:16px;font-weight:800;line-height:1.3">Components render on screen.</div><div style="font-size:13.5px;color:#cdd8f5;margin-top:6px">Templates ship the same answer as a finished file.</div></div></div><div class="cn" style="color:var(--blue)">Screen → File</div><div class="cd">the same answer, ready to hand to the IC</div></div>
   </div>
+  </div>
+  <aside class="demo-right reveal"><div class="cpanel" id="panel-components"></div></aside>
 </div></section>
 
 <!-- ===== TEMPLATES ===== -->
-<section class="piece" id="templates"><div class="wrap">
-  <span class="eyebrow reveal"><span class="num">05</span> Office templates</span>
-  <h2 class="sh reveal">Branded, <span class="accent">IC-ready deliverables</span> — in one click</h2>
-  <p class="lede reveal">Your house-style Word, Excel &amp; PowerPoint documents. Components render the answer on screen; templates ship it as a finished file.</p>
-  <div class="tpl">
-    <div class="trow reveal"><span class="tdoc" style="background:var(--ppt)">P</span><span class="tn">Investment teaser / one-pager</span><span class="chip ppt">PPT</span><span class="chip word">Word</span></div>
-    <div class="trow reveal"><span class="tdoc" style="background:var(--word)">W</span><span class="tn">IC memo</span><span class="chip word">Word</span></div>
-    <div class="trow reveal"><span class="tdoc" style="background:var(--ppt)">P</span><span class="tn">IC / deal deck</span><span class="chip ppt">PPT</span></div>
-    <div class="trow reveal"><span class="tdoc" style="background:var(--excel)">X</span><span class="tn">LBO &amp; returns model</span><span class="chip excel">Excel</span></div>
-    <div class="trow reveal"><span class="tdoc" style="background:var(--excel)">X</span><span class="tn">Comps output</span><span class="chip excel">Excel</span></div>
-    <div class="trow reveal"><span class="tdoc" style="background:var(--excel)">X</span><span class="tn">QoE summary</span><span class="chip excel">Excel</span><span class="chip word">Word</span></div>
-    <div class="trow reveal"><span class="tdoc" style="background:var(--ppt)">P</span><span class="tn">100-day value-creation plan</span><span class="chip ppt">PPT</span></div>
-    <div class="trow reveal"><span class="tdoc" style="background:var(--ppt)">P</span><span class="tn">Quarterly board deck</span><span class="chip ppt">PPT</span></div>
-    <div class="trow reveal"><span class="tdoc" style="background:var(--excel)">X</span><span class="tn">Portfolio monitoring pack</span><span class="chip excel">Excel</span><span class="chip ppt">PPT</span></div>
-    <div class="trow reveal"><span class="tdoc" style="background:var(--excel)">X</span><span class="tn">Market map</span><span class="chip excel">Excel</span><span class="chip ppt">PPT</span></div>
+<section class="piece demo-sec" id="templates" data-demo="templates"><div class="wrap demo-cols">
+  <div class="demo-left">
+    <span class="eyebrow reveal"><span class="num">05</span> Office templates</span>
+    <h2 class="sh reveal">Branded, <span class="accent">IC-ready deliverables</span> — in one click</h2>
+    <p class="lede reveal">Your house-style Word, Excel &amp; PowerPoint documents. Components render on screen; templates ship the file.</p>
+    <div class="dgroup reveal" style="margin-top:18px">
+      <div class="ditem demo-hl"><div class="dname">IC memo<span class="fmt word">Word</span></div><div class="ddesc">the full investment committee memo</div><span class="hlpill">Live demo</span></div>
+      <div class="ditem"><div class="dname">IC / deal deck<span class="fmt ppt">PPT</span></div><div class="ddesc">the committee presentation</div></div>
+      <div class="ditem"><div class="dname">LBO &amp; returns model<span class="fmt excel">Excel</span></div><div class="ddesc">entry, leverage &amp; exit returns</div></div>
+      <div class="ditem"><div class="dname">100-day value-creation plan<span class="fmt ppt">PPT</span></div><div class="ddesc">post-close operating plan</div></div>
+      <div class="ditem"><div class="dname">Quarterly board deck<span class="fmt ppt">PPT</span></div><div class="ddesc">the portfolio board pack</div></div>
+    </div>
   </div>
+  <aside class="demo-right reveal"><div class="cpanel" id="panel-templates"></div></aside>
 </div></section>
 
 <!-- ===== PAYOFF ===== -->
@@ -438,6 +487,64 @@ h2.sh .accent{color:var(--blue)}
 document.documentElement.classList.add('js');
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
 document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%6,5)*0.05)+'s';io.observe(el);});
+
+/* ===== interactive Claude-panel demos ===== */
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const AV='<svg viewBox="0 0 24 24" fill="#D97757"><path d="M12 2c.5 4.8 2.7 7 7.5 7.5C14.7 10 12.5 12.2 12 17c-.5-4.8-2.7-7-7.5-7.5C9.3 9 11.5 6.8 12 2Z"/></svg>';
+function shell(task){
+  return '<div class="cbar"><svg class="spark" viewBox="0 0 24 24" fill="#D97757"><path d="M12 2c.5 4.8 2.7 7 7.5 7.5C14.7 10 12.5 12.2 12 17c-.5-4.8-2.7-7-7.5-7.5C9.3 9 11.5 6.8 12 2Z"/></svg><span class="cname">Claude</span><span class="ctask">'+task+'</span></div><div class="cbody"></div><div class="cinput"><div class="box">Reply to Claude…</div><div class="send"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>';
+}
+async function typeInto(el,text,sp){ if(RM){el.textContent=text;return;} for(let i=1;i<=text.length;i++){el.textContent=text.slice(0,i);await wait(sp);} }
+async function streamInto(el,text){ if(RM){el.textContent=text;return;} const w=text.split(' '); for(let i=0;i<w.length;i++){el.textContent=w.slice(0,i+1).join(' ');await wait(36);} }
+const RUN={};
+async function runDemo(key){
+  const panel=document.getElementById('panel-'+key); if(!panel||RUN[key])return; RUN[key]=true;
+  const d=DEMOS[key]; panel.innerHTML=shell(d.task);
+  const body=panel.querySelector('.cbody'); await wait(450);
+  const um=document.createElement('div'); um.className='umsg';
+  const ut=document.createElement('span'); const car=document.createElement('span'); car.className='car';
+  um.appendChild(ut); um.appendChild(car); body.appendChild(um); body.scrollTop=body.scrollHeight;
+  await typeInto(ut,d.q,22); car.remove(); await wait(450);
+  const am=document.createElement('div'); am.className='amsg';
+  am.innerHTML='<div class="av">'+AV+'</div><div class="txt"><span class="think"><i></i><i></i><i></i></span></div>';
+  body.appendChild(am); body.scrollTop=body.scrollHeight; await wait(1100);
+  const txt=am.querySelector('.txt'); txt.innerHTML='';
+  for(const para of d.a){ const p=document.createElement('p'); txt.appendChild(p); await streamInto(p,para); body.scrollTop=body.scrollHeight; await wait(220); }
+  const aw=document.createElement('div'); aw.className='art-wrap'; aw.innerHTML=d.art; txt.appendChild(aw);
+  body.scrollTop=body.scrollHeight; await wait(60); aw.classList.add('in'); body.scrollTop=body.scrollHeight;
+  await wait(200); RUN[key]=false;
+}
+const DEMOS={
+ skills:{task:'Company One-Pager',
+  q:"Build a one-pager on Project Atlas — the founder-owned logistics-software target we're screening.",
+  a:["Pulling Project Atlas from Company Intelligence and cross-checking revenue and headcount against PitchBook and your CRM…",
+     "Done. Structured a teaser-ready profile around the metrics your IC looks at first — with the customer-concentration flag surfaced up front."],
+  art:`<div class="art"><div class="art-head"><svg class="di" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="currentColor" stroke-width="1.7"/></svg>Project Atlas — Company One-Pager</div><div class="art-b"><div class="op-top"><div class="op-logo">A</div><div><div class="op-name">Project Atlas</div><div class="op-sub">Freight &amp; logistics OS · Amsterdam · founder-owned</div></div><div class="op-fit">Thesis fit: Strong</div></div><div class="op-kpis"><div><b>€14M</b><span>ARR</span></div><div><b>+38%</b><span>YoY growth</span></div><div><b>118%</b><span>Net retention</span></div><div><b>90+</b><span>Customers</span></div></div><div class="op-desc">Cloud platform for mid-market freight forwarders — quoting, booking &amp; track-and-trace in one system. Strong DACH &amp; Benelux footprint; top-3 customers = 41% of revenue.</div></div><div class="art-foot">Sources · Company Intelligence · PitchBook · CRM</div></div>`},
+ connectors:{task:'Company Discovery',
+  q:"Find founder-owned vertical-SaaS companies in Europe, €5–20M revenue.",
+  a:["Scanning live sources across the web, PitchBook and Tracxn…",
+     "47 private companies match. Filtered to founder-owned, €5–20M revenue, EU-HQ and enriched each with sector, revenue estimate and website."],
+  art:`<div class="art"><div class="art-head"><svg class="di" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.8"/><path d="M20 20l-3.5-3.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>Company Discovery · 47 matches</div><div class="art-b"><table class="dtbl"><tr><td>Northwind Freight OS</td><td>€18M · NL</td></tr><tr><td>Cargoflow</td><td>€12M · DE</td></tr><tr><td>Portbase Labs</td><td>€9M · BE</td></tr><tr><td>Transply</td><td>€6M · SE</td></tr><tr><td style="color:var(--blue)">+ 43 more</td><td>ranked by fit</td></tr></table></div><div class="art-foot">→ 47 sent to Market Map &amp; Screener</div></div>`},
+ knowledge:{task:'Investment thesis library',
+  q:"Does Project Atlas meet our investment thesis?",
+  a:["Retrieving your vertical-SaaS thesis and scoring Atlas against each criterion…",
+     "Atlas meets 4 of your 5 thesis tests — strong on growth, ownership and retention, with one flag on customer concentration to diligence."],
+  art:`<div class="art"><div class="art-head"><svg class="di" viewBox="0 0 24 24" fill="none"><path d="M5 4h11l3 3v13H5z" stroke="currentColor" stroke-width="1.7"/></svg>Thesis fit · Project Atlas</div><div class="art-b"><div class="sc-row"><span class="ck ok">✓</span><span class="l">Recurring revenue &gt; 70%</span><span class="v">92% ARR</span></div><div class="sc-row"><span class="ck ok">✓</span><span class="l">Growth &gt; 30%</span><span class="v">38% YoY</span></div><div class="sc-row"><span class="ck ok">✓</span><span class="l">Founder-owned</span><span class="v">Yes</span></div><div class="sc-row"><span class="ck ok">✓</span><span class="l">Net retention &gt; 110%</span><span class="v">118%</span></div><div class="sc-row"><span class="ck warn">!</span><span class="l">Customer concentration &lt; 30%</span><span class="v">Top-3 = 41%</span></div><div class="sc-verdict">Meets 4 of 5 · Strong fit — diligence the concentration risk before IC.</div></div><div class="art-foot">Scored against your Vertical-SaaS thesis</div></div>`},
+ components:{task:'Positioning Scatter',
+  q:"How does Atlas compare to its peers on growth, margins, and valuation?",
+  a:["Benchmarking Atlas against 8 comparable vertical-SaaS logistics players…",
+     "Atlas sits top-right: above-median growth at healthy margins — and still priced below the peer multiple."],
+  art:`<div class="art"><div class="art-head"><svg class="di" viewBox="0 0 24 24" fill="none"><path d="M4 20V4M4 20h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Positioning Scatter · vertical-SaaS logistics</div><div class="art-b"><svg class="scat" viewBox="0 0 300 190"><line x1="40" y1="14" x2="40" y2="158" stroke="#cfd8e8" stroke-width="1.5"/><line x1="40" y1="158" x2="288" y2="158" stroke="#cfd8e8" stroke-width="1.5"/><text x="164" y="180" text-anchor="middle" font-size="10" fill="#8A97B4">Revenue growth →</text><text x="16" y="88" text-anchor="middle" font-size="10" fill="#8A97B4" transform="rotate(-90 16 88)">EBITDA margin →</text><circle cx="92" cy="120" r="6" fill="#9aa6c0"/><circle cx="120" cy="96" r="7" fill="#9aa6c0"/><circle cx="150" cy="112" r="6" fill="#9aa6c0"/><circle cx="176" cy="72" r="6" fill="#9aa6c0"/><circle cx="110" cy="136" r="5" fill="#9aa6c0"/><circle cx="205" cy="100" r="7" fill="#9aa6c0"/><circle cx="162" cy="132" r="6" fill="#9aa6c0"/><circle cx="246" cy="56" r="10" fill="#1D4ED8"/><text x="246" y="40" text-anchor="middle" font-size="10" font-weight="700" fill="#1D4ED8">Atlas</text></svg><div class="scat-sum"><b>Atlas leads on growth-adjusted value</b> — 38% growth at 22% EBITDA margin, ~1.5 turns below the peer-median multiple.</div></div><div class="art-foot">8 peers · growth (x) vs margin (y) · bubble = revenue</div></div>`},
+ templates:{task:'IC Memo',
+  q:"Turn everything we have on Atlas into our house-style IC memo.",
+  a:["Assembling the memo from the thesis fit, comps, diligence findings and returns model…",
+     "Drafted a full IC memo in your template — comps table and risk heatmap embedded, 2 open items flagged for the deal team."],
+  art:`<div class="art"><div class="art-head"><svg class="di" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="currentColor" stroke-width="1.7"/><path d="M9 12h6M9 16h4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Project Atlas — IC Memo.docx</div><div class="art-b"><div class="doc"><div class="doc-t">Project Atlas — Investment Committee Memo</div><div class="doc-m">Confidential · Draft · generated in house style</div><ol><li>Executive summary &amp; recommendation</li><li>Investment thesis &amp; fit</li><li>Market &amp; competitive position</li><li>Financials &amp; comparable companies</li><li>Diligence findings &amp; key risks</li><li>Valuation &amp; returns</li><li>Proposed deal structure</li></ol><div class="doc-rec">Recommendation: proceed to confirmatory DD · entry €120M (11.5× EBITDA) · base case 2.8× / 24% IRR</div></div></div><div class="art-foot">Word · your template · comps &amp; risk heatmap embedded</div></div>`}
+};
+Object.keys(DEMOS).forEach(k=>{const p=document.getElementById('panel-'+k); if(p)p.innerHTML=shell(DEMOS[k].task);});
+const dio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)runDemo(e.target.dataset.demo);}),{threshold:.4});
+document.querySelectorAll('.demo-sec').forEach(s=>dio.observe(s));
 </script>
 </body>
 </html>
