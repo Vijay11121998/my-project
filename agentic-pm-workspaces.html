@@ -76,7 +76,7 @@ h2.st .accent{color:var(--blue)}
 .csb .rec{font-size:12px;color:#8a8578;padding:4px 9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .csb .me{margin-top:auto;display:flex;align-items:center;gap:8px;padding:9px 9px 2px;border-top:1px solid #ece9e1}
 .csb .me .av{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:10px;font-weight:800;display:grid;place-items:center}
-.cmain{display:flex;flex-direction:column;min-width:0;background:#fff}
+.cmain{display:flex;flex-direction:column;min-width:0;background:#fff;position:relative;overflow:hidden}
 .cmtop{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid #f0eee8}
 .cmtop .title{font-size:14px;font-weight:700;color:#3d3a34;display:flex;align-items:center;gap:7px}.cmtop .title svg{width:13px;height:13px;opacity:.5}
 .cmtop .share{font-size:12px;font-weight:700;color:#6b6659;border:1px solid #e0ddd4;border-radius:8px;padding:6px 13px}
@@ -164,6 +164,20 @@ h2.st .accent{color:var(--blue)}
 .skrow .cat{color:var(--muted);font-weight:700}
 
 /* nav */
+/* plugin open animation */
+.pmenu{position:absolute;left:20px;bottom:84px;width:260px;background:#fff;border:1px solid #e0ddd4;border-radius:14px;box-shadow:0 22px 55px rgba(15,27,51,.24);padding:7px;z-index:6;animation:pop .24s ease}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+.pmenu .pi{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;font-size:13.5px;color:#3d3a34}
+.pmenu .pi.sel{background:var(--blue-soft);color:var(--blue);font-weight:700}
+.pmenu .pi .chev{margin-left:auto;color:#b5afa1}
+.pmenu .pi svg{width:15px;height:15px;opacity:.75}
+.psub{position:absolute;left:252px;bottom:84px;width:226px;background:#fff;border:1px solid #e0ddd4;border-radius:14px;box-shadow:0 22px 55px rgba(15,27,51,.24);padding:7px;z-index:7;animation:pop .24s ease}
+.psub .pg{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;font-size:13.5px;font-weight:700;color:#3d3a34}
+.psub .pg.sel{background:var(--blue-soft);color:var(--blue)}
+.psub .pg .pin{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;flex:none}
+.psub .pg .pin svg{width:15px;height:15px}
+.wschip2{display:inline-flex;align-items:center;gap:7px;background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-line);border-radius:8px;padding:5px 10px;font-size:12.5px;font-weight:800;margin-bottom:10px}
+.wschip2 .d{width:15px;height:15px;display:grid;place-items:center}
 .nav{position:fixed;bottom:22px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:16px;z-index:50}
 .arw{width:46px;height:46px;border-radius:50%;border:1px solid rgba(120,140,180,.5);background:rgba(10,22,51,.5);color:#cdd8f5;font-size:19px;cursor:pointer}.arw:disabled{opacity:.3}
 .dots{display:flex;gap:9px}.dot{width:11px;height:11px;border-radius:50%;background:#8a97b4;cursor:pointer;transition:.25s}.dot.active{background:var(--blue);width:32px;border-radius:6px}
@@ -242,79 +256,6 @@ h2.st .accent{color:var(--blue)}
     </div>
   </section>
 
-  <!-- ===== SLIDE 4 · ACCESS ===== -->
-  <section class="slide" id="s4">
-    <div class="top"><span class="eyebrow a" style="--d:.05s">Getting started</span>
-      <span class="brand a" style="--d:.05s"><span class="mk"><svg viewBox="0 0 24 24" fill="none"><polygon points="3.5,10 6.5,4.8 12.5,4.8 15.5,10 12.5,15.2 6.5,15.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="8.5,14 11.5,8.8 17.5,8.8 20.5,14 17.5,19.2 11.5,19.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="9.5,8.3 11.3,10 9.5,11.7 7.7,10" fill="#fff"/><polygon points="14.5,12.3 16.3,14 14.5,15.7 12.7,14" fill="#fff"/></svg></span><span>AGENTIC <span class="pm">PM</span></span></span>
-    </div>
-    <div class="wsgrid" style="grid-template-columns:.7fr 1.3fr;align-items:center">
-      <div class="lft">
-        <h2 class="st a" style="--d:.12s">Find it in <span class="accent">Plugins</span></h2>
-        <p class="sub a" style="--d:.22s">Both workspaces live in Claude's plugin menu — one click to switch modes.</p>
-        <ol class="steps">
-          <li class="a" style="--d:.34s"><div>Open the <b>+ menu</b> in the composer</div></li>
-          <li class="a" style="--d:.44s"><div>Go to <b>Plugins</b></div></li>
-          <li class="a" style="--d:.54s"><div>Pick your workspace — <b>Personal</b> or <b>Deal</b></div></li>
-        </ol>
-      </div>
-      <div class="menumock a" style="--d:.3s"><div class="mwrap">
-        <div class="composer">
-          <div class="ask">How can I help you today?</div>
-          <div class="crow"><span class="plus">+</span><span class="tab on">Chat</span><span class="tab">Cowork</span><span class="model">Opus 5 · High</span></div>
-        </div>
-        <div class="menu">
-          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#5c584f" stroke-width="1.8" stroke-linecap="round"/></svg>Add files or photos</div>
-          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#5c584f" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="#5c584f" stroke-width="1.6"/></svg>Take a screenshot</div>
-          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="#5c584f" stroke-width="1.6"/></svg>Add to project</div>
-          <div class="div"></div>
-          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#5c584f" stroke-width="1.6"/></svg>Skills</div>
-          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><path d="M8 8h8v8H8z" stroke="#5c584f" stroke-width="1.6"/></svg>Connectors</div>
-          <div class="mi sel"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="#1D4ED8" stroke-width="1.8"/></svg>Plugins<span class="chev">›</span></div>
-          <div class="div"></div>
-          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><path d="M4 15c5-6 11-6 16 0" stroke="#5c584f" stroke-width="1.6" stroke-linecap="round"/></svg>Ask AgenticPM</div>
-          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#5c584f" stroke-width="1.6"/><path d="M20 20l-3-3" stroke="#5c584f" stroke-width="1.6"/></svg>Research</div>
-        </div>
-        <div class="submenu">
-          <div class="plug hi"><span class="pin" style="background:linear-gradient(135deg,#1D4ED8,#3B82F6)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.8"/></svg></span><div><div>Personal Workspace</div></div><span class="chev">›</span></div>
-          <div class="plug"><span class="pin" style="background:linear-gradient(135deg,#0A1633,#1D4ED8)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5h9l5 5v9H5z" stroke="#fff" stroke-width="1.7"/></svg></span><div><div>Deal Workspace</div></div><span class="chev">›</span></div>
-          <div class="div"></div>
-          <div class="plug" style="font-weight:600;color:var(--muted)"><span class="pin" style="background:#eceae1;color:#8a8578"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6h12v12H6z" stroke="#8a8578" stroke-width="1.6"/></svg></span>Manage plugins</div>
-          <div class="plug" style="font-weight:600;color:var(--muted)"><span class="pin" style="background:#eceae1;color:#8a8578">+</span>Browse plugins</div>
-        </div>
-      </div></div>
-    </div>
-  </section>
-
-  <!-- ===== SLIDE 5 · SKILLS ===== -->
-  <section class="slide" id="s5">
-    <div class="top"><span class="eyebrow a" style="--d:.05s;position:absolute;left:84px;top:70px">What's inside</span>
-      <span class="brand a" style="--d:.05s;margin-left:auto"><span class="mk"><svg viewBox="0 0 24 24" fill="none"><polygon points="3.5,10 6.5,4.8 12.5,4.8 15.5,10 12.5,15.2 6.5,15.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="8.5,14 11.5,8.8 17.5,8.8 20.5,14 17.5,19.2 11.5,19.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="9.5,8.3 11.3,10 9.5,11.7 7.7,10" fill="#fff"/><polygon points="14.5,12.3 16.3,14 14.5,15.7 12.7,14" fill="#fff"/></svg></span><span>AGENTIC <span class="pm">PM</span></span></span>
-    </div>
-    <h2 class="st a" style="--d:.12s">The skills in each workspace</h2>
-    <div class="skgrid">
-      <div class="plugcol personal a" style="--d:.28s">
-        <div class="ph"><span class="pin"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="#1D4ED8" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="#1D4ED8" stroke-width="1.9"/></svg></span><div><div class="pt">Personal Workspace</div><h3>Sourcing skills</h3></div></div>
-        <div class="sklist">
-          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="#1D4ED8" stroke-width="1.6"/></svg></span><span><span class="cat">Sourcing ·</span> Company Profile</span></div>
-          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h9" stroke="#1D4ED8" stroke-width="1.8" stroke-linecap="round"/></svg></span><span><span class="cat">Sourcing ·</span> Company Screening</span></div>
-          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3" stroke="#1D4ED8" stroke-width="1.7"/><path d="M6 19c.8-3 3-4 6-4s5.2 1 6 4" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/></svg></span><span><span class="cat">Sourcing ·</span> Management Profile</span></div>
-          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/></svg></span><span><span class="cat">Sourcing ·</span> Market Research</span></div>
-          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7l6-3 4 3 6-3v13l-6 3-4-3-6 3V7Z" stroke="#1D4ED8" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span><span class="cat">Sourcing ·</span> Sector Screening</span></div>
-        </div>
-      </div>
-      <div class="plugcol deal a" style="--d:.42s">
-        <div class="ph"><span class="pin"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h11l3 3v13H5z" stroke="#fff" stroke-width="1.8"/><path d="M8 10h8M8 14h8M8 18h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></span><div><div class="pt">Deal Workspace</div><h3>Diligence skills</h3></div></div>
-        <div class="sklist">
-          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="#1D4ED8" stroke-width="1.6"/><path d="M9 9h6M9 13h4" stroke="#1D4ED8" stroke-width="1.6" stroke-linecap="round"/></svg></span><span><span class="cat">Diligence ·</span> CIM Screener</span></div>
-          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19V9M10 19V5M15 19v-6M20 19h-16" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/></svg></span><span><span class="cat">Diligence ·</span> Comps</span></div>
-          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="#1D4ED8" stroke-width="1.6"/><path d="M9 12h6M9 16h4" stroke="#1D4ED8" stroke-width="1.6" stroke-linecap="round"/></svg></span><span><span class="cat">Diligence ·</span> IC Memo</span></div>
-          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M4 15c5-6 11-6 16 0" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="8" r="2" stroke="#1D4ED8" stroke-width="1.7"/></svg></span><span><span class="cat">Diligence ·</span> Initial POV</span></div>
-          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3z" stroke="#1D4ED8" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 9v4M12 16v.5" stroke="#1D4ED8" stroke-width="1.8" stroke-linecap="round"/></svg></span><span><span class="cat">Diligence ·</span> Red Flag Scan</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
 </div></div>
 
 <div class="nav"><button class="arw" id="prev">←</button><div class="dots" id="dots"></div><button class="arw" id="next">→</button></div>
@@ -329,10 +270,28 @@ function shell(task){
 async function typeInto(el,text,sp){ if(RM){el.textContent=text;return;} for(let i=1;i<=text.length;i++){el.textContent=text.slice(0,i);await wait(sp);} }
 async function streamInto(el,text){ if(RM){el.textContent=text;return;} const w=text.split(' '); for(let i=0;i<w.length;i++){el.textContent=w.slice(0,i+1).join(' ');await wait(34);} }
 const RUN={};
+const WSN={personal:'Personal Workspace',deal:'Deal Workspace'};
+const WSIC={personal:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="#1D4ED8" stroke-width="1.9"/></svg>',deal:'<svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="#1D4ED8" stroke-width="1.7"/></svg>'};
+async function pluginIntro(panel,key){
+  const main=panel.querySelector('.cmain'); const plus=panel.querySelector('.cinput .plus');
+  if(plus){plus.style.background='var(--blue-soft)';plus.style.borderColor='var(--blue-line)';plus.style.color='var(--blue)';}
+  const menu=document.createElement('div'); menu.className='pmenu';
+  menu.innerHTML='<div class="pi"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#5c584f" stroke-width="1.5"/></svg>Skills</div><div class="pi"><svg viewBox="0 0 24 24" fill="none"><path d="M8 8h8v8H8z" stroke="#5c584f" stroke-width="1.5"/></svg>Connectors</div><div class="pi sel"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="#1D4ED8" stroke-width="1.7"/></svg>Plugins<span class="chev">‹‹</span></div>'.replace('‹‹','›');
+  main.appendChild(menu); await wait(800);
+  const sub=document.createElement('div'); sub.className='psub';
+  sub.innerHTML='<div class="pg '+(key==='personal'?'sel':'')+'"><span class="pin" style="background:linear-gradient(135deg,#1D4ED8,#3B82F6)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.8"/></svg></span>Personal Workspace</div><div class="pg '+(key==='deal'?'sel':'')+'"><span class="pin" style="background:linear-gradient(135deg,#0A1633,#1D4ED8)"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="#fff" stroke-width="1.5"/></svg></span>Deal Workspace</div>';
+  main.appendChild(sub); await wait(1300);
+  menu.remove(); sub.remove();
+  if(plus){plus.style.background='';plus.style.borderColor='';plus.style.color='';}
+  const inp=panel.querySelector('.cinput'); const chip=document.createElement('div'); chip.className='wschip2';
+  chip.innerHTML='<span class="d">'+WSIC[key]+'</span>'+WSN[key]; inp.insertBefore(chip,inp.firstChild);
+  await wait(400);
+}
 async function runDemo(key){
   const panel=document.getElementById('panel-'+key); if(!panel||RUN[key])return; RUN[key]=true;
   const d=DEMOS[key]; panel.innerHTML=shell(d.task);
-  const body=panel.querySelector('.cbody'); await wait(450);
+  await wait(500); await pluginIntro(panel,key);
+  const body=panel.querySelector('.cbody'); await wait(250);
   const um=document.createElement('div'); um.className='umsg'; const ut=document.createElement('span'); const car=document.createElement('span'); car.className='car';
   um.appendChild(ut); um.appendChild(car); body.appendChild(um); body.scrollTop=body.scrollHeight;
   await typeInto(ut,d.q,20); car.remove(); await wait(450);
