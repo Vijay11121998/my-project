@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AGENTIC PM — The Decision Engine</title>
+<style>
+:root{
+  --navy:#0A1633; --navy2:#0F1E45; --navy3:#060d20;
+  --blue:#1D4ED8; --blue-bright:#3B82F6; --blue-soft:#EFF4FF; --blue-line:#D5E2FF;
+  --paper:#F6F8FC; --card:#FFFFFF; --line:#E4E9F2;
+  --ink:#0F1B33; --muted:#5B6B85; --faint:#8A97B4; --green:#16A34A;
+  --sans:"Helvetica Neue",Arial,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#05070f;font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{display:grid;place-items:center}
+#fit{position:relative}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;transform-origin:top left;background:var(--paper)}
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;display:flex;flex-direction:column;padding:74px 88px}
+.slide.on{opacity:1;visibility:visible}
+.slide.dark{background:radial-gradient(130% 130% at 12% -10%,#12224e 0%,var(--navy) 46%,var(--navy3) 100%);color:#fff}
+.a{opacity:0;transform:translateY(26px)}
+.slide.on .a{animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:13px;font-weight:800;font-size:25px;letter-spacing:-.01em}
+.brand .mk{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));display:grid;place-items:center;flex:none}
+.brand .mk svg{width:27px;height:27px}
+.brand .pm{color:var(--blue-bright)}
+.slide:not(.dark) .brand{color:var(--ink)} .slide:not(.dark) .brand .pm{color:var(--blue)}
+.eyebrow{font-size:15px;font-weight:800;letter-spacing:.24em;text-transform:uppercase}
+.slide.dark .eyebrow{color:var(--blue-bright)} .slide:not(.dark) .eyebrow{color:var(--blue)}
+
+/* ===== SLIDE 1 ===== */
+#s1{justify-content:center;align-items:center;text-align:center}
+#s1 .brand{position:absolute;top:74px;right:88px}
+#s1 h1{font-size:96px;font-weight:800;letter-spacing:-.03em;line-height:1;margin-top:20px}
+#s1 h1 .g{background:linear-gradient(90deg,#fff 30%,var(--blue-bright));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+#s1 .sub{font-size:27px;color:#aebbe4;margin-top:26px;max-width:60ch}
+#s1 .split{font-size:14px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#7f8fc0;margin-top:54px}
+.cards{display:flex;gap:32px;justify-content:center;margin-top:22px}
+.ecard{width:520px;text-align:left;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
+  border-radius:22px;padding:34px 34px 32px;position:relative;overflow:hidden;transition:.3s}
+.ecard.deal{background:linear-gradient(165deg,rgba(29,78,216,.28),rgba(10,22,51,.2));border-color:rgba(90,130,230,.4)}
+.ecard .ico{width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));
+  display:grid;place-items:center;box-shadow:0 16px 34px rgba(29,78,216,.4)}
+.ecard .ico svg{width:34px;height:34px}
+.ecard .ws{font-size:14px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-bright);margin-top:22px}
+.ecard h3{font-size:36px;font-weight:800;letter-spacing:-.02em;margin-top:6px}
+.ecard p{font-size:19px;color:#c3cfee;line-height:1.45;margin-top:14px}
+.ecard .live{position:absolute;top:30px;right:30px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;
+  letter-spacing:.1em;text-transform:uppercase;color:#9dffc4}
+.ecard .live::before{content:"";width:9px;height:9px;border-radius:50%;background:#3ddc84;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(61,220,132,.5)}50%{opacity:.6;box-shadow:0 0 0 7px rgba(61,220,132,0)}}
+#s1 .foot{margin-top:44px;font-size:22px;font-weight:700;color:#dfe7fb}
+#s1 .foot b{color:#fff}
+
+/* ===== SLIDE 2 ===== */
+#s2 .brand{position:absolute;top:74px;right:88px}
+#s2 h2{font-size:60px;font-weight:800;letter-spacing:-.025em;color:var(--ink);margin-top:12px}
+#s2 h2 .accent{color:var(--blue)}
+#s2 .lede{font-size:22px;color:var(--muted);margin-top:12px}
+.dcols{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:44px;flex:1;min-height:0}
+.dcard{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:0;overflow:hidden;
+  box-shadow:0 20px 50px rgba(15,27,51,.09);display:flex;flex-direction:column}
+.dcard .hd{display:flex;align-items:center;gap:18px;padding:30px 34px;border-bottom:1px solid var(--line)}
+.dcard.personal .hd{background:var(--blue-soft)}
+.dcard.deal .hd{background:linear-gradient(135deg,var(--blue),#12276f);color:#fff}
+.dcard .hd .ico{width:60px;height:60px;border-radius:15px;display:grid;place-items:center;flex:none}
+.dcard.personal .hd .ico{background:#fff;box-shadow:0 8px 20px rgba(29,78,216,.14)}
+.dcard.deal .hd .ico{background:rgba(255,255,255,.16)}
+.dcard .hd .ico svg{width:32px;height:32px}
+.dcard .hd .ws{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.dcard.personal .hd .ws{color:var(--blue)} .dcard.deal .hd .ws{color:#bcd0ff}
+.dcard .hd h3{font-size:32px;font-weight:800;letter-spacing:-.02em}
+.dcard.personal .hd h3{color:var(--ink)} .dcard.deal .hd h3{color:#fff}
+.dcard .live{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#c9ffe0}
+.dcard .live::before{content:"";width:9px;height:9px;border-radius:50%;background:#5ff0a0;animation:pulse 1.5s infinite}
+.dcard .bd{padding:28px 34px;display:flex;flex-direction:column;gap:0;flex:1}
+.dcard li{list-style:none;display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid #f0f3f9;font-size:19px;color:var(--ink);line-height:1.4}
+.dcard li:last-of-type{border-bottom:0}
+.dcard li .ck{width:24px;height:24px;border-radius:7px;background:var(--blue-soft);display:grid;place-items:center;flex:none;margin-top:1px}
+.dcard li .ck svg{width:15px;height:15px}
+.dcard li b{font-weight:800}
+.dcard .tag{margin-top:auto;padding:18px 34px;font-size:20px;font-weight:800;letter-spacing:-.01em;border-top:1px solid var(--line)}
+.dcard.personal .tag{color:var(--blue);background:#fafbff}
+.dcard.deal .tag{color:var(--blue);background:#fafbff}
+.dcard .tag .q{color:var(--ink)}
+
+/* nav */
+.nav{position:fixed;bottom:22px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:16px;z-index:50}
+.arw{width:46px;height:46px;border-radius:50%;border:1px solid rgba(120,140,180,.5);background:rgba(10,22,51,.5);color:#cdd8f5;font-size:19px;cursor:pointer}
+.arw:disabled{opacity:.3}
+.dots{display:flex;gap:9px}
+.dot{width:11px;height:11px;border-radius:50%;background:#8a97b4;cursor:pointer;transition:.25s}
+.dot.active{background:var(--blue);width:32px;border-radius:6px}
+@media(prefers-reduced-motion:reduce){.slide.on .a{animation-duration:.01s}}
+</style>
+</head>
+<body>
+<div id="fit"><div id="stage">
+
+  <!-- ===== SLIDE 1 ===== -->
+  <section class="slide dark on" id="s1">
+    <span class="brand a" style="--d:.05s"><span class="mk"><svg viewBox="0 0 24 24" fill="none"><polygon points="3.5,10 6.5,4.8 12.5,4.8 15.5,10 12.5,15.2 6.5,15.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="8.5,14 11.5,8.8 17.5,8.8 20.5,14 17.5,19.2 11.5,19.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="9.5,8.3 11.3,10 9.5,11.7 7.7,10" fill="#fff"/><polygon points="14.5,12.3 16.3,14 14.5,15.7 12.7,14" fill="#fff"/></svg></span><span>AGENTIC <span class="pm">PM</span></span></span>
+    <div class="eyebrow a" style="--d:.15s">Introducing the plug-in</div>
+    <h1 class="a" style="--d:.3s">The <span class="g">Decision Engine</span></h1>
+    <p class="sub a" style="--d:.5s">Your firm's brain, on Claude — delivered as two engines.</p>
+    <div class="split a" style="--d:.7s">— Comes in two —</div>
+    <div class="cards">
+      <div class="ecard a" style="--d:.82s">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.9"/></svg></div>
+        <div class="ws">My Workspace</div>
+        <h3>Personal Productivity Engine</h3>
+        <p>Every skill, on tap — any task, any deal, any time.</p>
+      </div>
+      <div class="ecard deal a" style="--d:.98s">
+        <span class="live">Live deal</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h11l3 3v13H5z" stroke="#fff" stroke-width="1.9"/><path d="M8 10h8M8 14h8M8 18h5" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/></svg></div>
+        <div class="ws">Deal Room</div>
+        <h3>Deal Engine</h3>
+        <p>A live room for one engagement — reasoning like your firm, on this deal.</p>
+      </div>
+    </div>
+    <div class="foot a" style="--d:1.2s">Both <b>reason like your firm</b> — not a generic model.</div>
+  </section>
+
+  <!-- ===== SLIDE 2 ===== -->
+  <section class="slide" id="s2">
+    <div class="top">
+      <div>
+        <span class="eyebrow a" style="--d:.05s">Inside the Decision Engine</span>
+        <h2 class="a" style="--d:.15s">Two engines, <span class="accent">one firm brain</span></h2>
+        <p class="lede a" style="--d:.25s">Pick the mode the moment calls for — both reason like your firm.</p>
+      </div>
+      <span class="brand a" style="--d:.05s"><span class="mk"><svg viewBox="0 0 24 24" fill="none"><polygon points="3.5,10 6.5,4.8 12.5,4.8 15.5,10 12.5,15.2 6.5,15.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="8.5,14 11.5,8.8 17.5,8.8 20.5,14 17.5,19.2 11.5,19.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="9.5,8.3 11.3,10 9.5,11.7 7.7,10" fill="#fff"/><polygon points="14.5,12.3 16.3,14 14.5,15.7 12.7,14" fill="#fff"/></svg></span><span>AGENTIC <span class="pm">PM</span></span></span>
+    </div>
+    <div class="dcols">
+      <div class="dcard personal a" style="--d:.34s">
+        <div class="hd">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="#1D4ED8" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="#1D4ED8" stroke-width="1.9"/></svg></span>
+          <div><div class="ws">My Workspace</div><h3>Personal Productivity Engine</h3></div>
+        </div>
+        <ul class="bd">
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Every skill, on tap</b> — market maps, screens, one-pagers, comps, IC-memo drafts.</div></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Live connectors + your firm's knowledge</b>, always on in the background.</div></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Zero setup</b> — ask in plain language, get a firm-grade answer.</div></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Best for</b> — sourcing, quick analysis, exploring a new sector.</div></li>
+        </ul>
+        <div class="tag"><span class="q">"Your always-on analyst bench."</span></div>
+      </div>
+      <div class="dcard deal a" style="--d:.5s">
+        <div class="hd">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h11l3 3v13H5z" stroke="#fff" stroke-width="1.9"/><path d="M8 10h8M8 14h8M8 18h5" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/></svg></span>
+          <div><div class="ws">Deal Room</div><h3>Deal Engine</h3></div>
+          <span class="live">Live deal</span>
+        </div>
+        <ul class="bd">
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>A dedicated room per live engagement</b> — spin one up for each deal.</div></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Reasons like your firm on this deal</b> — the data room, files &amp; knowledge already loaded.</div></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Deal-scoped context</b> follows every question and deliverable.</div></li>
+          <li><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>IC-ready outputs</b> in your house templates, straight from deal context.</div></li>
+        </ul>
+        <div class="tag"><span class="q">"The deal, reasoned like your firm."</span></div>
+      </div>
+    </div>
+  </section>
+
+</div></div>
+
+<div class="nav"><button class="arw" id="prev">←</button><div class="dots" id="dots"></div><button class="arw" id="next">→</button></div>
+
+<script>
+function fit(){const k=Math.min(innerWidth/1920,innerHeight/1080);const st=document.getElementById('stage');st.style.transform='scale('+k+')';document.getElementById('fit').style.width=(1920*k)+'px';document.getElementById('fit').style.height=(1080*k)+'px';}
+addEventListener('resize',fit);fit();
+const slides=[...document.querySelectorAll('.slide')];const N=slides.length;let cur=0;
+const dotsEl=document.getElementById('dots');slides.forEach((_,i)=>{const d=document.createElement('div');d.className='dot'+(i?'':' active');d.onclick=()=>go(i);dotsEl.appendChild(d);});
+const dots=[...document.querySelectorAll('.dot')];
+function go(i){i=(i+N)%N;if(i===cur&&slides[i].classList.contains('on'))return;slides.forEach(s=>s.classList.remove('on'));const s=slides[i];void s.offsetWidth;s.classList.add('on');dots.forEach((d,x)=>d.classList.toggle('active',x===i));document.getElementById('prev').disabled=i===0;document.getElementById('next').disabled=i===N-1;cur=i;}
+document.getElementById('prev').onclick=()=>go(cur-1);document.getElementById('next').onclick=()=>go(cur+1);
+addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown')go(cur+1);if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1);});
+let sx=null;addEventListener('pointerdown',e=>sx=e.clientX);addEventListener('pointerup',e=>{if(sx===null)return;const dx=e.clientX-sx;if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));sx=null;});
+document.getElementById('prev').disabled=true;
+</script>
+</body>
+</html>
