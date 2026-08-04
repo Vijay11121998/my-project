@@ -171,11 +171,21 @@ h2.st .accent{color:var(--blue)}
 .pmenu .pi.sel{background:var(--blue-soft);color:var(--blue);font-weight:700}
 .pmenu .pi .chev{margin-left:auto;color:#b5afa1}
 .pmenu .pi svg{width:15px;height:15px;opacity:.75}
-.psub{position:absolute;left:252px;bottom:84px;width:226px;background:#fff;border:1px solid #e0ddd4;border-radius:14px;box-shadow:0 22px 55px rgba(15,27,51,.24);padding:7px;z-index:7;animation:pop .24s ease}
+.psub{position:absolute;left:250px;bottom:118px;width:212px;background:#fff;border:1px solid #e0ddd4;border-radius:14px;box-shadow:0 22px 55px rgba(15,27,51,.24);padding:7px;z-index:7;animation:pop .24s ease}
 .psub .pg{display:flex;align-items:center;gap:10px;padding:10px;border-radius:8px;font-size:13.5px;font-weight:700;color:#3d3a34}
-.psub .pg.sel{background:var(--blue-soft);color:var(--blue)}
+.psub .pg.sel,.psub .pg.hi{background:var(--blue-soft);color:var(--blue)}
 .psub .pg .pin{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;flex:none}
 .psub .pg .pin svg{width:15px;height:15px}
+.psub .pg .chev{margin-left:auto;color:#b5afa1}
+.psub2{position:absolute;left:456px;bottom:96px;width:250px;background:#fff;border:1px solid #e0ddd4;border-radius:14px;box-shadow:0 22px 55px rgba(15,27,51,.24);padding:7px;z-index:8;animation:pop .24s ease}
+.psub2 .sg{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;font-size:13px;color:#3d3a34}
+.psub2 .sg.sel{background:var(--blue-soft);color:var(--blue);font-weight:700}
+.psub2 .sg .sgi{width:22px;height:22px;border-radius:6px;background:#f0eee6;display:grid;place-items:center;flex:none}
+.psub2 .sg.sel .sgi{background:#fff}
+.psub2 .sg .sgi svg{width:14px;height:14px}
+.psub2 .sg .sgn{font-weight:700}
+.psub2 .sg .sgc{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#a49e91}
+.psub2 .sg.sel .sgc{color:var(--blue)}
 .wschip2{display:inline-flex;align-items:center;gap:7px;background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-line);border-radius:8px;padding:5px 10px;font-size:12.5px;font-weight:800;margin-bottom:10px}
 .wschip2 .d{width:15px;height:15px;display:grid;place-items:center}
 .nav{position:fixed;bottom:22px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:16px;z-index:50}
@@ -270,21 +280,37 @@ function shell(task){
 async function typeInto(el,text,sp){ if(RM){el.textContent=text;return;} for(let i=1;i<=text.length;i++){el.textContent=text.slice(0,i);await wait(sp);} }
 async function streamInto(el,text){ if(RM){el.textContent=text;return;} const w=text.split(' '); for(let i=0;i<w.length;i++){el.textContent=w.slice(0,i+1).join(' ');await wait(34);} }
 const RUN={};
-const WSN={personal:'Personal Workspace',deal:'Deal Workspace'};
-const WSIC={personal:'<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="#1D4ED8" stroke-width="1.9"/></svg>',deal:'<svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="#1D4ED8" stroke-width="1.7"/></svg>'};
+const SKN={personal:'Market Research',deal:'CIM Screener'};
+const SKICO='<svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 4.5-9 4.5-9-4.5z" stroke="#1D4ED8" stroke-width="1.6" stroke-linejoin="round"/><path d="M3 12l9 4.5 9-4.5" stroke="#1D4ED8" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+const APMLOGO='<svg viewBox="0 0 24 24" fill="none"><polygon points="3.5,10 6.5,4.8 12.5,4.8 15.5,10 12.5,15.2 6.5,15.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="8.5,14 11.5,8.8 17.5,8.8 20.5,14 17.5,19.2 11.5,19.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>';
+const SKILLS=[
+ {cat:'Sourcing',name:'Company Profile'},
+ {cat:'Sourcing',name:'Company Screening'},
+ {cat:'Sourcing',name:'Market Research'},
+ {cat:'Diligence',name:'CIM Screener'},
+ {cat:'Diligence',name:'Comps'},
+ {cat:'Diligence',name:'IC Memo'}
+];
 async function pluginIntro(panel,key){
   const main=panel.querySelector('.cmain'); const plus=panel.querySelector('.cinput .plus');
   if(plus){plus.style.background='var(--blue-soft)';plus.style.borderColor='var(--blue-line)';plus.style.color='var(--blue)';}
+  // level 1 — the + menu
   const menu=document.createElement('div'); menu.className='pmenu';
-  menu.innerHTML='<div class="pi"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#5c584f" stroke-width="1.5"/></svg>Skills</div><div class="pi"><svg viewBox="0 0 24 24" fill="none"><path d="M8 8h8v8H8z" stroke="#5c584f" stroke-width="1.5"/></svg>Connectors</div><div class="pi sel"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="#1D4ED8" stroke-width="1.7"/></svg>Plugins<span class="chev">‹‹</span></div>'.replace('‹‹','›');
-  main.appendChild(menu); await wait(800);
+  menu.innerHTML='<div class="pi"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#5c584f" stroke-width="1.5"/></svg>Skills</div><div class="pi"><svg viewBox="0 0 24 24" fill="none"><path d="M8 8h8v8H8z" stroke="#5c584f" stroke-width="1.5"/></svg>Connectors</div><div class="pi sel"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="#1D4ED8" stroke-width="1.7"/></svg>Plugins<span class="chev">&rsaquo;</span></div>';
+  main.appendChild(menu); await wait(750);
+  // level 2 — single APM Plugin
   const sub=document.createElement('div'); sub.className='psub';
-  sub.innerHTML='<div class="pg '+(key==='personal'?'sel':'')+'"><span class="pin" style="background:linear-gradient(135deg,#1D4ED8,#3B82F6)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.8"/></svg></span>Personal Workspace</div><div class="pg '+(key==='deal'?'sel':'')+'"><span class="pin" style="background:linear-gradient(135deg,#0A1633,#1D4ED8)"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="#fff" stroke-width="1.5"/></svg></span>Deal Workspace</div>';
-  main.appendChild(sub); await wait(1300);
-  menu.remove(); sub.remove();
+  sub.innerHTML='<div class="pg hi"><span class="pin" style="background:linear-gradient(135deg,#1D4ED8,#3B82F6)">'+APMLOGO+'</span>APM Plugin<span class="chev">&rsaquo;</span></div>';
+  main.appendChild(sub); await wait(850);
+  // level 3 — skills submenu (hover-over)
+  const sk=document.createElement('div'); sk.className='psub2';
+  sk.innerHTML=SKILLS.map(s=>'<div class="sg '+(s.name===SKN[key]?'sel':'')+'"><span class="sgi">'+SKICO+'</span><span class="sgn">'+s.name+'</span><span class="sgc">'+s.cat+'</span></div>').join('');
+  main.appendChild(sk); await wait(1500);
+  menu.remove(); sub.remove(); sk.remove();
   if(plus){plus.style.background='';plus.style.borderColor='';plus.style.color='';}
+  // chip now shows the SKILL name
   const inp=panel.querySelector('.cinput'); const chip=document.createElement('div'); chip.className='wschip2';
-  chip.innerHTML='<span class="d">'+WSIC[key]+'</span>'+WSN[key]; inp.insertBefore(chip,inp.firstChild);
+  chip.innerHTML='<span class="d">'+SKICO+'</span>'+SKN[key]; inp.insertBefore(chip,inp.firstChild);
   await wait(400);
 }
 async function runDemo(key){
