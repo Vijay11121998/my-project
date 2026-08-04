@@ -186,8 +186,8 @@ h2.st .accent{color:var(--blue)}
 .psub2 .sg .sgn{font-weight:700}
 .psub2 .sg .sgc{margin-left:auto;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#a49e91}
 .psub2 .sg.sel .sgc{color:var(--blue)}
-.wschip2{display:inline-flex;align-items:center;gap:7px;background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-line);border-radius:8px;padding:5px 10px;font-size:12.5px;font-weight:800;margin-bottom:10px}
-.wschip2 .d{width:15px;height:15px;display:grid;place-items:center}
+.wschip2{display:inline-flex;align-items:center;background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-line);border-radius:8px;padding:5px 11px;font-size:13px;font-weight:800;margin-bottom:10px;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;letter-spacing:-.01em}
+.wschip2 .slash{opacity:.65;margin-right:1px}
 .nav{position:fixed;bottom:22px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:16px;z-index:50}
 .arw{width:46px;height:46px;border-radius:50%;border:1px solid rgba(120,140,180,.5);background:rgba(10,22,51,.5);color:#cdd8f5;font-size:19px;cursor:pointer}.arw:disabled{opacity:.3}
 .dots{display:flex;gap:9px}.dot{width:11px;height:11px;border-radius:50%;background:#8a97b4;cursor:pointer;transition:.25s}.dot.active{background:var(--blue);width:32px;border-radius:6px}
@@ -308,9 +308,10 @@ async function pluginIntro(panel,key){
   main.appendChild(sk); await wait(1500);
   menu.remove(); sub.remove(); sk.remove();
   if(plus){plus.style.background='';plus.style.borderColor='';plus.style.color='';}
-  // chip now shows the SKILL name
+  // chip now shows the SKILL as a blue slash-command (e.g. /market-research)
+  const slug=SKN[key].toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   const inp=panel.querySelector('.cinput'); const chip=document.createElement('div'); chip.className='wschip2';
-  chip.innerHTML='<span class="d">'+SKICO+'</span>'+SKN[key]; inp.insertBefore(chip,inp.firstChild);
+  chip.innerHTML='<span class="slash">/</span>'+slug; inp.insertBefore(chip,inp.firstChild);
   await wait(400);
 }
 async function runDemo(key){
