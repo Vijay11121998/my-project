@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AGENTIC PM — Two Workspaces</title>
+<style>
+:root{
+  --navy:#0A1633; --navy2:#0F1E45; --navy3:#060d20;
+  --blue:#1D4ED8; --blue-bright:#3B82F6; --blue-soft:#EFF4FF; --blue-line:#D5E2FF;
+  --paper:#F6F8FC; --card:#FFFFFF; --line:#E4E9F2;
+  --ink:#0F1B33; --muted:#5B6B85; --faint:#8A97B4; --green:#16A34A; --amber:#B45309;
+  --sans:"Helvetica Neue",Arial,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#05070f;font-family:var(--sans);-webkit-font-smoothing:antialiased}
+body{display:grid;place-items:center}
+#fit{position:relative}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;transform-origin:top left;background:var(--paper)}
+.slide{position:absolute;inset:0;opacity:0;visibility:hidden;display:flex;flex-direction:column;padding:66px 84px}
+.slide.on{opacity:1;visibility:visible}
+.slide.dark{background:radial-gradient(130% 130% at 12% -10%,#12224e 0%,var(--navy) 46%,var(--navy3) 100%);color:#fff}
+.a{opacity:0;transform:translateY(24px)}
+.slide.on .a{animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+@keyframes rise{to{opacity:1;transform:none}}
+.top{display:flex;align-items:flex-start;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:23px;letter-spacing:-.01em}
+.brand .mk{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));display:grid;place-items:center;flex:none}
+.brand .mk svg{width:26px;height:26px}
+.brand .pm{color:var(--blue-bright)}
+.slide:not(.dark) .brand{color:var(--ink)} .slide:not(.dark) .brand .pm{color:var(--blue)}
+.eyebrow{font-size:14px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--blue)}
+.slide.dark .eyebrow{color:var(--blue-bright)}
+h2.st{font-size:52px;font-weight:800;letter-spacing:-.025em;line-height:1.04;color:var(--ink);margin-top:12px}
+h2.st .accent{color:var(--blue)}
+.sub{font-size:22px;color:var(--muted);margin-top:12px;line-height:1.45;max-width:44ch}
+
+/* ===== SLIDE 1 · OVERVIEW ===== */
+#s1{justify-content:center;align-items:center;text-align:center}
+#s1 .brand{position:absolute;top:66px;right:84px}
+#s1 h1{font-size:88px;font-weight:800;letter-spacing:-.03em;line-height:1;margin-top:18px}
+#s1 h1 .g{background:linear-gradient(90deg,#fff 30%,var(--blue-bright));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+#s1 .sub1{font-size:25px;color:#aebbe4;margin-top:24px;max-width:62ch}
+#s1 .split{font-size:13px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#7f8fc0;margin-top:48px}
+.cards{display:flex;gap:30px;justify-content:center;margin-top:20px}
+.ecard{width:500px;text-align:left;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:22px;padding:32px;position:relative;overflow:hidden}
+.ecard.deal{background:linear-gradient(165deg,rgba(29,78,216,.28),rgba(10,22,51,.2));border-color:rgba(90,130,230,.4)}
+.ecard .ico{width:60px;height:60px;border-radius:15px;background:linear-gradient(135deg,var(--blue),var(--blue-bright));display:grid;place-items:center;box-shadow:0 16px 34px rgba(29,78,216,.4)}
+.ecard .ico svg{width:32px;height:32px}
+.ecard .ws{font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-bright);margin-top:20px}
+.ecard h3{font-size:33px;font-weight:800;letter-spacing:-.02em;margin-top:5px}
+.ecard p{font-size:18px;color:#c3cfee;line-height:1.45;margin-top:12px}
+.ecard .live{position:absolute;top:28px;right:28px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#9dffc4}
+.ecard .live::before{content:"";width:9px;height:9px;border-radius:50%;background:#3ddc84;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(61,220,132,.5)}50%{opacity:.6;box-shadow:0 0 0 7px rgba(61,220,132,0)}}
+#s1 .foot{margin-top:40px;font-size:21px;font-weight:700;color:#dfe7fb}#s1 .foot b{color:#fff}
+
+/* ===== SLIDE 2/3 · WORKSPACE + DEMO ===== */
+.wsgrid{display:grid;grid-template-columns:.76fr 1.24fr;gap:46px;flex:1;min-height:0;margin-top:30px;align-items:center}
+.wsbul{list-style:none;display:flex;flex-direction:column;gap:16px;margin-top:26px}
+.wsbul li{display:flex;gap:13px;align-items:flex-start;font-size:19px;color:var(--ink);line-height:1.4}
+.wsbul li .ck{width:26px;height:26px;border-radius:8px;background:var(--blue-soft);display:grid;place-items:center;flex:none;margin-top:1px}
+.wsbul li .ck svg{width:16px;height:16px}.wsbul li b{font-weight:800}
+.wstag{margin-top:28px;font-size:22px;font-weight:800;color:var(--blue);letter-spacing:-.01em}
+.wschip{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:var(--blue);padding:6px 14px;border-radius:999px;margin-bottom:6px}
+
+/* claude screen */
+.cpanel{height:640px}
+.cscreen{height:100%;display:grid;grid-template-columns:190px 1fr;background:#fff;border:1px solid #e7e4dc;border-radius:16px;overflow:hidden;box-shadow:0 30px 70px rgba(11,18,40,.2)}
+.csb{background:#f5f4ef;border-right:1px solid #ece9e1;padding:14px 10px;display:flex;flex-direction:column;gap:4px;font-size:13px;color:#5c584f}
+.csb .clogo{font-weight:800;font-size:16px;color:#2b2924;display:flex;align-items:center;gap:7px;padding:5px 8px 10px}
+.csb .clogo svg{width:17px;height:17px}
+.csb .it{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:8px}
+.csb .it.sel{background:#eceae1}.csb .it svg{width:14px;height:14px;opacity:.6}
+.csb .sec{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#a49e91;padding:11px 9px 3px}
+.csb .rec{font-size:12px;color:#8a8578;padding:4px 9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.csb .me{margin-top:auto;display:flex;align-items:center;gap:8px;padding:9px 9px 2px;border-top:1px solid #ece9e1}
+.csb .me .av{width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:10px;font-weight:800;display:grid;place-items:center}
+.cmain{display:flex;flex-direction:column;min-width:0;background:#fff}
+.cmtop{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;border-bottom:1px solid #f0eee8}
+.cmtop .title{font-size:14px;font-weight:700;color:#3d3a34;display:flex;align-items:center;gap:7px}.cmtop .title svg{width:13px;height:13px;opacity:.5}
+.cmtop .share{font-size:12px;font-weight:700;color:#6b6659;border:1px solid #e0ddd4;border-radius:8px;padding:6px 13px}
+.cbody{flex:1;overflow:auto;padding:18px 22px;display:flex;flex-direction:column;gap:14px}
+.umsg{align-self:flex-end;max-width:80%;background:#f0eee6;border-radius:14px 14px 4px 14px;padding:11px 15px;font-size:14.5px;color:#2b2924;line-height:1.45}
+.umsg .car{display:inline-block;width:2px;height:1em;background:#6b6659;vertical-align:-2px;animation:blink .9s step-end infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.amsg{display:flex;gap:11px;align-items:flex-start}
+.amsg .av{width:26px;height:26px;flex:none;border-radius:7px;background:#fdf0eb;display:grid;place-items:center}.amsg .av svg{width:16px;height:16px}
+.amsg .txt{font-size:14.5px;color:#2b2924;line-height:1.55;min-width:0;flex:1}.amsg .txt p{margin-bottom:8px}
+.think{display:inline-flex;gap:4px;padding:5px 0}
+.think i{width:7px;height:7px;border-radius:50%;background:#cfc9bd;animation:bounce 1.2s infinite}
+.think i:nth-child(2){animation-delay:.15s}.think i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.5}40%{transform:translateY(-5px);opacity:1}}
+.cinput{margin:0 18px 8px;border:1px solid #e0ddd4;border-radius:14px;padding:12px 14px;background:#fff}
+.cinput .ph{font-size:14px;color:#a49e91}
+.cinput .row{display:flex;align-items:center;gap:11px;margin-top:12px}
+.cinput .plus{width:28px;height:28px;border:1px solid #e0ddd4;border-radius:8px;display:grid;place-items:center;color:#8a8578;font-size:17px}
+.cinput .model{margin-left:auto;font-size:12.5px;font-weight:700;color:#6b6659;display:flex;align-items:center;gap:5px}
+.cinput .mic{width:28px;height:28px;display:grid;place-items:center;color:#8a8578}
+.cinput .snd{width:32px;height:32px;border-radius:9px;background:#D97757;display:grid;place-items:center}.cinput .snd svg{width:16px;height:16px}
+.cfoot{text-align:center;font-size:11px;color:#a49e91;padding:0 0 10px}
+/* artifacts */
+.art-wrap{opacity:0;transform:translateY(12px);transition:.5s;margin-top:8px}.art-wrap.in{opacity:1;transform:none}
+.art{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.art-head{display:flex;align-items:center;gap:8px;padding:10px 13px;background:#f4f7fc;border-bottom:1px solid var(--line);font-size:12.5px;font-weight:800;color:var(--ink)}
+.art-head svg{width:15px;height:15px;color:var(--blue);flex:none}
+.art-b{padding:14px}.art-foot{padding:9px 13px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);background:#fbfcfe}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpis div{background:var(--paper);border:1px solid var(--line);border-radius:9px;padding:9px 6px;text-align:center}
+.kpis b{display:block;font-size:15px;color:var(--blue)}.kpis span{font-size:10px;color:var(--muted)}
+.seg{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.seg span{background:var(--blue-soft);color:var(--blue);border:1px solid var(--blue-line);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:700}
+.note{font-size:13px;color:var(--muted);margin-top:12px;line-height:1.45}
+.sc-row{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid #f0f3f9;font-size:13.5px;color:var(--ink)}
+.sc-row:last-of-type{border-bottom:0}
+.sc-row .ck{width:20px;height:20px;border-radius:6px;display:grid;place-items:center;flex:none;font-size:12px;font-weight:800;color:#fff;margin-top:1px}
+.ck.ok{background:var(--green)}.ck.warn{background:var(--amber)}
+.verdict{margin-top:11px;font-size:13px;font-weight:800;color:var(--ink);background:var(--blue-soft);border:1px solid var(--blue-line);border-radius:9px;padding:10px 12px;line-height:1.4}
+
+/* ===== SLIDE 4 · ACCESS (menu mock) ===== */
+.steps{list-style:none;counter-reset:st;display:flex;flex-direction:column;gap:16px;margin-top:26px}
+.steps li{counter-increment:st;display:flex;gap:14px;align-items:flex-start;font-size:19px;color:var(--ink)}
+.steps li::before{content:counter(st);background:var(--blue);color:#fff;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-size:15px;font-weight:800;flex:none}
+.steps li b{font-weight:800}
+.menumock{position:relative;height:100%;display:flex;align-items:center;justify-content:center}
+.mwrap{position:relative;width:660px}
+.composer{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:0 20px 50px rgba(15,27,51,.12)}
+.composer .ask{font-size:17px;color:var(--faint)}
+.composer .crow{display:flex;align-items:center;gap:10px;margin-top:16px}
+.composer .plus{width:32px;height:32px;border:1px solid var(--line);border-radius:9px;display:grid;place-items:center;color:var(--muted);font-size:18px;background:var(--blue-soft);border-color:var(--blue-line)}
+.composer .tab{font-size:14px;font-weight:700;padding:6px 12px;border-radius:8px;color:var(--muted)}.composer .tab.on{background:#eef2f9;color:var(--ink)}
+.composer .model{margin-left:auto;font-size:14px;color:var(--muted);font-weight:700}
+.menu{position:absolute;left:8px;top:66px;width:280px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 60px rgba(15,27,51,.2);padding:8px;z-index:3}
+.menu .mi{display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:9px;font-size:15px;color:var(--ink)}
+.menu .mi.sel{background:var(--blue-soft);color:var(--blue);font-weight:700}
+.menu .mi .chev{margin-left:auto;color:var(--faint)}
+.menu .mi svg{width:17px;height:17px;opacity:.7}
+.menu .div{height:1px;background:var(--line);margin:6px 4px}
+.submenu{position:absolute;left:296px;top:150px;width:300px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 24px 60px rgba(15,27,51,.2);padding:8px;z-index:4}
+.submenu .plug{display:flex;align-items:center;gap:11px;padding:12px 12px;border-radius:9px;font-size:15px;font-weight:700;color:var(--ink)}
+.submenu .plug .pin{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;color:#fff;flex:none;font-size:13px;font-weight:800}
+.submenu .plug .chev{margin-left:auto;color:var(--faint)}
+.submenu .plug:hover,.submenu .plug.hi{background:var(--blue-soft)}
+
+/* ===== SLIDE 5 · SKILLS ===== */
+#s5 h2.st{text-align:center;margin:6px auto 0}
+.skgrid{display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:40px;flex:1;min-height:0}
+.plugcol{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 16px 40px rgba(15,27,51,.08);display:flex;flex-direction:column}
+.plugcol .ph{display:flex;align-items:center;gap:14px;padding:24px 28px;border-bottom:1px solid var(--line)}
+.plugcol.personal .ph{background:var(--blue-soft)}
+.plugcol.deal .ph{background:linear-gradient(135deg,var(--blue),#12276f)}
+.plugcol .ph .pin{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;flex:none}
+.plugcol.personal .ph .pin{background:#fff}.plugcol.deal .ph .pin{background:rgba(255,255,255,.18)}
+.plugcol .ph .pin svg{width:26px;height:26px}
+.plugcol .ph .pt{font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.plugcol.personal .ph .pt{color:var(--blue)}.plugcol.deal .ph .pt{color:#bcd0ff}
+.plugcol .ph h3{font-size:27px;font-weight:800;letter-spacing:-.01em}
+.plugcol.personal .ph h3{color:var(--ink)}.plugcol.deal .ph h3{color:#fff}
+.sklist{padding:16px 22px;display:flex;flex-direction:column;gap:4px}
+.skrow{display:flex;align-items:center;gap:14px;padding:15px 12px;border-radius:11px;font-size:19px;font-weight:600;color:var(--ink);transition:.2s}
+.skrow:hover{background:var(--paper)}
+.skrow .si{width:34px;height:34px;border-radius:9px;background:var(--blue-soft);display:grid;place-items:center;flex:none}
+.skrow .si svg{width:18px;height:18px}
+.skrow .cat{color:var(--muted);font-weight:700}
+
+/* nav */
+.nav{position:fixed;bottom:22px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:16px;z-index:50}
+.arw{width:46px;height:46px;border-radius:50%;border:1px solid rgba(120,140,180,.5);background:rgba(10,22,51,.5);color:#cdd8f5;font-size:19px;cursor:pointer}.arw:disabled{opacity:.3}
+.dots{display:flex;gap:9px}.dot{width:11px;height:11px;border-radius:50%;background:#8a97b4;cursor:pointer;transition:.25s}.dot.active{background:var(--blue);width:32px;border-radius:6px}
+@media(prefers-reduced-motion:reduce){.slide.on .a{animation-duration:.01s}.art-wrap{transition:none}}
+</style>
+</head>
+<body>
+<div id="fit"><div id="stage">
+
+  <!-- ===== SLIDE 1 · OVERVIEW ===== -->
+  <section class="slide dark on" id="s1">
+    <span class="brand a" style="--d:.05s"><span class="mk"><svg viewBox="0 0 24 24" fill="none"><polygon points="3.5,10 6.5,4.8 12.5,4.8 15.5,10 12.5,15.2 6.5,15.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="8.5,14 11.5,8.8 17.5,8.8 20.5,14 17.5,19.2 11.5,19.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="9.5,8.3 11.3,10 9.5,11.7 7.7,10" fill="#fff"/><polygon points="14.5,12.3 16.3,14 14.5,15.7 12.7,14" fill="#fff"/></svg></span><span>AGENTIC <span class="pm">PM</span></span></span>
+    <div class="eyebrow a" style="--d:.15s">The Decision Engine</div>
+    <h1 class="a" style="--d:.3s">Two workspaces, <span class="g">one firm brain</span></h1>
+    <p class="sub1 a" style="--d:.5s">Your firm's brain on Claude — in two modes, for the two ways deal teams actually work.</p>
+    <div class="split a" style="--d:.68s">— Choose your mode —</div>
+    <div class="cards">
+      <div class="ecard a" style="--d:.8s">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.9"/></svg></div>
+        <div class="ws">Personal Workspace</div>
+        <h3>Your analyst bench</h3>
+        <p>Every skill, on tap — any task, any deal, any time.</p>
+      </div>
+      <div class="ecard deal a" style="--d:.94s">
+        <span class="live">Live deal</span>
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h11l3 3v13H5z" stroke="#fff" stroke-width="1.9"/><path d="M8 10h8M8 14h8M8 18h5" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/></svg></div>
+        <div class="ws">Deal Workspace</div>
+        <h3>Your live deal room</h3>
+        <p>One engagement, loaded — reasoning like your firm, on this deal.</p>
+      </div>
+    </div>
+    <div class="foot a" style="--d:1.15s">Both <b>reason like your firm</b> — not a generic model.</div>
+  </section>
+
+  <!-- ===== SLIDE 2 · PERSONAL WORKSPACE ===== -->
+  <section class="slide" id="s2" data-demo="personal">
+    <div class="top"><span class="eyebrow a" style="--d:.05s">Personal Workspace</span>
+      <span class="brand a" style="--d:.05s"><span class="mk"><svg viewBox="0 0 24 24" fill="none"><polygon points="3.5,10 6.5,4.8 12.5,4.8 15.5,10 12.5,15.2 6.5,15.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="8.5,14 11.5,8.8 17.5,8.8 20.5,14 17.5,19.2 11.5,19.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="9.5,8.3 11.3,10 9.5,11.7 7.7,10" fill="#fff"/><polygon points="14.5,12.3 16.3,14 14.5,15.7 12.7,14" fill="#fff"/></svg></span><span>AGENTIC <span class="pm">PM</span></span></span>
+    </div>
+    <div class="wsgrid">
+      <div class="lft">
+        <span class="wschip a" style="--d:.12s">My Workspace</span>
+        <h2 class="st a" style="--d:.18s">Every skill, <span class="accent">on tap</span></h2>
+        <p class="sub a" style="--d:.26s">Your always-on analyst bench — any task, any deal, any time.</p>
+        <ul class="wsbul">
+          <li class="a" style="--d:.36s"><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div>Run any <b>Sourcing skill</b> instantly — profiles, screens, market reads.</div></li>
+          <li class="a" style="--d:.46s"><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Live connectors + firm knowledge</b>, always on.</div></li>
+          <li class="a" style="--d:.56s"><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Plain language in → firm-grade answer out.</b></div></li>
+          <li class="a" style="--d:.66s"><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Best for</b> — sourcing, quick analysis, exploring a sector.</div></li>
+        </ul>
+        <div class="wstag a" style="--d:.78s">"Your always-on analyst bench."</div>
+      </div>
+      <div class="rgt a" style="--d:.3s"><div class="cpanel" id="panel-personal"></div></div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 3 · DEAL WORKSPACE ===== -->
+  <section class="slide" id="s3" data-demo="deal">
+    <div class="top"><span class="eyebrow a" style="--d:.05s">Deal Workspace</span>
+      <span class="brand a" style="--d:.05s"><span class="mk"><svg viewBox="0 0 24 24" fill="none"><polygon points="3.5,10 6.5,4.8 12.5,4.8 15.5,10 12.5,15.2 6.5,15.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="8.5,14 11.5,8.8 17.5,8.8 20.5,14 17.5,19.2 11.5,19.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="9.5,8.3 11.3,10 9.5,11.7 7.7,10" fill="#fff"/><polygon points="14.5,12.3 16.3,14 14.5,15.7 12.7,14" fill="#fff"/></svg></span><span>AGENTIC <span class="pm">PM</span></span></span>
+    </div>
+    <div class="wsgrid">
+      <div class="lft">
+        <span class="wschip a" style="--d:.12s">Deal Room</span>
+        <h2 class="st a" style="--d:.18s">The deal, <span class="accent">reasoned like your firm</span></h2>
+        <p class="sub a" style="--d:.26s">A dedicated room per engagement — the deal already loaded.</p>
+        <ul class="wsbul">
+          <li class="a" style="--d:.36s"><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>A dedicated room per live engagement.</b></div></li>
+          <li class="a" style="--d:.46s"><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>Reasons like your firm on this deal</b> — data room, files &amp; knowledge loaded.</div></li>
+          <li class="a" style="--d:.56s"><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div>Run any <b>Diligence skill</b> in deal context — CIM screen, comps, IC memo.</div></li>
+          <li class="a" style="--d:.66s"><span class="ck"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#1D4ED8" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><div><b>IC-ready outputs</b> in your house templates.</div></li>
+        </ul>
+        <div class="wstag a" style="--d:.78s">"The deal, reasoned like your firm."</div>
+      </div>
+      <div class="rgt a" style="--d:.3s"><div class="cpanel" id="panel-deal"></div></div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 4 · ACCESS ===== -->
+  <section class="slide" id="s4">
+    <div class="top"><span class="eyebrow a" style="--d:.05s">Getting started</span>
+      <span class="brand a" style="--d:.05s"><span class="mk"><svg viewBox="0 0 24 24" fill="none"><polygon points="3.5,10 6.5,4.8 12.5,4.8 15.5,10 12.5,15.2 6.5,15.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="8.5,14 11.5,8.8 17.5,8.8 20.5,14 17.5,19.2 11.5,19.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="9.5,8.3 11.3,10 9.5,11.7 7.7,10" fill="#fff"/><polygon points="14.5,12.3 16.3,14 14.5,15.7 12.7,14" fill="#fff"/></svg></span><span>AGENTIC <span class="pm">PM</span></span></span>
+    </div>
+    <div class="wsgrid" style="grid-template-columns:.7fr 1.3fr;align-items:center">
+      <div class="lft">
+        <h2 class="st a" style="--d:.12s">Find it in <span class="accent">Plugins</span></h2>
+        <p class="sub a" style="--d:.22s">Both workspaces live in Claude's plugin menu — one click to switch modes.</p>
+        <ol class="steps">
+          <li class="a" style="--d:.34s"><div>Open the <b>+ menu</b> in the composer</div></li>
+          <li class="a" style="--d:.44s"><div>Go to <b>Plugins</b></div></li>
+          <li class="a" style="--d:.54s"><div>Pick your workspace — <b>Personal</b> or <b>Deal</b></div></li>
+        </ol>
+      </div>
+      <div class="menumock a" style="--d:.3s"><div class="mwrap">
+        <div class="composer">
+          <div class="ask">How can I help you today?</div>
+          <div class="crow"><span class="plus">+</span><span class="tab on">Chat</span><span class="tab">Cowork</span><span class="model">Opus 5 · High</span></div>
+        </div>
+        <div class="menu">
+          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#5c584f" stroke-width="1.8" stroke-linecap="round"/></svg>Add files or photos</div>
+          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#5c584f" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="#5c584f" stroke-width="1.6"/></svg>Take a screenshot</div>
+          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="5" width="16" height="14" rx="2" stroke="#5c584f" stroke-width="1.6"/></svg>Add to project</div>
+          <div class="div"></div>
+          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#5c584f" stroke-width="1.6"/></svg>Skills</div>
+          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><path d="M8 8h8v8H8z" stroke="#5c584f" stroke-width="1.6"/></svg>Connectors</div>
+          <div class="mi sel"><svg viewBox="0 0 24 24" fill="none"><path d="M7 7h10v10H7z" stroke="#1D4ED8" stroke-width="1.8"/></svg>Plugins<span class="chev">›</span></div>
+          <div class="div"></div>
+          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><path d="M4 15c5-6 11-6 16 0" stroke="#5c584f" stroke-width="1.6" stroke-linecap="round"/></svg>Ask AgenticPM</div>
+          <div class="mi"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#5c584f" stroke-width="1.6"/><path d="M20 20l-3-3" stroke="#5c584f" stroke-width="1.6"/></svg>Research</div>
+        </div>
+        <div class="submenu">
+          <div class="plug hi"><span class="pin" style="background:linear-gradient(135deg,#1D4ED8,#3B82F6)"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.8"/></svg></span><div><div>Personal Workspace</div></div><span class="chev">›</span></div>
+          <div class="plug"><span class="pin" style="background:linear-gradient(135deg,#0A1633,#1D4ED8)"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5h9l5 5v9H5z" stroke="#fff" stroke-width="1.7"/></svg></span><div><div>Deal Workspace</div></div><span class="chev">›</span></div>
+          <div class="div"></div>
+          <div class="plug" style="font-weight:600;color:var(--muted)"><span class="pin" style="background:#eceae1;color:#8a8578"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6h12v12H6z" stroke="#8a8578" stroke-width="1.6"/></svg></span>Manage plugins</div>
+          <div class="plug" style="font-weight:600;color:var(--muted)"><span class="pin" style="background:#eceae1;color:#8a8578">+</span>Browse plugins</div>
+        </div>
+      </div></div>
+    </div>
+  </section>
+
+  <!-- ===== SLIDE 5 · SKILLS ===== -->
+  <section class="slide" id="s5">
+    <div class="top"><span class="eyebrow a" style="--d:.05s;position:absolute;left:84px;top:70px">What's inside</span>
+      <span class="brand a" style="--d:.05s;margin-left:auto"><span class="mk"><svg viewBox="0 0 24 24" fill="none"><polygon points="3.5,10 6.5,4.8 12.5,4.8 15.5,10 12.5,15.2 6.5,15.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="8.5,14 11.5,8.8 17.5,8.8 20.5,14 17.5,19.2 11.5,19.2" stroke="#fff" stroke-width="2" stroke-linejoin="round"/><polygon points="9.5,8.3 11.3,10 9.5,11.7 7.7,10" fill="#fff"/><polygon points="14.5,12.3 16.3,14 14.5,15.7 12.7,14" fill="#fff"/></svg></span><span>AGENTIC <span class="pm">PM</span></span></span>
+    </div>
+    <h2 class="st a" style="--d:.12s">The skills in each workspace</h2>
+    <div class="skgrid">
+      <div class="plugcol personal a" style="--d:.28s">
+        <div class="ph"><span class="pin"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="#1D4ED8" stroke-width="1.9" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="#1D4ED8" stroke-width="1.9"/></svg></span><div><div class="pt">Personal Workspace</div><h3>Sourcing skills</h3></div></div>
+        <div class="sklist">
+          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="#1D4ED8" stroke-width="1.6"/></svg></span><span><span class="cat">Sourcing ·</span> Company Profile</span></div>
+          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h9" stroke="#1D4ED8" stroke-width="1.8" stroke-linecap="round"/></svg></span><span><span class="cat">Sourcing ·</span> Company Screening</span></div>
+          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3" stroke="#1D4ED8" stroke-width="1.7"/><path d="M6 19c.8-3 3-4 6-4s5.2 1 6 4" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/></svg></span><span><span class="cat">Sourcing ·</span> Management Profile</span></div>
+          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/></svg></span><span><span class="cat">Sourcing ·</span> Market Research</span></div>
+          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M4 7l6-3 4 3 6-3v13l-6 3-4-3-6 3V7Z" stroke="#1D4ED8" stroke-width="1.6" stroke-linejoin="round"/></svg></span><span><span class="cat">Sourcing ·</span> Sector Screening</span></div>
+        </div>
+      </div>
+      <div class="plugcol deal a" style="--d:.42s">
+        <div class="ph"><span class="pin"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h11l3 3v13H5z" stroke="#fff" stroke-width="1.8"/><path d="M8 10h8M8 14h8M8 18h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg></span><div><div class="pt">Deal Workspace</div><h3>Diligence skills</h3></div></div>
+        <div class="sklist">
+          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="#1D4ED8" stroke-width="1.6"/><path d="M9 9h6M9 13h4" stroke="#1D4ED8" stroke-width="1.6" stroke-linecap="round"/></svg></span><span><span class="cat">Diligence ·</span> CIM Screener</span></div>
+          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19V9M10 19V5M15 19v-6M20 19h-16" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/></svg></span><span><span class="cat">Diligence ·</span> Comps</span></div>
+          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="#1D4ED8" stroke-width="1.6"/><path d="M9 12h6M9 16h4" stroke="#1D4ED8" stroke-width="1.6" stroke-linecap="round"/></svg></span><span><span class="cat">Diligence ·</span> IC Memo</span></div>
+          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M4 15c5-6 11-6 16 0" stroke="#1D4ED8" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="8" r="2" stroke="#1D4ED8" stroke-width="1.7"/></svg></span><span><span class="cat">Diligence ·</span> Initial POV</span></div>
+          <div class="skrow"><span class="si"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3z" stroke="#1D4ED8" stroke-width="1.7" stroke-linejoin="round"/><path d="M12 9v4M12 16v.5" stroke="#1D4ED8" stroke-width="1.8" stroke-linecap="round"/></svg></span><span><span class="cat">Diligence ·</span> Red Flag Scan</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div></div>
+
+<div class="nav"><button class="arw" id="prev">←</button><div class="dots" id="dots"></div><button class="arw" id="next">→</button></div>
+
+<script>
+const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+const AV='<svg viewBox="0 0 24 24" fill="#D97757"><path d="M12 2c.5 4.8 2.7 7 7.5 7.5C14.7 10 12.5 12.2 12 17c-.5-4.8-2.7-7-7.5-7.5C9.3 9 11.5 6.8 12 2Z"/></svg>';
+function shell(task){
+  return `<div class="cscreen"><div class="csb"><div class="clogo"><svg viewBox="0 0 24 24" fill="#D97757"><path d="M12 2c.5 4.8 2.7 7 7.5 7.5C14.7 10 12.5 12.2 12 17c-.5-4.8-2.7-7-7.5-7.5C9.3 9 11.5 6.8 12 2Z"/></svg>Claude</div><div class="it"><svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#5c584f" stroke-width="2" stroke-linecap="round"/></svg>New chat</div><div class="it"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h10" stroke="#5c584f" stroke-width="2" stroke-linecap="round"/></svg>Chats</div><div class="it sel"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4-8 4-8-4z" stroke="#5c584f" stroke-width="1.8" stroke-linejoin="round"/></svg>Skills</div><div class="sec">Recents</div><div class="rec">EU logistics SaaS — market</div><div class="rec">Project Atlas — CIM screen</div><div class="me"><span class="av">A</span><span>AgenticPM</span></div></div><div class="cmain"><div class="cmtop"><div class="title">${task} <svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="#3d3a34" stroke-width="2" stroke-linecap="round"/></svg></div><div class="share">Share</div></div><div class="cbody"></div><div class="cinput"><div class="ph">Reply to Claude…</div><div class="row"><span class="plus">+</span><span class="model">Fable 5 · High <svg viewBox="0 0 24 24" fill="none" style="width:11px;height:11px"><path d="M6 9l6 6 6-6" stroke="#6b6659" stroke-width="2" stroke-linecap="round"/></svg></span><span class="mic"><svg viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="#8a8578" stroke-width="1.8"/><path d="M6 11a6 6 0 0 0 12 0M12 17v3" stroke="#8a8578" stroke-width="1.8" stroke-linecap="round"/></svg></span><span class="snd"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5M6 11l6-6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div><div class="cfoot">Claude is AI and can make mistakes. Please double-check cited sources.</div></div></div>`;
+}
+async function typeInto(el,text,sp){ if(RM){el.textContent=text;return;} for(let i=1;i<=text.length;i++){el.textContent=text.slice(0,i);await wait(sp);} }
+async function streamInto(el,text){ if(RM){el.textContent=text;return;} const w=text.split(' '); for(let i=0;i<w.length;i++){el.textContent=w.slice(0,i+1).join(' ');await wait(34);} }
+const RUN={};
+async function runDemo(key){
+  const panel=document.getElementById('panel-'+key); if(!panel||RUN[key])return; RUN[key]=true;
+  const d=DEMOS[key]; panel.innerHTML=shell(d.task);
+  const body=panel.querySelector('.cbody'); await wait(450);
+  const um=document.createElement('div'); um.className='umsg'; const ut=document.createElement('span'); const car=document.createElement('span'); car.className='car';
+  um.appendChild(ut); um.appendChild(car); body.appendChild(um); body.scrollTop=body.scrollHeight;
+  await typeInto(ut,d.q,20); car.remove(); await wait(450);
+  const am=document.createElement('div'); am.className='amsg'; am.innerHTML='<div class="av">'+AV+'</div><div class="txt"><span class="think"><i></i><i></i><i></i></span></div>';
+  body.appendChild(am); body.scrollTop=body.scrollHeight; await wait(1100);
+  const txt=am.querySelector('.txt'); txt.innerHTML='';
+  for(const para of d.a){ const p=document.createElement('p'); txt.appendChild(p); await streamInto(p,para); body.scrollTop=body.scrollHeight; await wait(220); }
+  const aw=document.createElement('div'); aw.className='art-wrap'; aw.innerHTML=d.art; txt.appendChild(aw);
+  body.scrollTop=body.scrollHeight; await wait(60); aw.classList.add('in'); body.scrollTop=body.scrollHeight; await wait(200); RUN[key]=false;
+}
+const DEMOS={
+ personal:{task:'Sourcing · Market Research',
+  q:"Give me a market read on European freight & logistics software — size, growth, and where PE is playing.",
+  a:["Pulling market data from your connected sources and running Market Research…",
+     "Here's the read on EU freight & logistics software — mid-sized, growing double-digits, and actively consolidating."],
+  art:`<div class="art"><div class="art-head"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Market Read · Freight &amp; Logistics Software (EU)</div><div class="art-b"><div class="kpis"><div><b>€4.2B</b><span>Market size</span></div><div><b>14%</b><span>CAGR</span></div><div><b>60+</b><span>PE deals · 3y</span></div></div><div class="seg"><span>Forwarding OS</span><span>Fleet &amp; telematics</span><span>Customs &amp; compliance</span></div><div class="note">Multiples <b>6–8× ARR</b>; consolidation underway. Best hunting ground: <b>founder-owned forwarding-OS, €5–20M revenue</b>.</div></div><div class="art-foot">Sources · PitchBook · LSEG · web</div></div>`},
+ deal:{task:'Diligence · CIM Screener',
+  q:"Screen the Project Atlas CIM — pull the key findings and flag anything that doesn't hold up.",
+  a:["Reading the Atlas CIM from the deal room and cross-checking against your diligence playbook…",
+     "Screened. Financials broadly match the teaser — two claims need a closer look before IC."],
+  art:`<div class="art"><div class="art-head"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="currentColor" stroke-width="1.7"/></svg>CIM Screen · Project Atlas</div><div class="art-b"><div class="kpis"><div><b>€14M</b><span>ARR</span></div><div><b>+38%</b><span>Growth</span></div><div><b>118%</b><span>Net retention</span></div></div><div style="margin-top:12px"><div class="sc-row"><span class="ck ok">✓</span><div>Growth &amp; retention consistent with the teaser.</div></div><div class="sc-row"><span class="ck warn">!</span><div>Customer concentration: top-3 = 41% — CIM claims "diversified".</div></div><div class="sc-row"><span class="ck warn">!</span><div>EBITDA margin 22% vs 28% claimed — normalize add-backs.</div></div></div><div class="verdict">Proceed to focused DD on concentration &amp; the margin bridge.</div></div><div class="art-foot">Deal room · Atlas CIM · your DD playbook</div></div>`}
+};
+/* fit + nav */
+function fit(){const k=Math.min(innerWidth/1920,innerHeight/1080);const st=document.getElementById('stage');st.style.transform='scale('+k+')';document.getElementById('fit').style.width=(1920*k)+'px';document.getElementById('fit').style.height=(1080*k)+'px';}
+addEventListener('resize',fit);fit();
+const slides=[...document.querySelectorAll('.slide')];const N=slides.length;let cur=0;
+const dotsEl=document.getElementById('dots');slides.forEach((_,i)=>{const d=document.createElement('div');d.className='dot'+(i?'':' active');d.onclick=()=>go(i);dotsEl.appendChild(d);});
+const dots=[...document.querySelectorAll('.dot')];
+Object.keys(DEMOS).forEach(k=>{const p=document.getElementById('panel-'+k);if(p)p.innerHTML=shell(DEMOS[k].task);});
+function go(i){i=(i+N)%N;if(i===cur&&slides[i].classList.contains('on'))return;slides.forEach(s=>s.classList.remove('on'));const s=slides[i];void s.offsetWidth;s.classList.add('on');dots.forEach((d,x)=>d.classList.toggle('active',x===i));document.getElementById('prev').disabled=i===0;document.getElementById('next').disabled=i===N-1;cur=i;const ds=s.dataset.demo;if(ds)runDemo(ds);}
+document.getElementById('prev').onclick=()=>go(cur-1);document.getElementById('next').onclick=()=>go(cur+1);
+addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='PageDown')go(cur+1);if(e.key==='ArrowLeft'||e.key==='PageUp')go(cur-1);});
+let sx=null;addEventListener('pointerdown',e=>sx=e.clientX);addEventListener('pointerup',e=>{if(sx===null)return;const dx=e.clientX-sx;if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));sx=null;});
+document.getElementById('prev').disabled=true;
+</script>
+</body>
+</html>
